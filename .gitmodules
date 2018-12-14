@@ -1,6 +1,6 @@
-[submodule "arduino"]
-	path = arduino
-	url = ./arduino
 [submodule "raspberrypi"]
 	path = raspberrypi
-	url = ./raspberrypi
+	url = https://github.com/Pylo/MinecraftLinkRaspberryPi
+[submodule "arduino"]
+	path = arduino
+	url = https://github.com/Pylo/MinecraftLinkArduino
