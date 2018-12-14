@@ -1,0 +1,6 @@
+[submodule "arduino"]
+	path = arduino
+	url = ./arduino
+[submodule "raspberrypi"]
+	path = raspberrypi
+	url = ./raspberrypi

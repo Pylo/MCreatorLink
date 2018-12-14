@@ -1,0 +1,129 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url = "http://files.minecraftforge.net/maven" }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
+}
+
+plugins {
+    id "com.github.johnrengelman.shadow" version "2.0.3"
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+version = "1.0"
+
+group = "net.mcreator.minecraft.link" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "minecraft_link"
+
+project.tasks.build.dependsOn project.tasks.shadowJar
+
+sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
+
+minecraft {
+    version = "1.12.2-14.23.5.2768"
+    runDir = "run"
+    mappings = "snapshot_20171003"
+}
+
+dependencies {
+    compile 'com.fazecast:jSerialComm:[2.0.0,3.0.0)'
+}
+
+shadowJar {
+    from('/') {
+        include 'LICENSE'
+        include 'NOTICE'
+        into '/'
+    }
+    from('/src/main/resources/META-INF/') {
+        into '/'
+    }
+    baseName = 'net.mcreator.minecraft.link'
+    relocate "com.fazecast.jSerialComm", "com.fazecast.jSerialComm"
+}
+
+reobf {
+    shadowJar {
+        mappingType = "SEARGE"
+    }
+}
+
+tasks.reobfShadowJar.mustRunAfter shadowJar
+
+processResources {
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        // replace version and mcversion
+        expand 'version': project.version, 'mcversion': project.minecraft.version
+    }
+
+    // copy everything else except the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+
+}
+
+task exportAll() {
+}
+exportAll.group = 'minecraftlink'
+
+task copyModIntoFinalBuild(type: Copy) {
+    from('/build/libs/')
+    include 'net.mcreator.minecraft.link-*-all.jar'
+    into('build/export/')
+    rename { "Minecraft Link " + project.version + " [" + project.minecraft.version.toString() + "].jar" }
+}
+
+task exportArduinoLibrary(type: Zip) {
+    archiveName = "Minecraft Link " + project.version + " Arduino Library.zip"
+    destinationDir = file('build/export/')
+    from(files('./arduino'))
+}
+
+
+task exportRaspberryPiLibrary(type: Copy) {
+    from('/raspberrypi/build/libs/')
+    include 'minecraft-link-raspberrypi.jar'
+    into('build/export/')
+    rename { "minecraft_link_" + project.version + "_pi.jar" }
+}
+
+task exportRaspberryPiSetupScript(type: Copy) {
+    from('/raspberrypi/')
+    include 'setup.sh'
+    into('build/export/')
+    rename { "rpisetup.sh" }
+}
+
+task exportJavadoc(type: Copy) {
+    from('/build/docs/')
+    into('build/export/')
+}
+
+exportAll.dependsOn build
+exportAll.dependsOn copyModIntoFinalBuild
+exportAll.dependsOn exportArduinoLibrary
+exportAll.dependsOn ':minecraft-link-raspberrypi:build'
+exportAll.dependsOn exportRaspberryPiLibrary
+exportAll.dependsOn exportRaspberryPiSetupScript
+exportAll.dependsOn javadoc
+exportAll.dependsOn exportJavadoc
+
+
+javadoc {
+    source sourceSets.api.allJava
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Minecraft_Link.iml" filepath="$PROJECT_DIR$/.idea/modules/Minecraft_Link.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Minecraft_Link_api.iml" filepath="$PROJECT_DIR$/.idea/modules/Minecraft_Link_api.iml" group="Minecraft_Link" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Minecraft_Link_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Minecraft_Link_main.iml" group="Minecraft_Link" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Minecraft_Link_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Minecraft_Link_test.iml" group="Minecraft_Link" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/minecraft-link-raspberrypi.iml" filepath="$PROJECT_DIR$/.idea/modules/minecraft-link-raspberrypi.iml" group="minecraft-link-raspberrypi" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/raspberrypi/minecraft-link-raspberrypi_main.iml" filepath="$PROJECT_DIR$/.idea/modules/raspberrypi/minecraft-link-raspberrypi_main.iml" group="minecraft-link-raspberrypi" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/raspberrypi/minecraft-link-raspberrypi_test.iml" filepath="$PROJECT_DIR$/.idea/modules/raspberrypi/minecraft-link-raspberrypi_test.iml" group="minecraft-link-raspberrypi" />
+    </modules>
+  </component>
+</project>

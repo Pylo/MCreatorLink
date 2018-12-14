@@ -1,0 +1,3 @@
+include 'raspberrypi'
+findProject(':raspberrypi')?.name = 'minecraft-link-raspberrypi'
+

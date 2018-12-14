@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Minecraft Client" type="Application" factoryName="Application" singleton="true">
+    <option name="MAIN_CLASS_NAME" value="GradleStart" />
+    <module name="Minecraft_Link_main" />
+    <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/run" />
+    <RunnerSettings RunnerId="Run" />
+    <ConfigurationWrapper RunnerId="Run" />
+    <method />
+  </configuration>
+</component>
