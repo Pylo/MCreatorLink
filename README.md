@@ -1,8 +1,6 @@
-# Minecraft Link
+# Minecraft Link [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-**Minecraft Link enables you to connect hardware devices such as Arduino and Raspberry Pi with Minecraft game via MCreator procedures, commands and general API for Minecraft mod developers.**
-
-## Setup and getting started
+Minecraft Link enables you to connect hardware devices such as Arduino and Raspberry Pi with Minecraft game via MCreator procedures, commands and general API for Minecraft mod developers.
 
 Setup instructions can be found on the Minecraft Link official website: https://mcreator.net/link
 
@@ -15,6 +13,10 @@ found on https://mcreator.net/tracker
 
 To contribute to Minecraft Link, clone this repository and setup this workspace as you would do
 with any Minecraft mod. We recommend to use Intelij IDEA for the development.
+
+To clone the submodules too, use:
+
+`git clone --recursive https://github.com/Pylo/MinecraftLink.git`
 
 To setup workspace, set Gradle version to Gradle 3.0
 
