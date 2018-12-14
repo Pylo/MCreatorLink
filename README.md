@@ -29,8 +29,8 @@ Then setup the Minecraft Mod workspace:
 ## Implementations
 
 Here are links to the current implementation of device support for the Minecraft Link:
-* Arduino (included as submodule in this repository)
-* Raspberry Pi (included as submodule in this repository)
+* Arduino (https://github.com/Pylo/MinecraftLinkArduino)
+* Raspberry Pi (https://github.com/Pylo/MinecraftLinkRaspberryPi) - [![Build Status](https://travis-ci.com/Pylo/MinecraftLinkRaspberryPi.svg?branch=master)](https://travis-ci.com/Pylo/MinecraftLinkRaspberryPi)
 
 ## Link protocol specification
 
