@@ -78,9 +78,7 @@ public class ArduinoDetector implements IDeviceDetector {
 
 				}
 				port.closePort();
-
-				System.out.println(port.getDescriptivePortName() + " : " +linkData);
-
+				
 				if (linkData == null || !linkData.startsWith("tnedi:Minecraft Link (") || !linkData.contains(";")
 						|| (linkData.length() - linkData.replace(";", "").length()) < 3)
 					continue;
