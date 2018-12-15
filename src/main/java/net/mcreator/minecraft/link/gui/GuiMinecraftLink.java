@@ -58,6 +58,7 @@ import java.io.IOException;
 		this.disconnectButton = this.addButton(
 				new GuiButton(2, this.width / 2 - 76, this.height - 32, 72, 20, I18n.format("link.menu.disconnect")));
 
+		this.addButton(new GuiButton(3, this.width / 2 + 2, this.height - 32, 72, 20, I18n.format("link.menu.direct")));
 		this.addButton(new GuiButton(0, this.width / 2 + 82, this.height - 32, 72, 20, I18n.format("gui.done")));
 
 		this.disconnectButton.enabled = false;
@@ -90,6 +91,8 @@ import java.io.IOException;
 				}
 			} else if (button.id == 0) {
 				this.mc.displayGuiScreen(this.prevScreen);
+			} else if (button.id == 3) {
+				this.mc.displayGuiScreen(new GuiDirectLink(this));
 			}
 		}
 	}

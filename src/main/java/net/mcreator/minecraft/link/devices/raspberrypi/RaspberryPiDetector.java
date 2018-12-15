@@ -40,39 +40,51 @@ public class RaspberryPiDetector implements IDeviceDetector {
 			@Override public void run() {
 				if (shouldScan) {
 					raspberripies.clear();
-					try (DatagramSocket datagramSocket = new DatagramSocket()) {
-						datagramSocket.setSoTimeout(1000);
-						byte[] buf_send = "ident?\n".getBytes();
-						DatagramPacket packet = new DatagramPacket(buf_send, buf_send.length,
-								InetAddress.getByName("224.0.2.63"), RaspberryPi.REMOTE_PORT);
-						datagramSocket.send(packet);
-
-						byte[] buf_rec = new byte[1024];
-						DatagramPacket packet_back = new DatagramPacket(buf_rec, buf_rec.length);
-						datagramSocket.receive(packet_back);
-						String dataBack = new String(buf_rec).split("\n")[0].trim();
-
-						if (dataBack.startsWith("tnedi:Minecraft Link (") && dataBack.contains(";")
-								&& dataBack.length() - dataBack.replace(";", "").length() >= 3) {
-							String[] dataSplit = dataBack.split(";");
-
-							String description =
-									packet_back.getAddress().getHostAddress() + ", Version: " + dataSplit[0]
-											.replace("tnedi:Minecraft Link (", "").replace(")", "");
-
-							raspberripies.add(new RaspberryPi(dataSplit[1].trim(), description,
-									Integer.parseInt(dataSplit[2].trim()), Integer.parseInt(dataSplit[3].trim()),
-									packet_back.getAddress(), (InetSocketAddress) packet_back.getSocketAddress()));
-						}
-					} catch (SocketTimeoutException ignored) {
-						// timeouts can occur as not all devices on multicast group will always respond
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					RaspberryPi pi = getRaspberryPiForIP("224.0.2.63");
+					if (pi != null)
+						raspberripies.add(pi);
 					shouldScan = false;
 				}
 			}
 		}, 0, 2000);
+	}
+
+	/**
+	 * Call this method to try to connect to the given IP.
+	 *
+	 * @param ip IP can be a multicast group or a device IP
+	 * @return RaspberryPi instance or null if not found
+	 */
+	public static RaspberryPi getRaspberryPiForIP(String ip) {
+		try (DatagramSocket datagramSocket = new DatagramSocket()) {
+			datagramSocket.setSoTimeout(500);
+			byte[] buf_send = "ident?\n".getBytes();
+			DatagramPacket packet = new DatagramPacket(buf_send, buf_send.length, InetAddress.getByName(ip),
+					RaspberryPi.REMOTE_PORT);
+			datagramSocket.send(packet);
+
+			byte[] buf_rec = new byte[1024];
+			DatagramPacket packet_back = new DatagramPacket(buf_rec, buf_rec.length);
+			datagramSocket.receive(packet_back);
+			String dataBack = new String(buf_rec).split("\n")[0].trim();
+
+			if (dataBack.startsWith("tnedi:Minecraft Link (") && dataBack.contains(";")
+					&& dataBack.length() - dataBack.replace(";", "").length() >= 3) {
+				String[] dataSplit = dataBack.split(";");
+
+				String description = packet_back.getAddress().getHostAddress() + ", Version: " + dataSplit[0]
+						.replace("tnedi:Minecraft Link (", "").replace(")", "");
+
+				return new RaspberryPi(dataSplit[1].trim(), description, Integer.parseInt(dataSplit[2].trim()),
+						Integer.parseInt(dataSplit[3].trim()), packet_back.getAddress(),
+						(InetSocketAddress) packet_back.getSocketAddress());
+			}
+		} catch (SocketTimeoutException ignored) {
+			// timeouts can occur as not all devices on multicast group will always respond
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	/**

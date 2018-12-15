@@ -63,7 +63,7 @@ public final class DeviceManager {
 
 				// remove devices that don't exist anymore
 				for (AbstractDevice device : currentDevices) {
-					if (!newDevices.contains(device))
+					if (!newDevices.contains(device) && !(device.isConnected() && device.validateConnection()))
 						obsoleteDevices.add(device);
 				}
 
@@ -89,6 +89,9 @@ public final class DeviceManager {
 			List<AbstractDevice> _currentDevices = new ArrayList<>(currentDevices);
 			AbstractDevice device = _currentDevices.get(_currentDevices.indexOf(toConnect));
 			device.connect();
+		} else {
+			toConnect.connect();
+			currentDevices.add(toConnect);
 		}
 	}
 
