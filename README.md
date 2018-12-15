@@ -14,8 +14,10 @@ found on https://mcreator.net/tracker
 ## Implementations
 
 Here are links to the current implementation of device support for the Minecraft Link:
-* Arduino (https://github.com/Pylo/MinecraftLinkArduino) - [![Build Status](https://travis-ci.com/Pylo/MinecraftLinkArduino.svg?branch=master)](https://travis-ci.com/Pylo/MinecraftLinkArduino)
-* Raspberry Pi (https://github.com/Pylo/MinecraftLinkRaspberryPi) - [![Build Status](https://travis-ci.com/Pylo/MinecraftLinkRaspberryPi.svg?branch=master)](https://travis-ci.com/Pylo/MinecraftLinkRaspberryPi)
+
+### [Arduino](https://github.com/Pylo/MinecraftLinkArduino) - [![Build Status](https://travis-ci.com/Pylo/MinecraftLinkArduino.svg?branch=master)](https://travis-ci.com/Pylo/MinecraftLinkArduino)
+
+### [Raspberry Pi](https://github.com/Pylo/MinecraftLinkRaspberryPi) - [![Build Status](https://travis-ci.com/Pylo/MinecraftLinkRaspberryPi.svg?branch=master)](https://travis-ci.com/Pylo/MinecraftLinkRaspberryPi)
 
 ## Development
 
