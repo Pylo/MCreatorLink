@@ -55,7 +55,7 @@ public class Arduino extends AbstractDevice {
 				this.port.openPort();
 				this.connected = true;
 
-				this.port.setComPortTimeouts(SerialPort.TIMEOUT_NONBLOCKING, 0, 0);
+				this.port.setComPortTimeouts(SerialPort.TIMEOUT_NONBLOCKING, 1, 1);
 				this.port.setComPortParameters(115200, 8, 1, SerialPort.NO_PARITY);
 				this.port.addDataListener(new SerialPortDataListener() {
 
@@ -79,8 +79,9 @@ public class Arduino extends AbstractDevice {
 								processInboundMessage(lines[0].getBytes());
 								currentData = "";
 							} else {
-								for (String line : lines)
-									processInboundMessage(line.getBytes());
+								for (int i = 0; i < lines.length - 1; i++)
+									processInboundMessage(lines[i].getBytes());
+								currentData = lines[lines.length - 1];
 							}
 						}
 					}
