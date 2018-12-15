@@ -1,6 +1,8 @@
 [submodule "raspberrypi"]
 	path = raspberrypi
 	url = https://github.com/Pylo/MinecraftLinkRaspberryPi
+	branch = master
 [submodule "arduino"]
 	path = arduino
 	url = https://github.com/Pylo/MinecraftLinkArduino
+	branch = master
