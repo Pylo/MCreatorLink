@@ -9,6 +9,12 @@ Setup instructions can be found on the Minecraft Link official website: https://
 Issues can be reported on the official MCreator development team issue tracker
 found on https://mcreator.net/tracker
 
+## Implementations
+
+Here are links to the current implementation of device support for the Minecraft Link:
+* Arduino (https://github.com/Pylo/MinecraftLinkArduino) - [![Build Status](https://travis-ci.com/Pylo/MinecraftLinkArduino.svg?branch=master)](https://travis-ci.com/Pylo/MinecraftLinkArduino)
+* Raspberry Pi (https://github.com/Pylo/MinecraftLinkRaspberryPi) - [![Build Status](https://travis-ci.com/Pylo/MinecraftLinkRaspberryPi.svg?branch=master)](https://travis-ci.com/Pylo/MinecraftLinkRaspberryPi)
+
 ## Development
 
 To contribute to Minecraft Link, clone this repository and setup this workspace as you would do
@@ -25,19 +31,3 @@ To setup workspace, set Gradle version to Gradle 3.0
 Then setup the Minecraft Mod workspace:
 
 `gradlew setupDecompWorkspace`
-
-## Implementations
-
-Here are links to the current implementation of device support for the Minecraft Link:
-* Arduino (https://github.com/Pylo/MinecraftLinkArduino) - [![Build Status](https://travis-ci.com/Pylo/MinecraftLinkArduino.svg?branch=master)](https://travis-ci.com/Pylo/MinecraftLinkArduino)
-* Raspberry Pi (https://github.com/Pylo/MinecraftLinkRaspberryPi) - [![Build Status](https://travis-ci.com/Pylo/MinecraftLinkRaspberryPi.svg?branch=master)](https://travis-ci.com/Pylo/MinecraftLinkRaspberryPi)
-
-## Link protocol specification
-
-All commands sent from the controller (Minecraft client) to the device have this format:
-
-`command?data;\n`
-
-All commands sent from the device to the controller have this format:
-
-`command:data\n`
