@@ -64,11 +64,13 @@ public class ArduinoDetector implements IDeviceDetector {
 			try {
 				String linkData = null;
 
+				port.clearDTR(); // workaround for some Arduinos to work
+
 				port.openPort();
 				port.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 500, 500);
 				port.setComPortParameters(115200, 8, 1, SerialPort.NO_PARITY);
 				if (port.isOpen()) {
-					Thread.sleep(500);
+					Thread.sleep(1000);
 					port.writeBytes(LinkProtocol.IDENT_REQUEST, LinkProtocol.IDENT_REQUEST.length);
 					byte[] readBuffer = new byte[128];
 					int numRead = port.readBytes(readBuffer, readBuffer.length);
@@ -76,6 +78,8 @@ public class ArduinoDetector implements IDeviceDetector {
 
 				}
 				port.closePort();
+
+				System.out.println(port.getDescriptivePortName() + " : " +linkData);
 
 				if (linkData == null || !linkData.startsWith("tnedi:Minecraft Link (") || !linkData.contains(";")
 						|| (linkData.length() - linkData.replace(";", "").length()) < 3)
