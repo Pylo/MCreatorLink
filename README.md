@@ -14,7 +14,7 @@ found on https://mcreator.net/tracker
 ## Development
 
 To contribute to Minecraft Link, clone this repository and setup this workspace as you would do
-with any Minecraft mod. We recommend to use Intelij IDEA for the development.
+with any Minecraft mod. We recommend you to use Intelij IDEA for the development.
 
 To clone the submodules too, use:
 
@@ -30,7 +30,7 @@ Then setup the Minecraft Mod workspace:
 
 ## Implementations
 
-Here are links to the current implementation of device support for the Minecraft Link:
+Here are links to the current implementations of device support for the Minecraft Link:
 * Arduino (https://github.com/Pylo/MinecraftLinkArduino) - [![Build Status](https://travis-ci.com/Pylo/MinecraftLinkArduino.svg?branch=master)](https://travis-ci.com/Pylo/MinecraftLinkArduino)
 * Raspberry Pi (https://github.com/Pylo/MinecraftLinkRaspberryPi) - [![Build Status](https://travis-ci.com/Pylo/MinecraftLinkRaspberryPi.svg?branch=master)](https://travis-ci.com/Pylo/MinecraftLinkRaspberryPi)
 
