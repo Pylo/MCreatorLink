@@ -70,7 +70,6 @@ import java.io.IOException;
 		this.ipTextField = new GuiTextField(2, this.fontRenderer, this.width / 2 - 100, 116, 200, 20);
 		this.ipTextField.setMaxStringLength(128);
 		this.ipTextField.setFocused(true);
-		this.ipTextField.setText(this.mc.gameSettings.lastServer);
 		(this.buttonList.get(0)).enabled =
 				!this.ipTextField.getText().isEmpty() && this.ipTextField.getText().split(":").length > 0;
 	}
@@ -80,8 +79,6 @@ import java.io.IOException;
 	 */
 	public void onGuiClosed() {
 		Keyboard.enableRepeatEvents(false);
-		this.mc.gameSettings.lastServer = this.ipTextField.getText();
-		this.mc.gameSettings.saveOptions();
 	}
 
 	/**
@@ -98,7 +95,7 @@ import java.io.IOException;
 					MinecraftLink.LINK.setConnectedDevice(raspberryPi);
 					this.mc.displayGuiScreen(this.lastScreen);
 				} else {
-					this.ipTextField.setTextColor(0xff0000);
+					this.ipTextField.setTextColor(0xff5d4d);
 				}
 			}
 		}

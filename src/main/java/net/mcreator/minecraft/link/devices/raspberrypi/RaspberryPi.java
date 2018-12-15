@@ -20,7 +20,10 @@ import net.mcreator.minecraft.link.LinkProtocol;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -48,10 +51,10 @@ public class RaspberryPi extends AbstractDevice {
 	 * @param local_address    Address of the local interface on the computer running Minecraft Link mod in Minecraft on which the communication with the device is happening
 	 */
 	RaspberryPi(String name, String description, int digitalInputsNum, int analogInputsNum, InetAddress remote_address,
-			InetSocketAddress local_address) {
+			InetAddress local_address) {
 		super(name, description, digitalInputsNum, analogInputsNum);
 		this.remote_address = remote_address;
-		this.local_address = local_address.getAddress();
+		this.local_address = local_address;
 	}
 
 	/**

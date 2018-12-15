@@ -75,9 +75,13 @@ public class RaspberryPiDetector implements IDeviceDetector {
 				String description = packet_back.getAddress().getHostAddress() + ", Version: " + dataSplit[0]
 						.replace("tnedi:Minecraft Link (", "").replace(")", "");
 
+				// get local ip which was used to connect to the remote device, so device can send data back
+				datagramSocket.connect(packet_back.getSocketAddress());
+				InetAddress localAddress = datagramSocket.getLocalAddress();
+				datagramSocket.disconnect();
+
 				return new RaspberryPi(dataSplit[1].trim(), description, Integer.parseInt(dataSplit[2].trim()),
-						Integer.parseInt(dataSplit[3].trim()), packet_back.getAddress(),
-						(InetSocketAddress) packet_back.getSocketAddress());
+						Integer.parseInt(dataSplit[3].trim()), packet_back.getAddress(), localAddress);
 			}
 		} catch (SocketTimeoutException ignored) {
 			// timeouts can occur as not all devices on multicast group will always respond
