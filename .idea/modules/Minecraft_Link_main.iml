@@ -27,7 +27,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="Gradle: com.fazecast:jSerialComm:2.3.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.fazecast:jSerialComm:2.4.0" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>

@@ -21,6 +21,9 @@ import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 import net.mcreator.minecraft.link.LinkProtocol;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
+import net.mcreator.minecraft.link.event.LinkCustomMessageReceivedEvent;
+import net.mcreator.minecraft.link.event.LinkDeviceConnectedEvent;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -93,6 +96,8 @@ public class Arduino extends AbstractDevice {
 				}
 
 				sendData(LinkProtocol.START_POLLING_INPUTS);
+
+				MinecraftForge.EVENT_BUS.post(new LinkDeviceConnectedEvent(this));
 			});
 		}
 	}
