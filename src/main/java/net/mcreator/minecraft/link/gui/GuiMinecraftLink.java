@@ -29,6 +29,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
+import java.net.URI;
 
 @SideOnly(Side.CLIENT) public class GuiMinecraftLink extends GuiScreen {
 
@@ -60,6 +61,8 @@ import java.io.IOException;
 
 		this.addButton(new GuiButton(3, this.width / 2 + 2, this.height - 32, 72, 20, I18n.format("link.menu.direct")));
 		this.addButton(new GuiButton(0, this.width / 2 + 82, this.height - 32, 72, 20, I18n.format("gui.done")));
+
+		this.addButton(new GuiButton(4, this.width / 2 + 82 + 55, 6, 20, 20, "?"));
 
 		this.disconnectButton.enabled = false;
 		this.connectButton.enabled = false;
@@ -93,6 +96,13 @@ import java.io.IOException;
 				this.mc.displayGuiScreen(this.prevScreen);
 			} else if (button.id == 3) {
 				this.mc.displayGuiScreen(new GuiDirectLink(this));
+			} else if (button.id == 4) {
+				try {
+					Class<?> oclass = Class.forName("java.awt.Desktop");
+					Object object = oclass.getMethod("getDesktop").invoke(null);
+					oclass.getMethod("browse", URI.class).invoke(object, new URI("https://mcreator.net/link"));
+				} catch (Throwable ignored) {
+				}
 			}
 		}
 	}
