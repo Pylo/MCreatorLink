@@ -4,9 +4,11 @@
 
 Minecraft Link enables you to connect hardware devices such as Arduino and Raspberry Pi with Minecraft game via MCreator procedures, commands and general API for Minecraft mod developers.
 
-![Minecraft Link Concept](https://www.pylo.co/static/mcreator/link/diagramnobg.png)
-
 Setup instructions can be found on the Minecraft Link official website: https://mcreator.net/link
+
+## Concept
+
+![Minecraft Link Concept](https://www.pylo.co/static/mcreator/link/diagramnobg.png)
 
 ## Issue tracker
 
