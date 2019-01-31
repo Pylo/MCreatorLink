@@ -8,7 +8,7 @@ Setup instructions can be found on the Minecraft Link official website: https://
 
 ## Concept
 
-![Minecraft Link Concept](https://www.pylo.co/static/mcreator/link/diagramnobg.png)
+![Minecraft Link Concept](https://www.pylo.co/static/mcreator/link/diagramnobg2.png)
 
 ## Issue tracker
 
