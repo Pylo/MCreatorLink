@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Minecraft Server" type="Application" factoryName="Application" singleton="true">
     <option name="MAIN_CLASS_NAME" value="GradleStartServer" />
-    <module name="net.mcreator.minecraft.link.MinecraftLink.main" />
+    <module name="net.mcreator.minecraft.link.MinecraftLink" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/run" />
     <RunnerSettings RunnerId="Run" />
     <ConfigurationWrapper RunnerId="Run" />
