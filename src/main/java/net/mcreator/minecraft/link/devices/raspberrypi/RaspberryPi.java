@@ -145,7 +145,7 @@ public class RaspberryPi extends AbstractDevice {
 	 */
 	@Override public boolean validateConnection() {
 		try {
-			return remote_address.isReachable(500);
+			return remote_address.isReachable(5000);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
