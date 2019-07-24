@@ -48,6 +48,10 @@ public final class LinkProtocol {
 		return new String(message).startsWith("anlrd:") && new String(message).split(":").length == 2;
 	}
 
+	public static byte[] createInpulPollRate(int rate) {
+		return ("prate?" + rate + "\n").getBytes();
+	}
+
 	public static byte[] parseDigitalInputsMessage(byte[] message) {
 		char[] data = new String(message).split(":")[1].trim().toCharArray();
 		byte[] retval = new byte[data.length];

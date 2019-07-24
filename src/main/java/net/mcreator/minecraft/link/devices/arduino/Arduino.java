@@ -21,7 +21,6 @@ import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 import net.mcreator.minecraft.link.LinkProtocol;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
-import net.mcreator.minecraft.link.event.LinkCustomMessageReceivedEvent;
 import net.mcreator.minecraft.link.event.LinkDeviceConnectedEvent;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -30,10 +29,14 @@ import java.util.concurrent.Executors;
 
 public class Arduino extends AbstractDevice {
 
+	private static final int SEND_INTERVAL = 250;
+
 	private SerialPort port;
 	private boolean connected;
 
 	private ExecutorService deviceCommunicationThread = Executors.newSingleThreadExecutor();
+
+	private long lastSendInterval;
 
 	/**
 	 * Arduino device constructor
@@ -58,7 +61,7 @@ public class Arduino extends AbstractDevice {
 				this.port.openPort();
 				this.connected = true;
 
-				this.port.setComPortTimeouts(SerialPort.TIMEOUT_NONBLOCKING, 1, 1);
+				this.port.setComPortTimeouts(SerialPort.TIMEOUT_NONBLOCKING, 20, 20);
 				this.port.setComPortParameters(115200, 8, 1, SerialPort.NO_PARITY);
 				this.port.addDataListener(new SerialPortDataListener() {
 
@@ -96,6 +99,7 @@ public class Arduino extends AbstractDevice {
 				}
 
 				sendData(LinkProtocol.START_POLLING_INPUTS);
+				sendData(LinkProtocol.createInpulPollRate(100));
 
 				MinecraftForge.EVENT_BUS.post(new LinkDeviceConnectedEvent(this));
 			});
@@ -126,11 +130,14 @@ public class Arduino extends AbstractDevice {
 	@Override public void sendData(byte[] data) {
 		if (connected) {
 			deviceCommunicationThread.submit(() -> {
-				try {
-					this.port.writeBytes(data, data.length);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				// limit sending interval
+				if ((System.currentTimeMillis() - lastSendInterval) > SEND_INTERVAL)
+					try {
+						this.port.writeBytes(data, data.length);
+						lastSendInterval = System.currentTimeMillis();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 			});
 		}
 	}

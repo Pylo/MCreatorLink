@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id="MinecraftLink" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="net.mcreator.minecraft.link" external.system.module.version="1.0" type="JAVA_MODULE" version="4">
+<module external.linked.project.id="MinecraftLink" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="net.mcreator.minecraft.link" external.system.module.version="1.1" type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$/../..">
       <excludeFolder url="file://$MODULE_DIR$/../../.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../docs" />
+      <excludeFolder url="file://$MODULE_DIR$/../../gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../out" />
+      <excludeFolder url="file://$MODULE_DIR$/../../run" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

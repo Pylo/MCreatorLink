@@ -31,6 +31,11 @@ import java.util.concurrent.Executors;
 
 public class RaspberryPi extends AbstractDevice {
 
+	private static final int SEND_INTERVAL = 100;
+
+	private static final int LOCAL_PORT = 25564;
+	static final int REMOTE_PORT = 25563;
+
 	private InetAddress remote_address;
 	private InetAddress local_address;
 	private boolean connected;
@@ -39,8 +44,7 @@ public class RaspberryPi extends AbstractDevice {
 
 	private ExecutorService deviceCommunicationThread = Executors.newSingleThreadExecutor();
 
-	private static final int LOCAL_PORT = 25564;
-	static final int REMOTE_PORT = 25563;
+	private long lastSendInterval;
 
 	/**
 	 * Raspberry Pi device constructor
@@ -124,11 +128,14 @@ public class RaspberryPi extends AbstractDevice {
 	@Override public void sendData(byte[] dataPacket) {
 		if (connected) {
 			deviceCommunicationThread.submit(() -> {
-				try (DatagramSocket datagramSocket = new DatagramSocket()) {
-					datagramSocket.send(new DatagramPacket(dataPacket, dataPacket.length, remote_address, REMOTE_PORT));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				if ((System.currentTimeMillis() - lastSendInterval) > SEND_INTERVAL)
+					try (DatagramSocket datagramSocket = new DatagramSocket()) {
+						datagramSocket
+								.send(new DatagramPacket(dataPacket, dataPacket.length, remote_address, REMOTE_PORT));
+						lastSendInterval = System.currentTimeMillis();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 			});
 		}
 	}
