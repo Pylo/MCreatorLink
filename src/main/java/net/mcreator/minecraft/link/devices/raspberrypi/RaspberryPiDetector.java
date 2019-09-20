@@ -68,12 +68,12 @@ public class RaspberryPiDetector implements IDeviceDetector {
 			datagramSocket.receive(packet_back);
 			String dataBack = new String(buf_rec).split("\n")[0].trim();
 
-			if (dataBack.startsWith("tnedi:Minecraft Link (") && dataBack.contains(";")
+			if (dataBack.startsWith("tnedi:MCreator Link (") && dataBack.contains(";")
 					&& dataBack.length() - dataBack.replace(";", "").length() >= 3) {
 				String[] dataSplit = dataBack.split(";");
 
 				String description = packet_back.getAddress().getHostAddress() + ", Version: " + dataSplit[0]
-						.replace("tnedi:Minecraft Link (", "").replace(")", "");
+						.replace("tnedi:MCreator Link (", "").replace(")", "");
 
 				// get local ip which was used to connect to the remote device, so device can send data back
 				datagramSocket.connect(packet_back.getSocketAddress());

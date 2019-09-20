@@ -20,9 +20,9 @@ import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 /**
- * Abstract class that defines the base of the Minecraft Link events
+ * Abstract class that defines the base of the MCreator Link events
  */
-public abstract class MinecraftLinkEvent extends Event {
+public abstract class MCreatorLinkEvent extends Event {
 
 	private AbstractDevice device;
 
@@ -31,7 +31,7 @@ public abstract class MinecraftLinkEvent extends Event {
 	 *
 	 * @param device The device to which the event is associated to
 	 */
-	public MinecraftLinkEvent(AbstractDevice device) {
+	public MCreatorLinkEvent(AbstractDevice device) {
 		this.device = device;
 	}
 

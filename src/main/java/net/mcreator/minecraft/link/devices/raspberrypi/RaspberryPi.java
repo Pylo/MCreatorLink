@@ -54,7 +54,7 @@ public class RaspberryPi extends AbstractDevice {
 	 * @param digitalInputsNum Number of digital inputs the device has
 	 * @param analogInputsNum  Numver of digital outputs the device has
 	 * @param remote_address   Address of the device that was detected
-	 * @param local_address    Address of the local interface on the computer running Minecraft Link mod in Minecraft on which the communication with the device is happening
+	 * @param local_address    Address of the local interface on the computer running MCreator Link mod in Minecraft on which the communication with the device is happening
 	 */
 	RaspberryPi(String name, String description, int digitalInputsNum, int analogInputsNum, InetAddress remote_address,
 			InetAddress local_address) {

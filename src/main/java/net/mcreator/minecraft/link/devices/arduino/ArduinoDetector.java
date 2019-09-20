@@ -37,7 +37,7 @@ public class ArduinoDetector implements IDeviceDetector {
 
 	/**
 	 * @param currentDevices List of current devices, can be used to skip already connected devices
-	 * @return List of detected Arduino Minecraft Link devices
+	 * @return List of detected Arduino MCreator Link devices
 	 */
 	@Override public List<AbstractDevice> getDeviceList(Set<AbstractDevice> currentDevices) {
 		List<AbstractDevice> arduinos = new ArrayList<>();
@@ -79,14 +79,14 @@ public class ArduinoDetector implements IDeviceDetector {
 				}
 				port.closePort();
 				
-				if (linkData == null || !linkData.startsWith("tnedi:Minecraft Link (") || !linkData.contains(";")
+				if (linkData == null || !linkData.startsWith("tnedi:MCreator Link (") || !linkData.contains(";")
 						|| (linkData.length() - linkData.replace(";", "").length()) < 3)
 					continue;
 
 				String[] dataSplit = linkData.split(";");
 
 				String description = port.getDescriptivePortName() + ", Version: " + dataSplit[0]
-						.replace("tnedi:Minecraft Link (", "").replace(")", "");
+						.replace("tnedi:MCreator Link (", "").replace(")", "");
 				arduinos.add(new Arduino(dataSplit[1].trim(), description, Integer.parseInt(dataSplit[2].trim()),
 						Integer.parseInt(dataSplit[3].trim()), port));
 

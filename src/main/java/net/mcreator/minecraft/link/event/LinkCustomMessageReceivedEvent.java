@@ -21,7 +21,7 @@ import net.mcreator.minecraft.link.devices.AbstractDevice;
 /**
  * This event is registered when a custom message is received by a device.
  */
-public class LinkCustomMessageReceivedEvent extends MinecraftLinkEvent {
+public class LinkCustomMessageReceivedEvent extends MCreatorLinkEvent {
 
 	private byte[] data;
 

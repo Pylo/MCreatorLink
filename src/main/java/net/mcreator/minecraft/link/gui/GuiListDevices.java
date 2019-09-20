@@ -17,7 +17,7 @@
 package net.mcreator.minecraft.link.gui;
 
 import com.google.common.collect.Lists;
-import net.mcreator.minecraft.link.MinecraftLink;
+import net.mcreator.minecraft.link.MCreatorLink;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiListExtended;
@@ -28,16 +28,16 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 @SideOnly(Side.CLIENT) public class GuiListDevices extends GuiListExtended {
-	private final GuiMinecraftLink guiMinecraftLink;
+	private final GuiMCreatorLink guiMCreatorLink;
 	private final List<GuiListDevicesEntry> entries = Lists.newArrayList();
 	private int selectedIdx = -1;
 
 	private final GuiListDevicesEntryScan devicesEntryScan = new GuiListDevicesEntryScan();
 
-	GuiListDevices(GuiMinecraftLink guiMinecraftLink, Minecraft clientIn, int widthIn, int heightIn, int topIn,
+	GuiListDevices(GuiMCreatorLink guiMCreatorLink, Minecraft clientIn, int widthIn, int heightIn, int topIn,
 			int bottomIn, int slotHeightIn) {
 		super(clientIn, widthIn, heightIn, topIn, bottomIn, slotHeightIn);
-		this.guiMinecraftLink = guiMinecraftLink;
+		this.guiMCreatorLink = guiMCreatorLink;
 
 		this.refreshList(); // initial refresh
 	}
@@ -45,15 +45,15 @@ import java.util.List;
 	void refreshList() {
 		this.entries.clear();
 
-		for (AbstractDevice device : MinecraftLink.LINK.getAllDevices())
+		for (AbstractDevice device : MCreatorLink.LINK.getAllDevices())
 			this.entries.add(new GuiListDevicesEntry(this, device));
 
-		guiMinecraftLink.setSelectDevice(guiMinecraftLink.entry);
+		guiMCreatorLink.setSelectDevice(guiMCreatorLink.entry);
 	}
 
 	void selectDevice(int idx) {
 		this.selectedIdx = idx;
-		this.guiMinecraftLink.setSelectDevice(this.getSelectedDevice());
+		this.guiMCreatorLink.setSelectDevice(this.getSelectedDevice());
 	}
 
 	/**

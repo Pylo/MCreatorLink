@@ -1,4 +1,4 @@
-This command allows you to interface with the Minecraft Link devices using Minecraft commands.
+This command allows you to interface with the MCreator Link devices using Minecraft commands.
 This feature can be used by command blocks for basic operations such as checking a pin or setting a pin value.
 
 The following commands are supported:
@@ -11,7 +11,7 @@ The following commands are supported:
 -analogwrite/aw [pin] [value]: Sets the value of the analog pin to the provided value.
 -digitalread/dr [pin]: Returns the value of the provided digital pin.
 -analogread/ar [pin]: Returns the value of the provided analog pin.
--sendmessage/sm [message]: Sends a custom message to the current Minecraft Link device.
+-sendmessage/sm [message]: Sends a custom message to the current MCreator Link device.
 
 Examples:
 

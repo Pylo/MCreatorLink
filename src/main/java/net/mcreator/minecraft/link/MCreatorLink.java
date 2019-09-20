@@ -27,13 +27,13 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
- * Main mod class for the Minecraft Link Minecraft mod
+ * Main mod class for the MCreator Link Minecraft mod
  */
-@Mod(modid = MinecraftLink.MODID, name = MinecraftLink.NAME, version = MinecraftLink.VERSION)
-public class MinecraftLink {
+@Mod(modid = MCreatorLink.MODID, name = MCreatorLink.NAME, version = MCreatorLink.VERSION)
+public class MCreatorLink {
 
-	public static final String MODID = "minecraft_link";
-	public static final String NAME = "Minecraft Link";
+	public static final String MODID = "mcreator_link";
+	public static final String NAME = "MCreator Link";
 	public static final String VERSION = "1.0";
 
 	public static DeviceManager LINK = new DeviceManager();

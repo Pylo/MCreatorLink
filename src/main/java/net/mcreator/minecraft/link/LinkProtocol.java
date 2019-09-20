@@ -19,7 +19,7 @@ package net.mcreator.minecraft.link;
 import net.mcreator.minecraft.link.devices.PinMode;
 
 /**
- * Class that contains helper methods to convert data to and from Minecraft Link messages.
+ * Class that contains helper methods to convert data to and from MCreator Link messages.
  */
 public final class LinkProtocol {
 

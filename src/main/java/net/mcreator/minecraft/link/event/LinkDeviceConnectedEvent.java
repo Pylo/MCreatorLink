@@ -21,7 +21,7 @@ import net.mcreator.minecraft.link.devices.AbstractDevice;
 /**
  * This event is registered when a new device is connected.
  */
-public class LinkDeviceConnectedEvent extends MinecraftLinkEvent {
+public class LinkDeviceConnectedEvent extends MCreatorLinkEvent {
 
 	/**
 	 * Constructor of LinkDeviceConnectedEvent

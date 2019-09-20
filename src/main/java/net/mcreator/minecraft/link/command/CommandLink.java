@@ -17,7 +17,7 @@
 package net.mcreator.minecraft.link.command;
 
 import net.mcreator.minecraft.link.CurrentDevice;
-import net.mcreator.minecraft.link.MinecraftLink;
+import net.mcreator.minecraft.link.MCreatorLink;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.mcreator.minecraft.link.devices.PinMode;
 import net.minecraft.command.CommandBase;
@@ -57,7 +57,7 @@ public class CommandLink extends CommandBase {
 			switch (args[0]) {
 			case "device":
 			case "d":
-				AbstractDevice device = MinecraftLink.LINK.getConnectedDevice();
+				AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
 				if (device != null) {
 					sender.sendMessage(new TextComponentString(device.getName() + " - " + device.getDescription()));
 					sender.sendMessage(new TextComponentString(

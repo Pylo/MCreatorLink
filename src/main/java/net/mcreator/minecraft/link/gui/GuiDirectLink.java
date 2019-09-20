@@ -16,7 +16,7 @@
 
 package net.mcreator.minecraft.link.gui;
 
-import net.mcreator.minecraft.link.MinecraftLink;
+import net.mcreator.minecraft.link.MCreatorLink;
 import net.mcreator.minecraft.link.devices.raspberrypi.RaspberryPi;
 import net.mcreator.minecraft.link.devices.raspberrypi.RaspberryPiDetector;
 import net.minecraft.client.gui.GuiButton;
@@ -92,7 +92,7 @@ import java.io.IOException;
 				String device = this.ipTextField.getText();
 				RaspberryPi raspberryPi = RaspberryPiDetector.getRaspberryPiForIP(device);
 				if (raspberryPi != null) {
-					MinecraftLink.LINK.setConnectedDevice(raspberryPi);
+					MCreatorLink.LINK.setConnectedDevice(raspberryPi);
 					this.mc.displayGuiScreen(this.lastScreen);
 				} else {
 					this.ipTextField.setTextColor(0xff5d4d);

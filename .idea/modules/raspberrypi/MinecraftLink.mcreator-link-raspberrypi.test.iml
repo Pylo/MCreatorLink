@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":mcreator-link-raspberrypi:test" external.linked.project.path="$MODULE_DIR$/../../../raspberrypi" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="MinecraftLink" external.system.module.type="sourceSet" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+    <output-test url="file://$MODULE_DIR$/../../../raspberrypi/build/classes/test" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../raspberrypi/src/test" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="MinecraftLink.mcreator-link-raspberrypi.main" />
+    <orderEntry type="library" name="Gradle: com.pi4j:pi4j-core:1.2-SNAPSHOT" level="project" />
+  </component>
+  <component name="TestModuleProperties" production-module="MinecraftLink.mcreator-link-raspberrypi.main" />
+</module>

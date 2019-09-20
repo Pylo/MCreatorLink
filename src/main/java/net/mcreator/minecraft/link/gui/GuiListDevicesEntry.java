@@ -16,7 +16,7 @@
 
 package net.mcreator.minecraft.link.gui;
 
-import net.mcreator.minecraft.link.MinecraftLink;
+import net.mcreator.minecraft.link.MCreatorLink;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.mcreator.minecraft.link.devices.arduino.Arduino;
 import net.mcreator.minecraft.link.devices.raspberrypi.RaspberryPi;
@@ -31,9 +31,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT) public class GuiListDevicesEntry implements GuiListExtended.IGuiListEntry {
 
-	private static final ResourceLocation DEVICE_ARDUINO = new ResourceLocation(MinecraftLink.MODID,
+	private static final ResourceLocation DEVICE_ARDUINO = new ResourceLocation(MCreatorLink.MODID,
 			"textures/arduino.png");
-	private static final ResourceLocation DEVICE_RASPBERRYPI = new ResourceLocation(MinecraftLink.MODID,
+	private static final ResourceLocation DEVICE_RASPBERRYPI = new ResourceLocation(MCreatorLink.MODID,
 			"textures/raspberrypi.png");
 
 	private final Minecraft client;
@@ -92,16 +92,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 		this.containingListSel.selectDevice(slotIndex);
 		if (relativeX <= 32 && relativeX < 32) { // clicked on icon
 			if (!device.isConnected())
-				MinecraftLink.LINK.setConnectedDevice(device);
+				MCreatorLink.LINK.setConnectedDevice(device);
 			else
-				MinecraftLink.LINK.disconnectDevice(device);
+				MCreatorLink.LINK.disconnectDevice(device);
 			this.containingListSel.refreshList();
 			return true;
 		} else if (Minecraft.getSystemTime() - this.lastClickTime < 250L) { // double clicked
 			if (!device.isConnected())
-				MinecraftLink.LINK.setConnectedDevice(device);
+				MCreatorLink.LINK.setConnectedDevice(device);
 			else
-				MinecraftLink.LINK.disconnectDevice(device);
+				MCreatorLink.LINK.disconnectDevice(device);
 			this.containingListSel.refreshList();
 			return true;
 		} else {

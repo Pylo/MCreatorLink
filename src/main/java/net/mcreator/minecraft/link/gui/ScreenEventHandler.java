@@ -16,7 +16,7 @@
 
 package net.mcreator.minecraft.link.gui;
 
-import net.mcreator.minecraft.link.MinecraftLink;
+import net.mcreator.minecraft.link.MCreatorLink;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngameMenu;
 import net.minecraft.client.gui.GuiMainMenu;
@@ -40,11 +40,11 @@ import org.lwjgl.input.Keyboard;
 		if (drawScreenEvent.getGui() instanceof GuiMainMenu || drawScreenEvent.getGui() instanceof GuiIngameMenu) {
 			int color = drawScreenEvent.getGui() instanceof GuiMainMenu ? 0x000000 : 0xffffff;
 			Minecraft.getMinecraft().fontRenderer
-					.drawString("Minecraft Link " + MinecraftLink.VERSION, 3, 3, color, false);
+					.drawString("MCreator Link " + MCreatorLink.VERSION, 3, 3, color, false);
 			Minecraft.getMinecraft().fontRenderer.drawString(I18n.format("link.menu.settingskey"), 3, 14, color, false);
 
 			if (Keyboard.isKeyDown(Keyboard.KEY_L))
-				Minecraft.getMinecraft().displayGuiScreen(new GuiMinecraftLink(drawScreenEvent.getGui()));
+				Minecraft.getMinecraft().displayGuiScreen(new GuiMCreatorLink(drawScreenEvent.getGui()));
 		}
 	}
 

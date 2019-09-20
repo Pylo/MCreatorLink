@@ -21,7 +21,7 @@ import net.mcreator.minecraft.link.devices.AbstractDevice;
 /**
  * This event is registered when a digital pin logic level changes and if the pin events for the given pin are enabled.
  */
-public class LinkDigitalPinChangedEvent extends MinecraftLinkEvent {
+public class LinkDigitalPinChangedEvent extends MCreatorLinkEvent {
 
 	private int pin;
 	private byte value;

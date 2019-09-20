@@ -49,7 +49,7 @@ public final class CurrentDevice {
 	 * @param pinMode PinMode of the pin. Can be PinMode.OUT, PinMode.IN or PinMode.IN_P
 	 */
 	public static void pinMode(int port, PinMode pinMode) {
-		AbstractDevice device = MinecraftLink.LINK.getConnectedDevice();
+		AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
 		if (device != null)
 			device.sendData(LinkProtocol.createPinmodeMessage(port, pinMode));
 	}
@@ -64,7 +64,7 @@ public final class CurrentDevice {
 	 * @param val  Logic level value - should be 0 for low or 1 for high
 	 */
 	public static void digitalWrite(int port, byte val) {
-		AbstractDevice device = MinecraftLink.LINK.getConnectedDevice();
+		AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
 		if (device != null)
 			device.sendData(LinkProtocol.createDigitalWriteMessage(port, val));
 	}
@@ -80,7 +80,7 @@ public final class CurrentDevice {
 	 *             0 for the lowest voltage level and 1024 for the highest voltage level
 	 */
 	public static void analogWrite(int port, short val) {
-		AbstractDevice device = MinecraftLink.LINK.getConnectedDevice();
+		AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
 		if (device != null)
 			device.sendData(LinkProtocol.createAnalogWriteMessage(port, val));
 	}
@@ -92,7 +92,7 @@ public final class CurrentDevice {
 	 * @return Value of the pin which is 0 if the logic level is low, 1 if the level is high or -1 if there is no device connected
 	 */
 	public static byte digitalRead(int port) {
-		AbstractDevice device = MinecraftLink.LINK.getConnectedDevice();
+		AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
 		if (device != null)
 			return device.digitalInputs(port);
 		else
@@ -106,7 +106,7 @@ public final class CurrentDevice {
 	 * @return Analog level of the selected port - usually in range from 0 to 1024, -1 if there is no device connected
 	 */
 	public static short analogRead(int port) {
-		AbstractDevice device = MinecraftLink.LINK.getConnectedDevice();
+		AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
 		if (device != null)
 			return device.analogInputs(port);
 		else
@@ -123,7 +123,7 @@ public final class CurrentDevice {
 	 * @see net.mcreator.minecraft.link.event.LinkDigitalPinChangedEvent
 	 */
 	public static void enableDigitalInputEvents(int port) {
-		AbstractDevice device = MinecraftLink.LINK.getConnectedDevice();
+		AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
 		if (device != null)
 			device.enableDigitalInputEvents(port, true);
 	}
@@ -137,7 +137,7 @@ public final class CurrentDevice {
 	 * @see net.mcreator.minecraft.link.event.LinkDigitalPinChangedEvent
 	 */
 	public static void disableDigitalInputEvents(int port) {
-		AbstractDevice device = MinecraftLink.LINK.getConnectedDevice();
+		AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
 		if (device != null)
 			device.enableDigitalInputEvents(port, false);
 	}
@@ -150,7 +150,7 @@ public final class CurrentDevice {
 	 * @param message The message to be sent
 	 */
 	public static void sendMessage(String message) {
-		AbstractDevice device = MinecraftLink.LINK.getConnectedDevice();
+		AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
 		if (device != null)
 			device.sendData(("msg?" + message + "\n").getBytes());
 	}
@@ -161,7 +161,7 @@ public final class CurrentDevice {
 	 * @return Number of digital inputs the device has or -1 if no device is connected
 	 */
 	public static int getDigitalPinsCount() {
-		AbstractDevice device = MinecraftLink.LINK.getConnectedDevice();
+		AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
 		if (device != null)
 			return device.getDigitalPinsCount();
 		return -1;
@@ -173,7 +173,7 @@ public final class CurrentDevice {
 	 * @return Number of analog inputs the device has or -1 if no device is connected
 	 */
 	public static int getAnalogPinsCount() {
-		AbstractDevice device = MinecraftLink.LINK.getConnectedDevice();
+		AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
 		if (device != null)
 			return device.getAnalogPinsCount();
 		return -1;

@@ -14,10 +14,10 @@ plugins {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.1"
+version = "1.2"
 
 group = "net.mcreator.minecraft.link" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "minecraft_link"
+archivesBaseName = "mcreator_link"
 
 project.tasks.build.dependsOn project.tasks.shadowJar
 
@@ -79,17 +79,17 @@ processResources {
 
 task exportAll() {
 }
-exportAll.group = 'minecraftlink'
+exportAll.group = 'mcreatorlink'
 
 task copyModIntoFinalBuild(type: Copy) {
     from('/build/libs/')
     include 'net.mcreator.minecraft.link-*-all.jar'
     into('build/export/')
-    rename { "Minecraft Link " + project.version + " [" + project.minecraft.version.toString() + "].jar" }
+    rename { "MCreator Link " + project.version + " [" + project.minecraft.version.toString() + "].jar" }
 }
 
 task exportArduinoLibrary(type: Zip) {
-    archiveName = "Minecraft Link " + project.version + " Arduino Library.zip"
+    archiveName = "MCreator Link " + project.version + " Arduino Library.zip"
     destinationDir = file('build/export/')
     from(files('./arduino'))
 }
@@ -97,9 +97,9 @@ task exportArduinoLibrary(type: Zip) {
 
 task exportRaspberryPiLibrary(type: Copy) {
     from('/raspberrypi/build/libs/')
-    include 'minecraft-link-raspberrypi.jar'
+    include 'mcreator-link-raspberrypi.jar'
     into('build/export/')
-    rename { "minecraft_link_" + project.version + "_pi.jar" }
+    rename { "mcreator_link_" + project.version + "_pi.jar" }
 }
 
 task exportRaspberryPiSetupScript(type: Copy) {
@@ -117,7 +117,7 @@ task exportJavadoc(type: Copy) {
 exportAll.dependsOn build
 exportAll.dependsOn copyModIntoFinalBuild
 exportAll.dependsOn exportArduinoLibrary
-exportAll.dependsOn ':minecraft-link-raspberrypi:build'
+exportAll.dependsOn ':mcreator-link-raspberrypi:build'
 exportAll.dependsOn exportRaspberryPiLibrary
 exportAll.dependsOn exportRaspberryPiSetupScript
 exportAll.dependsOn javadoc

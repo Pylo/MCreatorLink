@@ -16,7 +16,7 @@
 
 package net.mcreator.minecraft.link.gui;
 
-import net.mcreator.minecraft.link.MinecraftLink;
+import net.mcreator.minecraft.link.MCreatorLink;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
 import java.io.IOException;
 import java.net.URI;
 
-@SideOnly(Side.CLIENT) public class GuiMinecraftLink extends GuiScreen {
+@SideOnly(Side.CLIENT) public class GuiMCreatorLink extends GuiScreen {
 
 	private GuiScreen prevScreen;
 	private GuiButton connectButton;
@@ -43,7 +43,7 @@ import java.net.URI;
 
 	GuiListDevicesEntry entry;
 
-	GuiMinecraftLink(GuiScreen screenIn) {
+	GuiMCreatorLink(GuiScreen screenIn) {
 		this.prevScreen = screenIn;
 	}
 
@@ -84,12 +84,12 @@ import java.net.URI;
 			GuiListDevicesEntry selected = this.selectionList.getSelectedDevice();
 			if (button.id == 1) {
 				if (selected != null) {
-					MinecraftLink.LINK.setConnectedDevice(selected.getDevice());
+					MCreatorLink.LINK.setConnectedDevice(selected.getDevice());
 					this.selectionList.refreshList();
 				}
 			} else if (button.id == 2) {
 				if (selected != null) {
-					MinecraftLink.LINK.disconnectDevice(selected.getDevice());
+					MCreatorLink.LINK.disconnectDevice(selected.getDevice());
 					this.selectionList.refreshList();
 				}
 			} else if (button.id == 0) {
@@ -107,7 +107,7 @@ import java.net.URI;
 		}
 	}
 
-	private static final ResourceLocation LOGO = new ResourceLocation(MinecraftLink.MODID, "textures/logo_small.png");
+	private static final ResourceLocation LOGO = new ResourceLocation(MCreatorLink.MODID, "textures/logo_small.png");
 
 	/**
 	 * Draws the screen and all the components in it.
@@ -159,7 +159,7 @@ import java.net.URI;
 				this.disconnectButton.enabled = false;
 				this.connectButton.enabled = false;
 			}
-			if (MinecraftLink.LINK.getConnectedDevice() != null)
+			if (MCreatorLink.LINK.getConnectedDevice() != null)
 				this.connectButton.enabled = false;
 		}
 	}

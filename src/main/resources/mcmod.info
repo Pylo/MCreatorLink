@@ -1,7 +1,7 @@
 [
 {
-  "modid": "minecraft_link",
-  "name": "Minecraft Link",
+  "modid": "mcreator_link",
+  "name": "MCreator Link",
   "description": "API for Minecraft Forge mods to connect to the hardware devices such as Arduino or Raspberry Pi.",
   "version": "1.1",
   "mcversion": "1.12.2",
@@ -9,7 +9,7 @@
   "updateUrl": "",
   "authorList": ["Pylo"],
   "credits": "Pylo and MCreator development team.",
-  "logoFile": "assets/minecraft_link/textures/logo.png",
+  "logoFile": "assets/mcreator_link/textures/logo.png",
   "screenshots": [],
   "dependencies": []
 }
