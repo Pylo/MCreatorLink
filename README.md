@@ -1,4 +1,4 @@
-![MCreator Link](https://www.pylo.co/static/mcreator/link/link_small.png)
+![MCreator Link](https://www.pylo.co/static/mcreator/link/link_small.png?)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/Pylo/MCreatorLink/blob/master/LICENSE) [![Documentation](https://img.shields.io/badge/documentation-available-green.svg)](https://pylo.github.io/MCreatorLink/) [![Build Status](https://travis-ci.com/Pylo/MCreatorLink.svg?branch=master)](https://travis-ci.com/Pylo/MCreatorLink)
 
@@ -8,7 +8,7 @@ Setup instructions can be found on the MCreator Link official website: https://m
 
 ## Concept
 
-![MCreator Link Concept](https://www.pylo.co/static/mcreator/link/diagramnobg2.png)
+![MCreator Link Concept](https://www.pylo.co/static/mcreator/link/diagramnobg2.png?)
 
 ## Issue tracker
 
