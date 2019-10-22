@@ -74,7 +74,7 @@ var activeTableTab = "activeTableTab";
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#fields.inherited.from.class.net.minecraft.client.gui.GuiScreen">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#fields.inherited.from.class.net.minecraft.client.gui.Screen">Field</a>&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
@@ -102,7 +102,7 @@ var activeTableTab = "activeTableTab";
 <li>net.minecraft.client.gui.Gui</li>
 <li>
 <ul class="inheritance">
-<li>net.minecraft.client.gui.GuiScreen</li>
+<li>net.minecraft.client.gui.Screen</li>
 <li>
 <ul class="inheritance">
 <li>net.mcreator.minecraft.link.gui.GuiMCreatorLink</li>
@@ -123,7 +123,7 @@ var activeTableTab = "activeTableTab";
 <hr>
 <br>
 <pre>public class <span class="typeNameLabel">GuiMCreatorLink</span>
-extends net.minecraft.client.gui.GuiScreen</pre>
+extends net.minecraft.client.gui.Screen</pre>
 </li>
 </ul>
 </div>
@@ -137,10 +137,10 @@ extends net.minecraft.client.gui.GuiScreen</pre>
 </a>
 <h3>Field Summary</h3>
 <ul class="blockList">
-<li class="blockList"><a name="fields.inherited.from.class.net.minecraft.client.gui.GuiScreen">
+<li class="blockList"><a name="fields.inherited.from.class.net.minecraft.client.gui.Screen">
 <!--   -->
 </a>
-<h3>Fields inherited from class&nbsp;net.minecraft.client.gui.GuiScreen</h3>
+<h3>Fields inherited from class&nbsp;net.minecraft.client.gui.Screen</h3>
 <code>allowUserInput, buttonList, fontRenderer, height, itemRender, keyHandled, labelList, mc, mouseHandled, selectedButton, width</code></li>
 </ul>
 <ul class="blockList">
@@ -166,7 +166,7 @@ extends net.minecraft.client.gui.GuiScreen</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../net/mcreator/minecraft/link/gui/GuiMCreatorLink.html#actionPerformed-net.minecraft.client.gui.GuiButton-">actionPerformed</a></span>(net.minecraft.client.gui.GuiButton&nbsp;button)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../net/mcreator/minecraft/link/gui/GuiMCreatorLink.html#actionPerformed-net.minecraft.client.gui.Button-">actionPerformed</a></span>(net.minecraft.client.gui.Button&nbsp;button)</code>
 <div class="block">Called by the controls from the buttonList when activated.</div>
 </td>
 </tr>
@@ -208,10 +208,10 @@ extends net.minecraft.client.gui.GuiScreen</pre>
 </tr>
 </table>
 <ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.net.minecraft.client.gui.GuiScreen">
+<li class="blockList"><a name="methods.inherited.from.class.net.minecraft.client.gui.Screen">
 <!--   -->
 </a>
-<h3>Methods inherited from class&nbsp;net.minecraft.client.gui.GuiScreen</h3>
+<h3>Methods inherited from class&nbsp;net.minecraft.client.gui.Screen</h3>
 <code>addButton, confirmClicked, doesGuiPauseGame, drawBackground, drawDefaultBackground, drawHoveringText, drawHoveringText, drawHoveringText, drawWorldBackground, getClipboardString, getItemToolTip, handleComponentClick, handleComponentHover, handleInput, handleKeyboardInput, isAltKeyDown, isCtrlKeyDown, isFocused, isKeyComboCtrlA, isKeyComboCtrlC, isKeyComboCtrlV, isKeyComboCtrlX, isShiftKeyDown, keyTyped, mouseClickMove, onGuiClosed, onResize, renderToolTip, sendChatMessage, sendChatMessage, setClipboardString, setFocused, setGuiSize, setText, setWorldAndResolution, updateScreen</code></li>
 </ul>
 <ul class="blockList">
@@ -253,7 +253,7 @@ extends net.minecraft.client.gui.GuiScreen</pre>
  window resizes, the buttonList is cleared beforehand.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code>initGui</code>&nbsp;in class&nbsp;<code>net.minecraft.client.gui.GuiScreen</code></dd>
+<dd><code>initGui</code>&nbsp;in class&nbsp;<code>net.minecraft.client.gui.Screen</code></dd>
 </dl>
 </li>
 </ul>
@@ -268,23 +268,23 @@ extends net.minecraft.client.gui.GuiScreen</pre>
 <div class="block">Handles mouse input.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code>handleMouseInput</code>&nbsp;in class&nbsp;<code>net.minecraft.client.gui.GuiScreen</code></dd>
+<dd><code>handleMouseInput</code>&nbsp;in class&nbsp;<code>net.minecraft.client.gui.Screen</code></dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.io.IOException</code></dd>
 </dl>
 </li>
 </ul>
-<a name="actionPerformed-net.minecraft.client.gui.GuiButton-">
+<a name="actionPerformed-net.minecraft.client.gui.Button-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>actionPerformed</h4>
-<pre>protected&nbsp;void&nbsp;actionPerformed(net.minecraft.client.gui.GuiButton&nbsp;button)</pre>
+<pre>protected&nbsp;void&nbsp;actionPerformed(net.minecraft.client.gui.Button&nbsp;button)</pre>
 <div class="block">Called by the controls from the buttonList when activated. (Mouse pressed for buttons)</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code>actionPerformed</code>&nbsp;in class&nbsp;<code>net.minecraft.client.gui.GuiScreen</code></dd>
+<dd><code>actionPerformed</code>&nbsp;in class&nbsp;<code>net.minecraft.client.gui.Screen</code></dd>
 </dl>
 </li>
 </ul>
@@ -300,7 +300,7 @@ extends net.minecraft.client.gui.GuiScreen</pre>
 <div class="block">Draws the screen and all the components in it.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code>drawScreen</code>&nbsp;in class&nbsp;<code>net.minecraft.client.gui.GuiScreen</code></dd>
+<dd><code>drawScreen</code>&nbsp;in class&nbsp;<code>net.minecraft.client.gui.Screen</code></dd>
 </dl>
 </li>
 </ul>
@@ -317,7 +317,7 @@ extends net.minecraft.client.gui.GuiScreen</pre>
 <div class="block">Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code>mouseClicked</code>&nbsp;in class&nbsp;<code>net.minecraft.client.gui.GuiScreen</code></dd>
+<dd><code>mouseClicked</code>&nbsp;in class&nbsp;<code>net.minecraft.client.gui.Screen</code></dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.io.IOException</code></dd>
 </dl>
@@ -335,7 +335,7 @@ extends net.minecraft.client.gui.GuiScreen</pre>
 <div class="block">Called when a mouse button is released.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code>mouseReleased</code>&nbsp;in class&nbsp;<code>net.minecraft.client.gui.GuiScreen</code></dd>
+<dd><code>mouseReleased</code>&nbsp;in class&nbsp;<code>net.minecraft.client.gui.Screen</code></dd>
 </dl>
 </li>
 </ul>
@@ -392,7 +392,7 @@ extends net.minecraft.client.gui.GuiScreen</pre>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#fields.inherited.from.class.net.minecraft.client.gui.GuiScreen">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#fields.inherited.from.class.net.minecraft.client.gui.Screen">Field</a>&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>

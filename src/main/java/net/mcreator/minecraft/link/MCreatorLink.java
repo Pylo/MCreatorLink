@@ -19,32 +19,33 @@ package net.mcreator.minecraft.link;
 import net.mcreator.minecraft.link.command.CommandLink;
 import net.mcreator.minecraft.link.devices.arduino.ArduinoDetector;
 import net.mcreator.minecraft.link.devices.raspberrypi.RaspberryPiDetector;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 /**
  * Main mod class for the MCreator Link Minecraft mod
  */
-@Mod(modid = MCreatorLink.MODID, name = MCreatorLink.NAME, version = MCreatorLink.VERSION)
-public class MCreatorLink {
-
-	public static final String MODID = "mcreator_link";
-	public static final String NAME = "MCreator Link";
-	public static final String VERSION = "1.0";
+@Mod("mcreator_link") public class MCreatorLink {
 
 	public static DeviceManager LINK = new DeviceManager();
 
-	@SideOnly(Side.CLIENT) @EventHandler public void preInit(FMLPreInitializationEvent event) {
+	public MCreatorLink() {
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
+
+		MinecraftForge.EVENT_BUS.register(this);
+	}
+
+	private void init(FMLCommonSetupEvent event) {
 		LINK.registerDeviceDetector(new ArduinoDetector());
 		LINK.registerDeviceDetector(new RaspberryPiDetector());
 	}
 
-	@EventHandler public void start(FMLServerStartingEvent event) {
-		event.registerServerCommand(new CommandLink());
+	@SubscribeEvent public void serverLoad(FMLServerStartingEvent event) {
+		event.getCommandDispatcher().register(CommandLink.build());
 	}
 
 }

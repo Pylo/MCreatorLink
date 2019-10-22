@@ -21,13 +21,15 @@ import net.mcreator.minecraft.link.MCreatorLink;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiListExtended;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-@SideOnly(Side.CLIENT) public class GuiListDevices extends GuiListExtended {
+@OnlyIn(Dist.CLIENT) public class GuiListDevices extends GuiListExtended {
 	private final GuiMCreatorLink guiMCreatorLink;
 	private final List<GuiListDevicesEntry> entries = Lists.newArrayList();
 	private int selectedIdx = -1;

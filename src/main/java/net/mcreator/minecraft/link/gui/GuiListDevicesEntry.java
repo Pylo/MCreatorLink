@@ -26,10 +26,12 @@ import net.minecraft.client.gui.GuiListExtended;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT) public class GuiListDevicesEntry implements GuiListExtended.IGuiListEntry {
+@OnlyIn(Dist.CLIENT) public class GuiListDevicesEntry implements GuiListExtended.IGuiListEntry {
 
 	private static final ResourceLocation DEVICE_ARDUINO = new ResourceLocation(MCreatorLink.MODID,
 			"textures/arduino.png");
@@ -44,7 +46,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 	GuiListDevicesEntry(GuiListDevices listWorldSelIn, AbstractDevice device) {
 		this.containingListSel = listWorldSelIn;
-		this.client = Minecraft.getMinecraft();
+		this.client = Minecraft.getInstance();
 		this.device = device;
 	}
 

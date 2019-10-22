@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/raspberrypi/MinecraftLink.mcreator-link-raspberrypi.iml" filepath="$PROJECT_DIR$/.idea/modules/raspberrypi/MinecraftLink.mcreator-link-raspberrypi.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/raspberrypi/MinecraftLink.mcreator-link-raspberrypi.main.iml" filepath="$PROJECT_DIR$/.idea/modules/raspberrypi/MinecraftLink.mcreator-link-raspberrypi.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/raspberrypi/MinecraftLink.mcreator-link-raspberrypi.test.iml" filepath="$PROJECT_DIR$/.idea/modules/raspberrypi/MinecraftLink.mcreator-link-raspberrypi.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/net.mcreator.minecraft.link.MinecraftLink.iml" filepath="$PROJECT_DIR$/.idea/modules/net.mcreator.minecraft.link.MinecraftLink.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/net.mcreator.minecraft.link.MinecraftLink.api.iml" filepath="$PROJECT_DIR$/.idea/modules/net.mcreator.minecraft.link.MinecraftLink.api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/net.mcreator.minecraft.link.MinecraftLink.main.iml" filepath="$PROJECT_DIR$/.idea/modules/net.mcreator.minecraft.link.MinecraftLink.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/net.mcreator.minecraft.link.MinecraftLink.test.iml" filepath="$PROJECT_DIR$/.idea/modules/net.mcreator.minecraft.link.MinecraftLink.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MCreatorLink.iml" filepath="$PROJECT_DIR$/.idea/modules/MCreatorLink.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MCreatorLink.main.iml" filepath="$PROJECT_DIR$/.idea/modules/MCreatorLink.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/raspberrypi/MCreatorLink.mcreator-link-raspberrypi.iml" filepath="$PROJECT_DIR$/.idea/modules/raspberrypi/MCreatorLink.mcreator-link-raspberrypi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/raspberrypi/MCreatorLink.mcreator-link-raspberrypi.main.iml" filepath="$PROJECT_DIR$/.idea/modules/raspberrypi/MCreatorLink.mcreator-link-raspberrypi.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/raspberrypi/MCreatorLink.mcreator-link-raspberrypi.test.iml" filepath="$PROJECT_DIR$/.idea/modules/raspberrypi/MCreatorLink.mcreator-link-raspberrypi.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MCreatorLink.test.iml" filepath="$PROJECT_DIR$/.idea/modules/MCreatorLink.test.iml" />
     </modules>
   </component>
 </project>

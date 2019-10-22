@@ -19,22 +19,24 @@ package net.mcreator.minecraft.link.gui;
 import net.mcreator.minecraft.link.MCreatorLink;
 import net.mcreator.minecraft.link.devices.raspberrypi.RaspberryPi;
 import net.mcreator.minecraft.link.devices.raspberrypi.RaspberryPiDetector;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.Button;
+import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
 
-@SideOnly(Side.CLIENT) public class GuiDirectLink extends GuiScreen {
+@OnlyIn(Dist.CLIENT) public class GuiDirectLink extends Screen {
 
-	private final GuiScreen lastScreen;
+	private final Screen lastScreen;
 	private GuiTextField ipTextField;
 
-	GuiDirectLink(GuiScreen lastScreenIn) {
+	GuiDirectLink(Screen lastScreenIn) {
 		this.lastScreen = lastScreenIn;
 	}
 
@@ -63,10 +65,10 @@ import java.io.IOException;
 	public void initGui() {
 		Keyboard.enableRepeatEvents(true);
 		this.buttonList.clear();
-		this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + 12,
+		this.buttonList.add(new Button(0, this.width / 2 - 100, this.height / 4 + 96 + 12,
 				I18n.format("link.direct.connect")));
 		this.buttonList
-				.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + 12, I18n.format("gui.cancel")));
+				.add(new Button(1, this.width / 2 - 100, this.height / 4 + 120 + 12, I18n.format("gui.cancel")));
 		this.ipTextField = new GuiTextField(2, this.fontRenderer, this.width / 2 - 100, 116, 200, 20);
 		this.ipTextField.setMaxStringLength(128);
 		this.ipTextField.setFocused(true);
@@ -84,16 +86,16 @@ import java.io.IOException;
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	protected void actionPerformed(GuiButton button) {
+	protected void actionPerformed(Button button) {
 		if (button.enabled) {
 			if (button.id == 1) {
-				this.mc.displayGuiScreen(this.lastScreen);
+				this.mc.displayScreen(this.lastScreen);
 			} else if (button.id == 0) {
 				String device = this.ipTextField.getText();
 				RaspberryPi raspberryPi = RaspberryPiDetector.getRaspberryPiForIP(device);
 				if (raspberryPi != null) {
 					MCreatorLink.LINK.setConnectedDevice(raspberryPi);
-					this.mc.displayGuiScreen(this.lastScreen);
+					this.mc.displayScreen(this.lastScreen);
 				} else {
 					this.ipTextField.setTextColor(0xff5d4d);
 				}

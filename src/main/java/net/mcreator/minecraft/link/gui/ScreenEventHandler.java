@@ -16,35 +16,36 @@
 
 package net.mcreator.minecraft.link.gui;
 
-import net.mcreator.minecraft.link.MCreatorLink;
+import net.java.games.input.Keyboard;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiIngameMenu;
-import net.minecraft.client.gui.GuiMainMenu;
+import net.minecraft.client.gui.screen.IngameMenuScreen;
+import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.resources.I18n;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.GuiScreenEvent;
+import net.minecraftforge.client.event.ScreenEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.input.Keyboard;
+import org.lwjgl.glfw.GLFW;
 
-@Mod.EventBusSubscriber(value = { Side.CLIENT }) public class ScreenEventHandler {
+@Mod.EventBusSubscriber(value = { Dist.CLIENT }) public class ScreenEventHandler {
 
 	/**
 	 * This method subsribes to screen draw events so the Link notice can be rendered on some of the screens.
 	 *
-	 * @param drawScreenEvent GuiScreenEvent.DrawScreenEvent event instance
+	 * @param drawScreenEvent ScreenEvent.DrawScreenEvent event instance
 	 */
-	@SideOnly(Side.CLIENT) @SubscribeEvent public static void drawScreenEvent(
+	@OnlyIn(Dist.CLIENT) @SubscribeEvent public static void drawScreenEvent(
 			GuiScreenEvent.DrawScreenEvent drawScreenEvent) {
-		if (drawScreenEvent.getGui() instanceof GuiMainMenu || drawScreenEvent.getGui() instanceof GuiIngameMenu) {
-			int color = drawScreenEvent.getGui() instanceof GuiMainMenu ? 0x000000 : 0xffffff;
-			Minecraft.getMinecraft().fontRenderer
-					.drawString("MCreator Link " + MCreatorLink.VERSION, 3, 3, color, false);
-			Minecraft.getMinecraft().fontRenderer.drawString(I18n.format("link.menu.settingskey"), 3, 14, color, false);
+		if (drawScreenEvent.getGui() instanceof MainMenuScreen || drawScreenEvent
+				.getGui() instanceof IngameMenuScreen) {
+			int color = drawScreenEvent.getGui() instanceof MainMenuScreen ? 0x000000 : 0xffffff;
+			Minecraft.getInstance().fontRenderer.drawString("MCreator Link 1.2", 3, 3, color);
+			Minecraft.getInstance().fontRenderer.drawString(I18n.format("link.menu.settingskey"), 3, 14, color);
 
-			if (Keyboard.isKeyDown(Keyboard.KEY_L))
-				Minecraft.getMinecraft().displayGuiScreen(new GuiMCreatorLink(drawScreenEvent.getGui()));
+			if (GLFW.glfwGetKey(Minecraft.getInstance().mainWindow.getHandle(), GLFW.GLFW_KEY_L) == GLFW.GLFW_PRESS)
+				Minecraft.getInstance().displayGuiScreen(new GuiMCreatorLink(drawScreenEvent.getGui()));
 		}
 	}
 

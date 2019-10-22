@@ -16,136 +16,106 @@
 
 package net.mcreator.minecraft.link.command;
 
+import com.mojang.brigadier.Command;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.mcreator.minecraft.link.CurrentDevice;
 import net.mcreator.minecraft.link.MCreatorLink;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.mcreator.minecraft.link.devices.PinMode;
-import net.minecraft.command.CommandBase;
-import net.minecraft.command.ICommandSender;
+import net.minecraft.command.CommandSource;
+import net.minecraft.command.Commands;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.server.command.TextComponentHelper;
 
-import javax.annotation.Nullable;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Class that defines the behaviour of the /link command in Minecraft.
  */
-public class CommandLink extends CommandBase {
+public class CommandLink {
 
-	@Override public String getName() {
-		return "link";
-	}
-
-	@Override public List<String> getAliases() {
-		return Collections.singletonList("l");
-	}
-
-	@Override public String getUsage(ICommandSender sender) {
-		return "link.command.usage";
-	}
-
-	@Override public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
-		if (server.isDedicatedServer()) {
-			sender.sendMessage(TextComponentHelper.createComponentTranslation(sender, "link.command.server"));
-			return;
-		} else if (args.length > 0) {
-			switch (args[0]) {
-			case "device":
-			case "d":
-				AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
-				if (device != null) {
-					sender.sendMessage(new TextComponentString(device.getName() + " - " + device.getDescription()));
-					sender.sendMessage(new TextComponentString(
-							"Digital pins: " + device.getDigitalPinsCount() + ", Analog pins: " + device
-									.getAnalogPinsCount()));
-				} else {
-					sender.sendMessage(TextComponentHelper.createComponentTranslation(sender, "link.command.nodevice"));
-				}
-				return;
-			case "pinmode":
-			case "pm":
-				try {
-					int pin = Integer.parseInt(args[1]);
-					PinMode pinMode = PinMode.fromString(args[2]);
-					CurrentDevice.pinMode(pin, pinMode);
-				} catch (Exception e) {
-					sender.sendMessage(
-							TextComponentHelper.createComponentTranslation(sender, "link.command.wrongusage"));
-				}
-				return;
-			case "digitalwrite":
-			case "dw":
-				try {
-					int pin = Integer.parseInt(args[1]);
-					byte val = Byte.parseByte(args[2]);
-					CurrentDevice.digitalWrite(pin, val);
-				} catch (Exception e) {
-					sender.sendMessage(
-							TextComponentHelper.createComponentTranslation(sender, "link.command.wrongusage"));
-				}
-				return;
-			case "analogwrite":
-			case "aw":
-				try {
-					int pin = Integer.parseInt(args[1]);
-					short val = Short.parseShort(args[2]);
-					CurrentDevice.analogWrite(pin, val);
-				} catch (Exception e) {
-					sender.sendMessage(
-							TextComponentHelper.createComponentTranslation(sender, "link.command.wrongusage"));
-				}
-				return;
-			case "sendmessage":
-			case "sm":
-				try {
-
-					String message = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
-					CurrentDevice.sendMessage(message);
-				} catch (Exception e) {
-					sender.sendMessage(
-							TextComponentHelper.createComponentTranslation(sender, "link.command.wrongusage"));
-				}
-				return;
-			case "digitalread":
-			case "dr":
-				try {
-					int pin = Integer.parseInt(args[1]);
-					byte val = CurrentDevice.digitalRead(pin);
-					sender.sendMessage(new TextComponentString(Byte.toString(val)));
-				} catch (Exception e) {
-					sender.sendMessage(
-							TextComponentHelper.createComponentTranslation(sender, "link.command.wrongusage"));
-				}
-				return;
-			case "analogread":
-			case "ar":
-				try {
-					int pin = Integer.parseInt(args[1]);
-					short val = CurrentDevice.analogRead(pin);
-					sender.sendMessage(new TextComponentString(Short.toString(val)));
-				} catch (Exception e) {
-					sender.sendMessage(
-							TextComponentHelper.createComponentTranslation(sender, "link.command.wrongusage"));
-				}
-				return;
+	public static LiteralArgumentBuilder<CommandSource> build() {
+		return LiteralArgumentBuilder.<CommandSource>literal("link").then(Commands.literal("device").executes(c -> {
+			AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
+			if (device != null) {
+				c.getSource().sendFeedback(new StringTextComponent(device.getName() + " - " + device.getDescription()),
+						true);
+				c.getSource().sendFeedback(new StringTextComponent(
+						"Digital pins: " + device.getDigitalPinsCount() + ", Analog pins: " + device
+								.getAnalogPinsCount()), true);
+			} else {
+				c.getSource().sendFeedback(new TranslationTextComponent("link.command.nodevice"), true);
 			}
+			return Command.SINGLE_SUCCESS;
+		})).then(Commands.literal("pinmode").then(Commands.argument("pin", IntegerArgumentType.integer()))
+				.then(Commands.literal("output").executes(c -> {
+					CurrentDevice.pinMode(c.getArgument("pin", Integer.class), PinMode.OUT);
+					return Command.SINGLE_SUCCESS;
+				})).then(Commands.literal("input").executes(c -> {
+					CurrentDevice.pinMode(c.getArgument("pin", Integer.class), PinMode.IN);
+					return Command.SINGLE_SUCCESS;
+				})).then(Commands.literal("input_pullup").executes(c -> {
+					CurrentDevice.pinMode(c.getArgument("pin", Integer.class), PinMode.IN_P);
+					return Command.SINGLE_SUCCESS;
+				})));
+	}
+
+	/*@Override public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
+		switch (args[0]) {
+		case "digitalwrite":
+		case "dw":
+			try {
+				int pin = Integer.parseInt(args[1]);
+				byte val = Byte.parseByte(args[2]);
+				CurrentDevice.digitalWrite(pin, val);
+			} catch (Exception e) {
+				sender.sendMessage(TextComponentHelper.createComponentTranslation(sender, "link.command.wrongusage"));
+			}
+			return;
+		case "analogwrite":
+		case "aw":
+			try {
+				int pin = Integer.parseInt(args[1]);
+				short val = Short.parseShort(args[2]);
+				CurrentDevice.analogWrite(pin, val);
+			} catch (Exception e) {
+				sender.sendMessage(TextComponentHelper.createComponentTranslation(sender, "link.command.wrongusage"));
+			}
+			return;
+		case "sendmessage":
+		case "sm":
+			try {
+
+				String message = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+				CurrentDevice.sendMessage(message);
+			} catch (Exception e) {
+				sender.sendMessage(TextComponentHelper.createComponentTranslation(sender, "link.command.wrongusage"));
+			}
+			return;
+		case "digitalread":
+		case "dr":
+			try {
+				int pin = Integer.parseInt(args[1]);
+				byte val = CurrentDevice.digitalRead(pin);
+				sender.sendMessage(new TextComponentString(Byte.toString(val)));
+			} catch (Exception e) {
+				sender.sendMessage(TextComponentHelper.createComponentTranslation(sender, "link.command.wrongusage"));
+			}
+			return;
+		case "analogread":
+		case "ar":
+			try {
+				int pin = Integer.parseInt(args[1]);
+				short val = CurrentDevice.analogRead(pin);
+				sender.sendMessage(new TextComponentString(Short.toString(val)));
+			} catch (Exception e) {
+				sender.sendMessage(TextComponentHelper.createComponentTranslation(sender, "link.command.wrongusage"));
+			}
+			return;
 		}
-		sender.sendMessage(TextComponentHelper.createComponentTranslation(sender, getUsage(sender)));
-	}
-
-	@Override public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-		return true;
-	}
-
-	@Override
-	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args,
-			@Nullable BlockPos targetPos) {
-		return Collections.emptyList();
-	}
+	}*/
 
 }

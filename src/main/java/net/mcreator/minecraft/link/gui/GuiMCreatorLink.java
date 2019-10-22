@@ -18,24 +18,22 @@ package net.mcreator.minecraft.link.gui;
 
 import net.mcreator.minecraft.link.MCreatorLink;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.net.URI;
 
-@SideOnly(Side.CLIENT) public class GuiMCreatorLink extends GuiScreen {
+@OnlyIn(Dist.CLIENT) public class GuiMCreatorLink extends Screen {
 
-	private GuiScreen prevScreen;
-	private GuiButton connectButton;
-	private GuiButton disconnectButton;
+	private Screen prevScreen;
+	private Button connectButton;
+	private Button disconnectButton;
 
 	private GuiListDevices selectionList;
 
@@ -43,7 +41,7 @@ import java.net.URI;
 
 	GuiListDevicesEntry entry;
 
-	GuiMCreatorLink(GuiScreen screenIn) {
+	GuiMCreatorLink(Screen screenIn) {
 		this.prevScreen = screenIn;
 	}
 
@@ -55,14 +53,14 @@ import java.net.URI;
 		this.selectionList = new GuiListDevices(this, this.mc, this.width, this.height, 32, this.height - 42, 36);
 
 		this.connectButton = this.addButton(
-				new GuiButton(1, this.width / 2 - 154, this.height - 32, 72, 20, I18n.format("link.menu.connect")));
+				new Button(1, this.width / 2 - 154, this.height - 32, 72, 20, I18n.format("link.menu.connect")));
 		this.disconnectButton = this.addButton(
-				new GuiButton(2, this.width / 2 - 76, this.height - 32, 72, 20, I18n.format("link.menu.disconnect")));
+				new Button(2, this.width / 2 - 76, this.height - 32, 72, 20, I18n.format("link.menu.disconnect")));
 
-		this.addButton(new GuiButton(3, this.width / 2 + 2, this.height - 32, 72, 20, I18n.format("link.menu.direct")));
-		this.addButton(new GuiButton(0, this.width / 2 + 82, this.height - 32, 72, 20, I18n.format("gui.done")));
+		this.addButton(new Button(3, this.width / 2 + 2, this.height - 32, 72, 20, I18n.format("link.menu.direct")));
+		this.addButton(new Button(0, this.width / 2 + 82, this.height - 32, 72, 20, I18n.format("gui.done")));
 
-		this.addButton(new GuiButton(4, this.width / 2 + 82 + 55, 6, 20, 20, "?"));
+		this.addButton(new Button(4, this.width / 2 + 82 + 55, 6, 20, 20, "?"));
 
 		this.disconnectButton.enabled = false;
 		this.connectButton.enabled = false;
@@ -79,7 +77,7 @@ import java.net.URI;
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	@Override protected void actionPerformed(GuiButton button) {
+	@Override protected void actionPerformed(Button button) {
 		if (button.enabled) {
 			GuiListDevicesEntry selected = this.selectionList.getSelectedDevice();
 			if (button.id == 1) {
@@ -93,9 +91,9 @@ import java.net.URI;
 					this.selectionList.refreshList();
 				}
 			} else if (button.id == 0) {
-				this.mc.displayGuiScreen(this.prevScreen);
+				this.mc.displayScreen(this.prevScreen);
 			} else if (button.id == 3) {
-				this.mc.displayGuiScreen(new GuiDirectLink(this));
+				this.mc.displayScreen(new GuiDirectLink(this));
 			} else if (button.id == 4) {
 				try {
 					Class<?> oclass = Class.forName("java.awt.Desktop");
@@ -120,7 +118,7 @@ import java.net.URI;
 
 		this.selectionList.drawScreen(mouseX, mouseY, partialTicks);
 
-		Minecraft.getMinecraft().getTextureManager().bindTexture(LOGO);
+		Minecraft.getInstance().getTextureManager().bindTexture(LOGO);
 		GlStateManager.enableBlend();
 		Gui.drawModalRectWithCustomSizedTexture(this.width / 2 - 50, 8, 0.0F, 0.0F, 100, 16, 100.0F, 16);
 		GlStateManager.disableBlend();

@@ -17,7 +17,7 @@
 package net.mcreator.minecraft.link.event;
 
 import net.mcreator.minecraft.link.devices.AbstractDevice;
-import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.eventbus.api.Event;
 
 /**
  * Abstract class that defines the base of the MCreator Link events

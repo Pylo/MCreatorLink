@@ -22,7 +22,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT) public class GuiListDevicesEntryScan implements GuiListExtended.IGuiListEntry {
-	private final Minecraft mc = Minecraft.getMinecraft();
+	private final Minecraft mc = Minecraft.getInstance();
 
 	@Override
 	public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY,

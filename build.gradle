@@ -1,38 +1,63 @@
 buildscript {
     repositories {
+        maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
-        maven { url = "http://files.minecraftforge.net/maven" }
+        mavenCentral()
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
 
 plugins {
-    id "com.github.johnrengelman.shadow" version "2.0.3"
+    id "com.github.johnrengelman.shadow" version "4.0.4"
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'net.minecraftforge.gradle'
 
 version = "1.2"
-
 group = "net.mcreator.minecraft.link" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "mcreator_link"
 
 project.tasks.build.dependsOn project.tasks.shadowJar
 
-sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
-compileJava {
-    sourceCompatibility = targetCompatibility = '1.8'
-}
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    version = "1.12.2-14.23.5.2768"
-    runDir = "run"
-    mappings = "snapshot_20171003"
+    mappings channel: 'snapshot', version: '20190719-1.14.3'
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                examplemod {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                examplemod {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
 }
 
 dependencies {
+	minecraft 'net.minecraftforge:forge:1.14.4-28.1.0'
+	
     compile 'com.fazecast:jSerialComm:[2.0.0,3.0.0)'
 }
 
@@ -50,31 +75,7 @@ shadowJar {
 }
 
 reobf {
-    shadowJar {
-        mappingType = "SEARGE"
-    }
-}
-
-tasks.reobfShadowJar.mustRunAfter shadowJar
-
-processResources {
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-
-        // replace version and mcversion
-        expand 'version': project.version, 'mcversion': project.minecraft.version
-    }
-
-    // copy everything else except the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
-
+    shadowJar {}
 }
 
 task exportAll() {
@@ -125,5 +126,5 @@ exportAll.dependsOn exportJavadoc
 
 
 javadoc {
-    source sourceSets.api.allJava
+    source sourceSets.main.allJava
 }
