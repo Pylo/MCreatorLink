@@ -1,0 +1,19 @@
+modLoader="javafml"
+loaderVersion="[28,)"
+
+[[mods]]
+modId="mcreator_link"
+version="1.2"
+displayName="MCreator Link"
+description="API for Minecraft Forge mods to connect to the hardware devices such as Arduino or Raspberry Pi."
+credits="Pylo and MCreator development team."
+displayURL="https://mcreator.net/link"
+authors="Pylo"
+logoFile="logo.png"
+
+[[dependencies.test]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.14.4]"
+    ordering="NONE"
+    side="BOTH"

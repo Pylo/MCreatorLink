@@ -16,27 +16,26 @@
 
 package net.mcreator.minecraft.link.gui;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.mcreator.minecraft.link.MCreatorLink;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.mcreator.minecraft.link.devices.arduino.Arduino;
 import net.mcreator.minecraft.link.devices.raspberrypi.RaspberryPi;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiListExtended;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.list.ExtendedList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-@OnlyIn(Dist.CLIENT) public class GuiListDevicesEntry implements GuiListExtended.IGuiListEntry {
+@OnlyIn(Dist.CLIENT) public class GuiListDevicesEntry extends ExtendedList.AbstractListEntry<GuiListDevicesEntry> {
 
-	private static final ResourceLocation DEVICE_ARDUINO = new ResourceLocation(MCreatorLink.MODID,
-			"textures/arduino.png");
-	private static final ResourceLocation DEVICE_RASPBERRYPI = new ResourceLocation(MCreatorLink.MODID,
-			"textures/raspberrypi.png");
+	private static final ResourceLocation DEVICE_ARDUINO = new ResourceLocation("mcreator_link" ,
+			"textures/arduino.png" );
+	private static final ResourceLocation DEVICE_RASPBERRYPI = new ResourceLocation("mcreator_link" ,
+			"textures/raspberrypi.png" );
 
 	private final Minecraft client;
 	private final GuiListDevices containingListSel;
@@ -51,8 +50,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	}
 
 	@Override
-	public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY,
-			boolean isSelected, float partialTicks) {
+	public void render(int slotIndex, int y, int x, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks) {
 		String s2 = "Status: ";
 
 		if (device.isConnected())
@@ -61,27 +59,26 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 			s2 += TextFormatting.GRAY + "AVAILABLE" + TextFormatting.RESET;
 
 		this.client.fontRenderer.drawString(device.getName(), x + 32 + 8, y + 1, 16777215);
-		this.client.fontRenderer
-				.drawString(device.getDescription(), x + 32 + 8, y + this.client.fontRenderer.FONT_HEIGHT + 3, 8421504);
+		this.client.fontRenderer.drawString(device.getDescription(), x + 32 + 8, y + this.client.fontRenderer.FONT_HEIGHT + 3, 8421504);
 		this.client.fontRenderer.drawString(s2, x + 32 + 8,
 				y + this.client.fontRenderer.FONT_HEIGHT + this.client.fontRenderer.FONT_HEIGHT + 3, 8421504);
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		if (device instanceof Arduino) {
 			this.client.getTextureManager().bindTexture(DEVICE_ARDUINO);
 			GlStateManager.enableBlend();
-			Gui.drawModalRectWithCustomSizedTexture(x, y, 0.0F, 0.0F, 32, 32, 32.0F, 32.0F);
+			Screen.blit(x, y, 0, 0, 32, 32, 32, 32);
 			GlStateManager.disableBlend();
 		} else if (device instanceof RaspberryPi) {
 			this.client.getTextureManager().bindTexture(DEVICE_RASPBERRYPI);
 			GlStateManager.enableBlend();
-			Gui.drawModalRectWithCustomSizedTexture(x, y, 0.0F, 0.0F, 32, 32, 32.0F, 32.0F);
+			Screen.blit(x, y, 0, 0, 32, 32, 32, 32);
 			GlStateManager.disableBlend();
 		}
 
 		if (this.client.gameSettings.touchscreen || isSelected) {
-			Gui.drawRect(x, y, x + 32, y + 32, -1601138544);
+			Screen.fill(x, y, x + 32, y + 32, -1601138544);
 		}
 	}
 
@@ -89,17 +86,19 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	 * Called when the mouse is clicked within this entry. Returning true means that something within this entry was
 	 * clicked and the list should not be dragged.
 	 */
-	@Override public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX,
-			int relativeY) {
-		this.containingListSel.selectDevice(slotIndex);
-		if (relativeX <= 32 && relativeX < 32) { // clicked on icon
+	@Override public boolean mouseClicked(double x, double y, int par) {
+		this.containingListSel.setSelected(this);
+
+		if (x - (double) containingListSel.getRowLeft() < 32) { // clicked on icon
 			if (!device.isConnected())
 				MCreatorLink.LINK.setConnectedDevice(device);
 			else
 				MCreatorLink.LINK.disconnectDevice(device);
 			this.containingListSel.refreshList();
 			return true;
-		} else if (Minecraft.getSystemTime() - this.lastClickTime < 250L) { // double clicked
+		} else if (Util.milliTime() - this.lastClickTime < 250L) { // double clicked
+			this.lastClickTime = Util.milliTime();
+
 			if (!device.isConnected())
 				MCreatorLink.LINK.setConnectedDevice(device);
 			else
@@ -107,7 +106,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 			this.containingListSel.refreshList();
 			return true;
 		} else {
-			this.lastClickTime = Minecraft.getSystemTime();
+			this.lastClickTime = Util.milliTime();
 			return false;
 		}
 	}
@@ -116,12 +115,4 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 		return device;
 	}
 
-	/**
-	 * Fired when the mouse button is released. Arguments: index, x, y, mouseEvent, relativeX, relativeY
-	 */
-	@Override public void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY) {
-	}
-
-	@Override public void updatePosition(int slotIndex, int x, int y, float partialTicks) {
-	}
 }

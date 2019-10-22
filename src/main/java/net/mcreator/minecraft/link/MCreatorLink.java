@@ -19,6 +19,7 @@ package net.mcreator.minecraft.link;
 import net.mcreator.minecraft.link.command.CommandLink;
 import net.mcreator.minecraft.link.devices.arduino.ArduinoDetector;
 import net.mcreator.minecraft.link.devices.raspberrypi.RaspberryPiDetector;
+import net.mcreator.minecraft.link.gui.ScreenEventHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -37,6 +38,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
 
 		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.register(new ScreenEventHandler());
 	}
 
 	private void init(FMLCommonSetupEvent event) {

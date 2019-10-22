@@ -38,7 +38,10 @@ import java.util.Arrays;
 public class CommandLink {
 
 	public static LiteralArgumentBuilder<CommandSource> build() {
-		return LiteralArgumentBuilder.<CommandSource>literal("link").then(Commands.literal("device").executes(c -> {
+		// @formatter:off
+		return LiteralArgumentBuilder.<CommandSource>literal("link")
+
+		.then(Commands.literal("device").executes(c -> {
 			AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
 			if (device != null) {
 				c.getSource().sendFeedback(new StringTextComponent(device.getName() + " - " + device.getDescription()),
@@ -50,7 +53,10 @@ public class CommandLink {
 				c.getSource().sendFeedback(new TranslationTextComponent("link.command.nodevice"), true);
 			}
 			return Command.SINGLE_SUCCESS;
-		})).then(Commands.literal("pinmode").then(Commands.argument("pin", IntegerArgumentType.integer()))
+		}))
+
+		.then(Commands.literal("pinmode")
+			.then(Commands.argument("pin", IntegerArgumentType.integer())
 				.then(Commands.literal("output").executes(c -> {
 					CurrentDevice.pinMode(c.getArgument("pin", Integer.class), PinMode.OUT);
 					return Command.SINGLE_SUCCESS;
@@ -60,7 +66,8 @@ public class CommandLink {
 				})).then(Commands.literal("input_pullup").executes(c -> {
 					CurrentDevice.pinMode(c.getArgument("pin", Integer.class), PinMode.IN_P);
 					return Command.SINGLE_SUCCESS;
-				})));
+				}))));
+		// @formatter:on
 	}
 
 	/*@Override public void execute(MinecraftServer server, ICommandSender sender, String[] args) {

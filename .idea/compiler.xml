@@ -11,10 +11,12 @@
       <module name="Minecraft_Link_api" target="1.8" />
       <module name="Minecraft_Link_main" target="1.8" />
       <module name="Minecraft_Link_test" target="1.8" />
+      <module name="MinecraftLink.main" target="1.8" />
       <module name="MinecraftLink.mcreator-link-raspberrypi.main" target="1.8" />
       <module name="MinecraftLink.mcreator-link-raspberrypi.test" target="1.8" />
       <module name="MinecraftLink.minecraft-link-raspberrypi.main" target="1.8" />
       <module name="MinecraftLink.minecraft-link-raspberrypi.test" target="1.8" />
+      <module name="MinecraftLink.test" target="1.8" />
       <module name="net.mcreator.minecraft.link.MinecraftLink.api" target="1.8" />
       <module name="net.mcreator.minecraft.link.MinecraftLink.main" target="1.8" />
       <module name="net.mcreator.minecraft.link.MinecraftLink.test" target="1.8" />

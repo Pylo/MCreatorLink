@@ -16,7 +16,6 @@
 
 package net.mcreator.minecraft.link.gui;
 
-import net.java.games.input.Keyboard;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.IngameMenuScreen;
 import net.minecraft.client.gui.screen.MainMenuScreen;
@@ -24,22 +23,18 @@ import net.minecraft.client.resources.I18n;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.GuiScreenEvent;
-import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
 
-@Mod.EventBusSubscriber(value = { Dist.CLIENT }) public class ScreenEventHandler {
+public class ScreenEventHandler {
 
 	/**
-	 * This method subsribes to screen draw events so the Link notice can be rendered on some of the screens.
+	 * This method subscribes to screen draw events so the Link notice can be rendered on some of the screens.
 	 *
 	 * @param drawScreenEvent ScreenEvent.DrawScreenEvent event instance
 	 */
-	@OnlyIn(Dist.CLIENT) @SubscribeEvent public static void drawScreenEvent(
-			GuiScreenEvent.DrawScreenEvent drawScreenEvent) {
-		if (drawScreenEvent.getGui() instanceof MainMenuScreen || drawScreenEvent
-				.getGui() instanceof IngameMenuScreen) {
+	@OnlyIn(Dist.CLIENT) @SubscribeEvent public void drawScreenEvent(GuiScreenEvent.DrawScreenEvent drawScreenEvent) {
+		if (drawScreenEvent.getGui() instanceof MainMenuScreen || drawScreenEvent.getGui() instanceof IngameMenuScreen) {
 			int color = drawScreenEvent.getGui() instanceof MainMenuScreen ? 0x000000 : 0xffffff;
 			Minecraft.getInstance().fontRenderer.drawString("MCreator Link 1.2", 3, 3, color);
 			Minecraft.getInstance().fontRenderer.drawString(I18n.format("link.menu.settingskey"), 3, 14, color);

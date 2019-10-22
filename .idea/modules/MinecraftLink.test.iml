@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id="MCreatorLink:test" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="net.mcreator.minecraft.link" external.system.module.type="sourceSet" external.system.module.version="1.2" type="JAVA_MODULE" version="4">
+<module external.linked.project.id="MinecraftLink:test" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="net.mcreator.minecraft.link" external.system.module.type="sourceSet" external.system.module.version="1.2" type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output-test url="file://$MODULE_DIR$/../../build/classes/java/test" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../src/test" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="MCreatorLink.main" />
+    <orderEntry type="module" module-name="MinecraftLink.main" />
     <orderEntry type="library" name="Gradle: com.fazecast:jSerialComm:2.5.2" level="project" />
     <orderEntry type="library" name="Gradle: net.minecraftforge:forge:1.14.4-28.1.0_mapped_snapshot_20190719-1.14.3" level="project" />
     <orderEntry type="library" name="Gradle: net.minecraftforge:forge:launcher:1.14.4-28.1.0_mapped_snapshot_20190719-1.14.3" level="project" />
@@ -81,5 +81,5 @@
     <orderEntry type="library" name="Gradle: net.java.jinput:jinput-platform:natives-osx:2.0.5" level="project" />
     <orderEntry type="library" name="Gradle: org.jline:jline-terminal:3.12.1" level="project" />
   </component>
-  <component name="TestModuleProperties" production-module="MCreatorLink.main" />
+  <component name="TestModuleProperties" production-module="MinecraftLink.main" />
 </module>

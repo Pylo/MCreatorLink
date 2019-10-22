@@ -16,97 +16,93 @@
 
 package net.mcreator.minecraft.link.gui;
 
-import com.google.common.collect.Lists;
 import net.mcreator.minecraft.link.MCreatorLink;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiListExtended;
+import net.minecraft.client.gui.widget.list.ExtendedList;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
-import java.util.List;
 
-@OnlyIn(Dist.CLIENT) public class GuiListDevices extends GuiListExtended {
+@OnlyIn(Dist.CLIENT) public class GuiListDevices extends ExtendedList<GuiListDevicesEntry> {
+
 	private final GuiMCreatorLink guiMCreatorLink;
-	private final List<GuiListDevicesEntry> entries = Lists.newArrayList();
-	private int selectedIdx = -1;
 
-	private final GuiListDevicesEntryScan devicesEntryScan = new GuiListDevicesEntryScan();
+	private final GuiListDevicesEntryScan devicesEntryScan = new GuiListDevicesEntryScan(this, null);
 
-	GuiListDevices(GuiMCreatorLink guiMCreatorLink, Minecraft clientIn, int widthIn, int heightIn, int topIn,
-			int bottomIn, int slotHeightIn) {
+	GuiListDevices(GuiMCreatorLink guiMCreatorLink, Minecraft clientIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn) {
 		super(clientIn, widthIn, heightIn, topIn, bottomIn, slotHeightIn);
 		this.guiMCreatorLink = guiMCreatorLink;
-
 		this.refreshList(); // initial refresh
 	}
 
 	void refreshList() {
-		this.entries.clear();
+		GuiListDevicesEntry entry = this.getSelected();
 
-		for (AbstractDevice device : MCreatorLink.LINK.getAllDevices())
-			this.entries.add(new GuiListDevicesEntry(this, device));
+		this.clearEntries();
 
-		guiMCreatorLink.setSelectDevice(guiMCreatorLink.entry);
+		for (AbstractDevice device : MCreatorLink.LINK.getAllDevices()) {
+			GuiListDevicesEntry tmp;
+			this.addEntry(tmp = new GuiListDevicesEntry(this, device));
+			if (entry != null && device.equals(entry.getDevice()))
+				entry = tmp;
+		}
+
+		this.addEntry(devicesEntryScan);
+
+		if (entry != null)
+			super.setSelected(entry);
 	}
 
-	void selectDevice(int idx) {
-		this.selectedIdx = idx;
-		this.guiMCreatorLink.setSelectDevice(this.getSelectedDevice());
-	}
-
-	/**
-	 * Gets the IGuiListEntry object for the given index
-	 */
-	@Override public GuiListExtended.IGuiListEntry getListEntry(int index) {
-		if (index < this.entries.size()) {
-			return this.entries.get(index);
-		} else {
-			index = index - this.entries.size();
-
-			if (index == 0) {
-				return this.devicesEntryScan;
-			} else {
-				--index;
-				return this.entries.get(index);
+	@Override protected void moveSelection(int selectionIdx) {
+		int i = this.children().indexOf(this.getSelected());
+		int j = MathHelper.clamp(i + selectionIdx, 0, this.getItemCount() - 1);
+		GuiListDevicesEntry selection = this.children().get(j);
+		super.setSelected(selection);
+		if (selection instanceof GuiListDevicesEntryScan) {
+			if (selectionIdx <= 0 || j != this.getItemCount() - 1) {
+				if (selectionIdx >= 0 || j != 0) {
+					this.moveSelection(selectionIdx);
+				}
 			}
+		} else {
+			this.ensureVisible(selection);
 		}
 	}
 
-	@Override protected int getSize() {
-		return this.entries.size() + 1;
-	}
-
-	@Override protected int getScrollBarX() {
-		return super.getScrollBarX() + 20;
+	@Override public void setSelected(@Nullable GuiListDevicesEntry guiListDevicesEntry) {
+		super.setSelected(guiListDevicesEntry);
+		this.guiMCreatorLink.setSelectedDevice(this.getSelectedDevice());
 	}
 
 	/**
 	 * Gets the width of the list
 	 */
-	@Override public int getListWidth() {
-		return super.getListWidth() + 50;
+	@Override public int getRowWidth() {
+		return super.getRowWidth() + 85;
+	}
+
+	@Override protected int getScrollbarPosition() {
+		return super.getScrollbarPosition() + 32;
 	}
 
 	/**
 	 * Returns true if the element passed in is currently selected
 	 */
-	@Override protected boolean isSelected(int slotIndex) {
-		if (slotIndex == this.entries.size()) { // GuiListDevicesEntryScan can't be selected
+	@Override protected boolean isSelectedItem(int slotIndex) {
+		if (slotIndex == super.getItemCount()) { // GuiListDevicesEntryScan can't be selected
 			return false;
 		}
-		return slotIndex == this.selectedIdx;
+		return super.isSelectedItem(slotIndex);
 	}
 
 	@Nullable GuiListDevicesEntry getSelectedDevice() {
-		GuiListExtended.IGuiListEntry selected =
-				this.selectedIdx >= 0 && this.selectedIdx < this.getSize() ? this.getListEntry(this.selectedIdx) : null;
-		if (selected instanceof GuiListDevicesEntry)
-			return (GuiListDevicesEntry) selected;
-		return null;
+		return this.getSelected() instanceof GuiListDevicesEntryScan ? null : this.getSelected();
 	}
 
+	@Override public int getRowLeft() {
+		return super.getRowLeft();
+	}
 }
