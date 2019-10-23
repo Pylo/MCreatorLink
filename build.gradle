@@ -124,6 +124,8 @@ exportAll.dependsOn exportRaspberryPiSetupScript
 exportAll.dependsOn javadoc
 exportAll.dependsOn exportJavadoc
 
+exportJavadoc.dependsOn javadoc
+
 
 javadoc {
     source sourceSets.main.allJava
