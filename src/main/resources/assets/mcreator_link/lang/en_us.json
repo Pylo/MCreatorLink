@@ -12,6 +12,6 @@
     "link.command.wrongusage": "The syntax of the command you entered is not valid! Enter /link command for usage.",
     "link.command.server": "MCreator Link can't be used on a dedicated server.",
     "link.command.nodevice": "No device connected!",
-    "link.command.nodevices": "No devices detected!",
+    "link.command.nodevices": "No devices detected! You might need to run this command a few times to start detecting all devices.",
     "link.command.unknown": "Unknown device!"
 }

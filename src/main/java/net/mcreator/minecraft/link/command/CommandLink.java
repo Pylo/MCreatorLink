@@ -79,7 +79,9 @@ public class CommandLink {
 					new ArgumentType<String>(){
 
 				@Override public String parse(StringReader reader) {
-    				return reader.getString();
+    				String deviceName = reader.getRemaining();
+            		reader.setCursor(reader.getTotalLength());
+            		return deviceName;
     			}
 
     			@Override public<S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
