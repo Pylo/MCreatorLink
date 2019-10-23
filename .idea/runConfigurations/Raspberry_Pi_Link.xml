@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Raspberry Pi Link" type="Application" factoryName="Application" singleton="true">
     <option name="MAIN_CLASS_NAME" value="net.mcreator.minecraft.link.raspberrypi.Service" />
-    <module name="MinecraftLink.mcreator-link-raspberrypi.main" />
+    <module name="MCreatorLink.mcreator-link-raspberrypi.main" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="net.mcreator.minecraft.link.raspberrypi.*" />

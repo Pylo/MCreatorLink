@@ -18,6 +18,7 @@ package net.mcreator.minecraft.link.command;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.mcreator.minecraft.link.CurrentDevice;
 import net.mcreator.minecraft.link.MCreatorLink;
@@ -25,12 +26,8 @@ import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.mcreator.minecraft.link.devices.PinMode;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.server.command.TextComponentHelper;
-
-import java.util.Arrays;
 
 /**
  * Class that defines the behaviour of the /link command in Minecraft.
@@ -50,7 +47,7 @@ public class CommandLink {
 						"Digital pins: " + device.getDigitalPinsCount() + ", Analog pins: " + device
 								.getAnalogPinsCount()), true);
 			} else {
-				c.getSource().sendFeedback(new TranslationTextComponent("link.command.nodevice"), true);
+				c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.nodevice"));
 			}
 			return Command.SINGLE_SUCCESS;
 		}))
@@ -66,63 +63,66 @@ public class CommandLink {
 				})).then(Commands.literal("input_pullup").executes(c -> {
 					CurrentDevice.pinMode(c.getArgument("pin", Integer.class), PinMode.IN_P);
 					return Command.SINGLE_SUCCESS;
-				}))));
+				}))))
+
+		.then(Commands.literal("digitalwrite")
+			.then(Commands.argument("pin", IntegerArgumentType.integer())
+				.then(Commands.argument("value", IntegerArgumentType.integer()).executes(c -> {
+					try {
+						CurrentDevice.digitalWrite(c.getArgument("pin", Integer.class),
+								c.getArgument("value", Integer.class).byteValue());
+					} catch (Exception e) {
+						c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.wrongusage"));
+					}
+					return Command.SINGLE_SUCCESS;
+				}))))
+
+		.then(Commands.literal("analogwrite")
+			.then(Commands.argument("pin", IntegerArgumentType.integer())
+				.then(Commands.argument("value", IntegerArgumentType.integer()).executes(c -> {
+					try {
+						CurrentDevice.analogWrite(c.getArgument("pin", Integer.class),
+								c.getArgument("value", Integer.class).byteValue());
+					} catch (Exception e) {
+						c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.wrongusage"));
+					}
+					return Command.SINGLE_SUCCESS;
+				}))))
+
+		.then(Commands.literal("sendmessage")
+			.then(Commands.argument("message", StringArgumentType.greedyString()).executes(c -> {
+				try {
+					CurrentDevice.sendMessage(c.getArgument("message", String.class));
+				} catch (Exception e) {
+					c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.wrongusage"));
+				}
+				return Command.SINGLE_SUCCESS;
+			})))
+
+		.then(Commands.literal("digitalread")
+			.then(Commands.argument("pin", IntegerArgumentType.integer()).executes(c -> {
+				try {
+				byte val = CurrentDevice.digitalRead(c.getArgument("pin", Integer.class));
+				c.getSource().sendFeedback(new StringTextComponent(Byte.toString(val)), true);
+			} catch (Exception e) {
+				c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.wrongusage"));
+			}
+				return Command.SINGLE_SUCCESS;
+			})))
+
+		.then(Commands.literal("analogread")
+			.then(Commands.argument("pin", IntegerArgumentType.integer()).executes(c -> {
+				try {
+				short val = CurrentDevice.analogRead(c.getArgument("pin", Integer.class));
+				c.getSource().sendFeedback(new StringTextComponent(Short.toString(val)), true);
+			} catch (Exception e) {
+				c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.wrongusage"));
+			}
+				return Command.SINGLE_SUCCESS;
+			})))
+
+		;
 		// @formatter:on
 	}
-
-	/*@Override public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
-		switch (args[0]) {
-		case "digitalwrite":
-		case "dw":
-			try {
-				int pin = Integer.parseInt(args[1]);
-				byte val = Byte.parseByte(args[2]);
-				CurrentDevice.digitalWrite(pin, val);
-			} catch (Exception e) {
-				sender.sendMessage(TextComponentHelper.createComponentTranslation(sender, "link.command.wrongusage"));
-			}
-			return;
-		case "analogwrite":
-		case "aw":
-			try {
-				int pin = Integer.parseInt(args[1]);
-				short val = Short.parseShort(args[2]);
-				CurrentDevice.analogWrite(pin, val);
-			} catch (Exception e) {
-				sender.sendMessage(TextComponentHelper.createComponentTranslation(sender, "link.command.wrongusage"));
-			}
-			return;
-		case "sendmessage":
-		case "sm":
-			try {
-
-				String message = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
-				CurrentDevice.sendMessage(message);
-			} catch (Exception e) {
-				sender.sendMessage(TextComponentHelper.createComponentTranslation(sender, "link.command.wrongusage"));
-			}
-			return;
-		case "digitalread":
-		case "dr":
-			try {
-				int pin = Integer.parseInt(args[1]);
-				byte val = CurrentDevice.digitalRead(pin);
-				sender.sendMessage(new TextComponentString(Byte.toString(val)));
-			} catch (Exception e) {
-				sender.sendMessage(TextComponentHelper.createComponentTranslation(sender, "link.command.wrongusage"));
-			}
-			return;
-		case "analogread":
-		case "ar":
-			try {
-				int pin = Integer.parseInt(args[1]);
-				short val = CurrentDevice.analogRead(pin);
-				sender.sendMessage(new TextComponentString(Short.toString(val)));
-			} catch (Exception e) {
-				sender.sendMessage(TextComponentHelper.createComponentTranslation(sender, "link.command.wrongusage"));
-			}
-			return;
-		}
-	}*/
 
 }
