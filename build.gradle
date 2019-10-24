@@ -1,3 +1,5 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
@@ -82,19 +84,61 @@ shadowJar {
     exclude "module-info.class"
 }
 
+task devJar(type: ShadowJar) {
+    dependsOn jar
+
+    configurations = [project.configurations.shadow]
+
+    from sourceSets.main.output
+    from sourceSets.main.allJava
+
+    from('.') {
+        include 'LICENSE'
+        include 'NOTICE'
+        into '/'
+    }
+
+    from('/src/main/resources/META-INF/') {
+        include 'jSerialComm-LICENSE'
+        include 'jSerialComm-NOTICE'
+        into '/'
+    }
+
+    baseName = 'net.mcreator.minecraft.link'
+    relocate "com.fazecast.jSerialComm", "com.fazecast.jSerialComm"
+
+    exclude "module-info.class"
+}
+
 reobf {
     shadowJar {}
 }
 
-task exportAll() {
+task exportJavadoc(type: Copy) {
+    from('/build/docs/javadoc')
+    into('docs/')
 }
-exportAll.group = 'mcreatorlink'
+
+exportJavadoc.dependsOn javadoc
+
+javadoc {
+    source sourceSets.main.allJava
+}
 
 task copyModIntoFinalBuild(type: Copy) {
     from('/build/libs/')
     include 'net.mcreator.minecraft.link-*-all.jar'
     into('build/export/')
     rename { "MCreator Link " + project.version + " [1.14.4].jar" }
+}
+
+task copyDevModIntoFinalBuild(type: Copy) {
+    dependsOn devJar
+
+    from('/build/libs/')
+    include 'net.mcreator.minecraft.link-*.jar'
+    into('build/export/')
+    rename { "MCreator Link " + project.version + " [1.14.4] - Dev.jar" }
 }
 
 task exportArduinoLibrary(type: Zip) {
@@ -118,22 +162,22 @@ task exportRaspberryPiSetupScript(type: Copy) {
     rename { "rpisetup.sh" }
 }
 
-task exportJavadoc(type: Copy) {
-    from('/build/docs/javadoc')
-    into('docs/')
+task exportAll() {
+    group = 'mcreatorlink'
+
+    dependsOn build
+    dependsOn copyModIntoFinalBuild
+    dependsOn exportArduinoLibrary
+    dependsOn ':mcreator-link-raspberrypi:build'
+    dependsOn exportRaspberryPiLibrary
+    dependsOn exportRaspberryPiSetupScript
+    dependsOn javadoc
+    dependsOn exportJavadoc
 }
 
-exportAll.dependsOn build
-exportAll.dependsOn copyModIntoFinalBuild
-exportAll.dependsOn exportArduinoLibrary
-exportAll.dependsOn ':mcreator-link-raspberrypi:build'
-exportAll.dependsOn exportRaspberryPiLibrary
-exportAll.dependsOn exportRaspberryPiSetupScript
-exportAll.dependsOn javadoc
-exportAll.dependsOn exportJavadoc
+task exportDev() {
+    group = 'mcreatorlink'
 
-exportJavadoc.dependsOn javadoc
-
-javadoc {
-    source sourceSets.main.allJava
+    dependsOn devJar
+    dependsOn copyDevModIntoFinalBuild
 }
