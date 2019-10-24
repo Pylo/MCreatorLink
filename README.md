@@ -6,6 +6,8 @@ MCreator Link enables you to connect hardware devices such as Arduino and Raspbe
 
 Setup instructions can be found on the MCreator Link official website: https://mcreator.net/link
 
+![MCreator Link](https://www.pylo.co/static/mcreator/link/animation.gif?)
+
 ## Concept
 
 ![MCreator Link Concept](https://www.pylo.co/static/mcreator/link/diagramnobg2.png?)
