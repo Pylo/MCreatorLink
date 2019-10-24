@@ -70,8 +70,13 @@ shadowJar {
     from('/src/main/resources/META-INF/') {
         into '/'
     }
+
     baseName = 'net.mcreator.minecraft.link'
     relocate "com.fazecast.jSerialComm", "com.fazecast.jSerialComm"
+
+    dependencies {
+        include(dependency('com.fazecast.jSerialComm:.*'))
+    }
 }
 
 reobf {
@@ -86,7 +91,7 @@ task copyModIntoFinalBuild(type: Copy) {
     from('/build/libs/')
     include 'net.mcreator.minecraft.link-*-all.jar'
     into('build/export/')
-    rename { "MCreator Link " + project.version + " [" + project.minecraft.version.toString() + "].jar" }
+    rename { "MCreator Link " + project.version + " [1.14.4].jar" }
 }
 
 task exportArduinoLibrary(type: Zip) {
