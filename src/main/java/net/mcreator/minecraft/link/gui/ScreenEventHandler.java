@@ -24,9 +24,17 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
+import org.apache.maven.artifact.versioning.ArtifactVersion;
 import org.lwjgl.glfw.GLFW;
 
 public class ScreenEventHandler {
+
+	private final ArtifactVersion linkVersion;
+
+	public ScreenEventHandler() {
+		linkVersion = ModList.get().getModFileById("mcreator_link").getMods().get(0).getVersion();
+	}
 
 	/**
 	 * This method subscribes to screen draw events so the Link notice can be rendered on some of the screens.
@@ -34,9 +42,12 @@ public class ScreenEventHandler {
 	 * @param drawScreenEvent ScreenEvent.DrawScreenEvent event instance
 	 */
 	@OnlyIn(Dist.CLIENT) @SubscribeEvent public void drawScreenEvent(GuiScreenEvent.DrawScreenEvent drawScreenEvent) {
-		if (drawScreenEvent.getGui() instanceof MainMenuScreen || drawScreenEvent.getGui() instanceof IngameMenuScreen) {
+		if (drawScreenEvent.getGui() instanceof MainMenuScreen || drawScreenEvent
+				.getGui() instanceof IngameMenuScreen) {
 			int color = drawScreenEvent.getGui() instanceof MainMenuScreen ? 0x000000 : 0xffffff;
-			Minecraft.getInstance().fontRenderer.drawString("MCreator Link 1.2", 3, 3, color);
+			Minecraft.getInstance().fontRenderer.drawString(
+					"MCreator Link " + linkVersion, 3,
+					3, color);
 			Minecraft.getInstance().fontRenderer.drawString(I18n.format("link.menu.settingskey"), 3, 14, color);
 
 			if (GLFW.glfwGetKey(Minecraft.getInstance().mainWindow.getHandle(), GLFW.GLFW_KEY_L) == GLFW.GLFW_PRESS)
