@@ -28,13 +28,15 @@ import javax.annotation.Nullable;
 
 @OnlyIn(Dist.CLIENT) public class GuiListDevices extends ExtendedList<GuiListDevicesEntry> {
 
-	private final GuiMCreatorLink guiMCreatorLink;
+	final GuiMCreatorLink guiMCreatorLink;
 
-	private final GuiListDevicesEntryScan devicesEntryScan = new GuiListDevicesEntryScan(this, null);
+	private final GuiListDevicesEntryScan devicesEntryScan;
 
 	GuiListDevices(GuiMCreatorLink guiMCreatorLink, Minecraft clientIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn) {
 		super(clientIn, widthIn, heightIn, topIn, bottomIn, slotHeightIn);
 		this.guiMCreatorLink = guiMCreatorLink;
+		this.devicesEntryScan = new GuiListDevicesEntryScan(this, null);
+
 		this.refreshList(); // initial refresh
 	}
 

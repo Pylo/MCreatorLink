@@ -59,7 +59,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 	 */
 	@Override public void init(Minecraft minecraft, int width, int height) {
 		super.init(minecraft, width, height);
-		Minecraft.getInstance().keyboardListener.enableRepeatEvents(true);
+		minecraft.keyboardListener.enableRepeatEvents(true);
 		this.addButton(connect = new Button(this.width / 2 - 100, this.height / 4 + 96 + 12, 200, 20,
 				I18n.format("link.direct.connect" ), e -> {
 			String device = this.ipTextField.getText();
@@ -94,7 +94,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 	 */
 	@Override public void removed() {
 		super.removed();
-		Minecraft.getInstance().keyboardListener.enableRepeatEvents(false);
+		if (minecraft != null) {
+			minecraft.keyboardListener.enableRepeatEvents(false);
+		}
 	}
 
 	/**

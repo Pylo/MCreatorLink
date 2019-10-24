@@ -98,7 +98,9 @@ import javax.annotation.Nullable;
 
 		super.render(mouseX, mouseY, partialTicks);
 
-		Minecraft.getInstance().getTextureManager().bindTexture(LOGO);
+		if (minecraft != null) {
+			minecraft.getTextureManager().bindTexture(LOGO);
+		}
 		GlStateManager.enableBlend();
 		Screen.blit(this.width / 2 - 50, 8, 0.0F, 0.0F, 100, 16, 100, 16);
 		GlStateManager.disableBlend();

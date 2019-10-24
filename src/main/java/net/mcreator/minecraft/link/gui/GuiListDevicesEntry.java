@@ -37,7 +37,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 	private static final ResourceLocation DEVICE_RASPBERRYPI = new ResourceLocation("mcreator_link" ,
 			"textures/raspberrypi.png" );
 
-	private final Minecraft client;
+	protected final Minecraft client;
 	private final GuiListDevices containingListSel;
 	private long lastClickTime;
 
@@ -45,7 +45,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 	GuiListDevicesEntry(GuiListDevices listWorldSelIn, AbstractDevice device) {
 		this.containingListSel = listWorldSelIn;
-		this.client = Minecraft.getInstance();
+		this.client = listWorldSelIn.guiMCreatorLink.getMinecraft();
 		this.device = device;
 	}
 

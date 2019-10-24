@@ -17,25 +17,26 @@
 package net.mcreator.minecraft.link.gui;
 
 import net.mcreator.minecraft.link.devices.AbstractDevice;
-import net.minecraft.client.Minecraft;
 import net.minecraft.util.Util;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT) public class GuiListDevicesEntryScan extends GuiListDevicesEntry {
-	private final Minecraft mc = Minecraft.getInstance();
 
 	GuiListDevicesEntryScan(GuiListDevices listWorldSelIn, AbstractDevice device) {
 		super(listWorldSelIn, device);
 	}
 
 	@Override
-	public void render(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks) {
-		if (this.mc.currentScreen != null) {
-			int i = y + slotHeight / 2 - this.mc.fontRenderer.FONT_HEIGHT / 2;
+	public void render(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY,
+			boolean isSelected, float partialTicks) {
+		if (this.client.currentScreen != null) {
+			int i = y + slotHeight / 2 - this.client.fontRenderer.FONT_HEIGHT / 2;
 
-			this.mc.fontRenderer.drawString("Scanning for link compatible devices" , this.mc.currentScreen.width / 2f
-					- this.mc.fontRenderer.getStringWidth("Scanning for link compatible devices" ) / 2f, i, 16777215);
+			this.client.fontRenderer.drawString("Scanning for link compatible devices",
+					this.client.currentScreen.width / 2f
+							- this.client.fontRenderer.getStringWidth("Scanning for link compatible devices") / 2f, i,
+					16777215);
 
 			String s;
 			switch ((int) (Util.milliTime() / 300L % 4L)) {
@@ -51,7 +52,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 				s = "o o O";
 			}
 
-			this.mc.fontRenderer.drawString(s, this.mc.currentScreen.width / 2f - this.mc.fontRenderer.getStringWidth(s) / 2f, i + this.mc.fontRenderer.FONT_HEIGHT, 8421504);
+			this.client.fontRenderer.drawString(s,
+					this.client.currentScreen.width / 2f - this.client.fontRenderer.getStringWidth(s) / 2f,
+					i + this.client.fontRenderer.FONT_HEIGHT, 8421504);
 		}
 	}
 

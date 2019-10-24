@@ -16,7 +16,6 @@
 
 package net.mcreator.minecraft.link.gui;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.IngameMenuScreen;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.resources.I18n;
@@ -45,13 +44,14 @@ public class ScreenEventHandler {
 		if (drawScreenEvent.getGui() instanceof MainMenuScreen || drawScreenEvent
 				.getGui() instanceof IngameMenuScreen) {
 			int color = drawScreenEvent.getGui() instanceof MainMenuScreen ? 0x000000 : 0xffffff;
-			Minecraft.getInstance().fontRenderer.drawString(
-					"MCreator Link " + linkVersion, 3,
-					3, color);
-			Minecraft.getInstance().fontRenderer.drawString(I18n.format("link.menu.settingskey"), 3, 14, color);
+			drawScreenEvent.getGui().getMinecraft().fontRenderer
+					.drawString("MCreator Link " + linkVersion, 3, 3, color);
+			drawScreenEvent.getGui().getMinecraft().fontRenderer
+					.drawString(I18n.format("link.menu.settingskey"), 3, 14, color);
 
-			if (GLFW.glfwGetKey(Minecraft.getInstance().mainWindow.getHandle(), GLFW.GLFW_KEY_L) == GLFW.GLFW_PRESS)
-				Minecraft.getInstance().displayGuiScreen(new GuiMCreatorLink(drawScreenEvent.getGui()));
+			if (GLFW.glfwGetKey(drawScreenEvent.getGui().getMinecraft().mainWindow.getHandle(), GLFW.GLFW_KEY_L)
+					== GLFW.GLFW_PRESS)
+				drawScreenEvent.getGui().getMinecraft().displayGuiScreen(new GuiMCreatorLink(drawScreenEvent.getGui()));
 		}
 	}
 
