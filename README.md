@@ -36,13 +36,11 @@ To clone the submodules too, use:
 
 `git clone --recursive https://github.com/Pylo/MCreatorLink.git`
 
-To setup workspace, set Gradle version to Gradle 3.0
+Then export the MCreator Link distribution, use
 
-`gradlew --wrapper 3.0`
+`gradlew exportAll`
 
-Then setup the Minecraft Mod workspace:
-
-`gradlew setupDecompWorkspace`
+Otherwise use as normal Forge Gradle mod project.
 
 ## Notice
 
