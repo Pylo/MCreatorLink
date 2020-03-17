@@ -72,7 +72,7 @@ shadowJar {
         include 'NOTICE'
         into '/'
     }
-    from('/src/main/resources/META-INF/') {
+    from('src/main/resources/META-INF/') {
         include 'jSerialComm-LICENSE'
         include 'jSerialComm-NOTICE'
         into '/'
@@ -98,7 +98,7 @@ task devJar(type: ShadowJar) {
         into '/'
     }
 
-    from('/src/main/resources/META-INF/') {
+    from('src/main/resources/META-INF/') {
         include 'jSerialComm-LICENSE'
         include 'jSerialComm-NOTICE'
         into '/'
@@ -114,31 +114,24 @@ reobf {
     shadowJar {}
 }
 
-task exportJavadoc(type: Copy) {
-    from('/build/docs/javadoc')
-    into('docs/')
-}
-
-exportJavadoc.dependsOn javadoc
-
 javadoc {
     source sourceSets.main.allJava
 }
 
 task copyModIntoFinalBuild(type: Copy) {
-    from('/build/libs/')
+    from('build/libs/')
     include 'net.mcreator.minecraft.link-*-all.jar'
     into('build/export/')
-    rename { "MCreator Link " + project.version + " [1.14.4].jar" }
+    rename { "MCreator Link " + project.version + " [1.15.2].jar" }
 }
 
 task copyDevModIntoFinalBuild(type: Copy) {
     dependsOn devJar
 
-    from('/build/libs/')
+    from('build/libs/')
     include 'net.mcreator.minecraft.link-*.jar'
     into('build/export/')
-    rename { "MCreator Link " + project.version + " [1.14.4] - Dev.jar" }
+    rename { "MCreator Link " + project.version + " [1.15.2] - Dev.jar" }
 }
 
 task exportArduinoLibrary(type: Zip) {
@@ -149,17 +142,26 @@ task exportArduinoLibrary(type: Zip) {
 
 
 task exportRaspberryPiLibrary(type: Copy) {
-    from('/raspberrypi/build/libs/')
+    from('raspberrypi/build/libs/')
     include 'mcreator-link-raspberrypi.jar'
     into('build/export/')
-    rename { "mcreator_link_" + project.version + "_pi.jarminecraft" }
+    rename { "mcreator_link_" + project.version + "_pi.jar" }
 }
 
 task exportRaspberryPiSetupScript(type: Copy) {
-    from('/raspberrypi/')
+    from('raspberrypi/')
     include 'setup.sh'
     into('build/export/')
     rename { "rpisetup.sh" }
+}
+
+task exportJavadoc(type: Copy) {
+    from('build/docs/javadoc')
+    into('docs/')
+
+    dependsOn javadoc
+
+    group = 'mcreatorlink'
 }
 
 task exportAll() {
@@ -171,8 +173,6 @@ task exportAll() {
     dependsOn ':mcreator-link-raspberrypi:build'
     dependsOn exportRaspberryPiLibrary
     dependsOn exportRaspberryPiSetupScript
-    dependsOn javadoc
-    dependsOn exportJavadoc
 }
 
 task exportDev() {
