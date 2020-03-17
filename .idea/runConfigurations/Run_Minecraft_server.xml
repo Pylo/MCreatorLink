@@ -1,16 +1,16 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Minecraft Server" type="Application" factoryName="Application" singleton="false">
+  <configuration default="false" name="Run Minecraft server" type="Application" factoryName="Application" singleton="false">
     <envs>
-      <env name="MOD_CLASSES" value="examplemod%%C:\Users\Klemen\workspace_idea\MinecraftLink\build\resources\main;examplemod%%C:\Users\Klemen\workspace_idea\MinecraftLink\build\classes\java\main" />
-      <env name="MCP_MAPPINGS" value="snapshot_20190719-1.14.3" />
-      <env name="MCP_VERSION" value="20190829.143755" />
-      <env name="FORGE_VERSION" value="28.1.0" />
+      <env name="MOD_CLASSES" value="examplemod%%$PROJECT_DIR$/../MCreatorLink\build\resources\main;examplemod%%$PROJECT_DIR$/../MCreatorLink\build\classes\java\main" />
+      <env name="MCP_MAPPINGS" value="snapshot_20200225-1.15.1" />
+      <env name="MCP_VERSION" value="20200307.202953" />
+      <env name="FORGE_VERSION" value="31.1.24" />
       <env name="FORGE_GROUP" value="net.minecraftforge" />
       <env name="target" value="fmluserdevserver" />
-      <env name="MC_VERSION" value="1.14.4" />
+      <env name="MC_VERSION" value="1.15.2" />
     </envs>
     <option name="MAIN_CLASS_NAME" value="net.minecraftforge.userdev.LaunchTesting" />
-    <module name="MinecraftLink.main" />
+    <module name="MCreatorLink.main" />
     <option name="VM_PARAMETERS" value="-Dforge.logging.console.level=debug -Dforge.logging.markers=REGISTRIES" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/run" />
     <method v="2">

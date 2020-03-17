@@ -49,7 +49,7 @@ public class ScreenEventHandler {
 			drawScreenEvent.getGui().getMinecraft().fontRenderer
 					.drawString(I18n.format("link.menu.settingskey"), 3, 14, color);
 
-			if (GLFW.glfwGetKey(drawScreenEvent.getGui().getMinecraft().mainWindow.getHandle(), GLFW.GLFW_KEY_L)
+			if (GLFW.glfwGetKey(drawScreenEvent.getGui().getMinecraft().getMainWindow().getHandle(), GLFW.GLFW_KEY_L)
 					== GLFW.GLFW_PRESS)
 				drawScreenEvent.getGui().getMinecraft().displayGuiScreen(new GuiMCreatorLink(drawScreenEvent.getGui()));
 		}

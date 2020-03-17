@@ -17,6 +17,7 @@
 package net.mcreator.minecraft.link.gui;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.mcreator.minecraft.link.MCreatorLink;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.mcreator.minecraft.link.devices.arduino.Arduino;
@@ -63,7 +64,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 		this.client.fontRenderer.drawString(s2, x + 32 + 8,
 				y + this.client.fontRenderer.FONT_HEIGHT + this.client.fontRenderer.FONT_HEIGHT + 3, 8421504);
 
-		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		if (device instanceof Arduino) {
 			this.client.getTextureManager().bindTexture(DEVICE_ARDUINO);

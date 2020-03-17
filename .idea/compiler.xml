@@ -2,10 +2,6 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="MCreatorLink.main" target="1.8" />
-      <module name="MCreatorLink.mcreator-link-raspberrypi.main" target="1.8" />
-      <module name="MCreatorLink.mcreator-link-raspberrypi.test" target="1.8" />
-      <module name="MCreatorLink.test" target="1.8" />
       <module name="minecraft-link-raspberrypi_main" target="1.8" />
       <module name="minecraft-link-raspberrypi_test" target="1.8" />
       <module name="Minecraft_Link_api" target="1.8" />
