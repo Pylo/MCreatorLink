@@ -14,6 +14,6 @@ logoFile="logo.png"
 [[dependencies.test]]
     modId="minecraft"
     mandatory=true
-    vversionRange="[1.15.2]"
+    versionRange="[1.15.2]"
     ordering="NONE"
     side="BOTH"
