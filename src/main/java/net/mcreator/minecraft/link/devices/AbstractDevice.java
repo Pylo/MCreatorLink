@@ -210,7 +210,20 @@ public abstract class AbstractDevice {
 	 * Implementation of this method is specific to the device.
 	 *
 	 * @param dataPacket Byte array representation of the data to be sent
+	 * @param force	Forces sending of data even if current device has send interval limit set
 	 */
-	public abstract void sendData(byte[] dataPacket);
+	public abstract void sendData(byte[] dataPacket, boolean force);
+
+	/**
+	 * This is a wrapper for sending data to the device.
+	 * Implementation of this method is specific to the device.
+	 *
+	 * This method will send the data only if the sending interval is not exceeded
+	 *
+	 * @param dataPacket Byte array representation of the data to be sent
+	 */
+	public final void sendData(byte[] dataPacket) {
+		this.sendData(dataPacket, false);
+	}
 
 }

@@ -51,7 +51,7 @@ public final class CurrentDevice {
 	public static void pinMode(int port, PinMode pinMode) {
 		AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
 		if (device != null)
-			device.sendData(LinkProtocol.createPinmodeMessage(port, pinMode));
+			device.sendData(LinkProtocol.createPinmodeMessage(port, pinMode), true);
 	}
 
 	/**
