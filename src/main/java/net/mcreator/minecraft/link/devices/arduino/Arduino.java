@@ -29,7 +29,7 @@ import java.util.concurrent.Executors;
 
 public class Arduino extends AbstractDevice {
 
-	private static final int SEND_INTERVAL = 250;
+	private static final int SEND_INTERVAL = 50;
 
 	private SerialPort port;
 	private boolean connected;
@@ -98,8 +98,8 @@ public class Arduino extends AbstractDevice {
 				} catch (InterruptedException ignored) {
 				}
 
-				sendData(LinkProtocol.START_POLLING_INPUTS);
-				sendData(LinkProtocol.createInpulPollRate(100));
+				sendData(LinkProtocol.START_POLLING_INPUTS, true);
+				sendData(LinkProtocol.createInpulPollRate(100), true);
 
 				MinecraftForge.EVENT_BUS.post(new LinkDeviceConnectedEvent(this));
 			});
@@ -113,7 +113,7 @@ public class Arduino extends AbstractDevice {
 		if (connected) {
 			deviceCommunicationThread.submit(() -> {
 				try {
-					sendData(LinkProtocol.STOP_POLLING_INPUTS);
+					sendData(LinkProtocol.STOP_POLLING_INPUTS, true);
 					this.port.removeDataListener();
 					this.port.closePort();
 				} catch (Exception e) {
@@ -127,14 +127,15 @@ public class Arduino extends AbstractDevice {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override public void sendData(byte[] data) {
+	@Override public void sendData(byte[] data, boolean forced) {
 		if (connected) {
 			deviceCommunicationThread.submit(() -> {
-				// limit sending interval
-				if ((System.currentTimeMillis() - lastSendInterval) > SEND_INTERVAL)
+				// limit sending interval if not forced
+				if (forced || (System.currentTimeMillis() - lastSendInterval) > SEND_INTERVAL)
 					try {
 						this.port.writeBytes(data, data.length);
-						lastSendInterval = System.currentTimeMillis();
+						if (!forced)
+							lastSendInterval = System.currentTimeMillis();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
