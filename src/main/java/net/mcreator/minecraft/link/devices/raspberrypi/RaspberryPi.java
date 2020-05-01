@@ -31,7 +31,7 @@ import java.util.concurrent.Executors;
 
 public class RaspberryPi extends AbstractDevice {
 
-	private static final int SEND_INTERVAL = 100;
+	private static final int SEND_INTERVAL = 50;
 
 	private static final int LOCAL_PORT = 25564;
 	static final int REMOTE_PORT = 25563;
@@ -98,7 +98,7 @@ public class RaspberryPi extends AbstractDevice {
 
 					Thread.sleep(250);
 
-					sendData(LinkProtocol.START_POLLING_INPUTS);
+					sendData(LinkProtocol.START_POLLING_INPUTS, true);
 
 					MinecraftForge.EVENT_BUS.post(new LinkDeviceConnectedEvent(this));
 				} catch (Exception e) {
@@ -116,7 +116,7 @@ public class RaspberryPi extends AbstractDevice {
 			deviceCommunicationThread.submit(() -> {
 				if (socket != null)
 					socket.close(); // close inbound socket
-				sendData(LinkProtocol.STOP_POLLING_INPUTS);
+				sendData(LinkProtocol.STOP_POLLING_INPUTS, true);
 				this.connected = false;
 			});
 		}
@@ -125,14 +125,16 @@ public class RaspberryPi extends AbstractDevice {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override public void sendData(byte[] dataPacket) {
+	@Override public void sendData(byte[] dataPacket, boolean forced) {
 		if (connected) {
 			deviceCommunicationThread.submit(() -> {
-				if ((System.currentTimeMillis() - lastSendInterval) > SEND_INTERVAL)
+				// limit sending interval if not forced
+				if (forced || (System.currentTimeMillis() - lastSendInterval) > SEND_INTERVAL)
 					try (DatagramSocket datagramSocket = new DatagramSocket()) {
 						datagramSocket
 								.send(new DatagramPacket(dataPacket, dataPacket.length, remote_address, REMOTE_PORT));
-						lastSendInterval = System.currentTimeMillis();
+						if (!forced)
+							lastSendInterval = System.currentTimeMillis();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
