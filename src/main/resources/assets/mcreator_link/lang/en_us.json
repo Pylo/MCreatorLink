@@ -13,5 +13,7 @@
     "link.command.server": "MCreator Link can't be used on a dedicated server.",
     "link.command.nodevice": "No device connected!",
     "link.command.nodevices": "No devices detected! You might need to run this command a few times to start detecting all devices.",
-    "link.command.unknown": "Unknown device!"
+    "link.command.unknown": "Unknown device!",
+
+    "block.mcreator_link.link": "MCreator Link Block"
 }

@@ -40,7 +40,7 @@ import javax.annotation.Nullable;
 
 	private int ticks = 0;
 
-	GuiMCreatorLink(Screen screenIn) {
+	public GuiMCreatorLink(Screen screenIn) {
 		super(new StringTextComponent("MCreator Link"));
 		this.prevScreen = screenIn;
 	}
