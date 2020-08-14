@@ -12,11 +12,6 @@ Setup instructions can be found on the MCreator Link official website: https://m
 
 ![MCreator Link Concept](https://www.pylo.co/static/mcreator/link/diagramnobg2.png?)
 
-## Issue tracker
-
-Issues can be reported on the official MCreator development team issue tracker
-found on https://mcreator.net/tracker
-
 ## Implementations
 
 Here are links to the current implementation of device support for the MCreator Link:
