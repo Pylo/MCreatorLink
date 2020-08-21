@@ -1,7 +1,9 @@
 net.mcreator.minecraft.link
+net.mcreator.minecraft.link.block
 net.mcreator.minecraft.link.command
 net.mcreator.minecraft.link.devices
 net.mcreator.minecraft.link.devices.arduino
 net.mcreator.minecraft.link.devices.raspberrypi
 net.mcreator.minecraft.link.event
 net.mcreator.minecraft.link.gui
+net.mcreator.minecraft.link.init

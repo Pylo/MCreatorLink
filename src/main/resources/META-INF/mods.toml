@@ -1,5 +1,6 @@
 modLoader="javafml"
-loaderVersion="[31,)"
+loaderVersion="[33,)"
+license="Apache License Version 2.0"
 
 [[mods]]
 modId="mcreator_link"
@@ -14,6 +15,6 @@ logoFile="logo.png"
 [[dependencies.test]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.15.2]"
+    versionRange="[1.16.2]"
     ordering="NONE"
     side="BOTH"

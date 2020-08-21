@@ -15,6 +15,12 @@ plugins {
     id "com.github.johnrengelman.shadow" version "4.0.4"
 }
 
+repositories {
+    maven {
+        url 'https://www.dogforce-games.com/maven/'
+    }
+}
+
 apply plugin: 'net.minecraftforge.gradle'
 
 version = "1.3"
@@ -26,7 +32,7 @@ project.tasks.build.dependsOn project.tasks.shadowJar
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: '20200225-1.15.1'
+    mappings channel: 'snapshot', version: '20200820-1.16.1'
 
     runs {
         client {
@@ -58,8 +64,8 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.15.2-31.1.24'
-	
+    minecraft 'net.minecraftforge:forge:1.16.2-33.0.10'
+
     compile 'com.fazecast:jSerialComm:[2.0.0,3.0.0)'
     shadow 'com.fazecast:jSerialComm:[2.0.0,3.0.0)'
 }
@@ -122,7 +128,7 @@ task copyModIntoFinalBuild(type: Copy) {
     from('build/libs/')
     include 'net.mcreator.minecraft.link-*-all.jar'
     into('build/export/')
-    rename { "MCreator Link " + project.version + " [1.15.2].jar" }
+    rename { "MCreator Link " + project.version + " [1.16.2].jar" }
 }
 
 task copyDevModIntoFinalBuild(type: Copy) {
@@ -131,7 +137,7 @@ task copyDevModIntoFinalBuild(type: Copy) {
     from('build/libs/')
     include 'net.mcreator.minecraft.link-*.jar'
     into('build/export/')
-    rename { "MCreator Link " + project.version + " [1.15.2] - Dev.jar" }
+    rename { "MCreator Link " + project.version + " [1.16.2] - Dev.jar" }
 }
 
 task exportArduinoLibrary(type: Zip) {

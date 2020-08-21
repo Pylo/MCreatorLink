@@ -16,6 +16,7 @@
 
 package net.mcreator.minecraft.link.gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.minecraft.util.Util;
 import net.minecraftforge.api.distmarker.Dist;
@@ -28,12 +29,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 	}
 
 	@Override
-	public void render(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY,
-			boolean isSelected, float partialTicks) {
+	public void render(MatrixStack matrixStack, int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX,
+			int mouseY, boolean isSelected, float partialTicks) {
 		if (this.client.currentScreen != null) {
 			int i = y + slotHeight / 2 - this.client.fontRenderer.FONT_HEIGHT / 2;
 
-			this.client.fontRenderer.drawString("Scanning for link compatible devices",
+			this.client.fontRenderer.drawString(matrixStack, "Scanning for link compatible devices",
 					this.client.currentScreen.width / 2f
 							- this.client.fontRenderer.getStringWidth("Scanning for link compatible devices") / 2f, i,
 					16777215);
@@ -52,7 +53,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 				s = "o o O";
 			}
 
-			this.client.fontRenderer.drawString(s,
+			this.client.fontRenderer.drawString(matrixStack, s,
 					this.client.currentScreen.width / 2f - this.client.fontRenderer.getStringWidth(s) / 2f,
 					i + this.client.fontRenderer.FONT_HEIGHT, 8421504);
 		}

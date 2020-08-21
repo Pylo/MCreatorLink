@@ -16,15 +16,17 @@
 
 package net.mcreator.minecraft.link.gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.mcreator.minecraft.link.MCreatorLink;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -52,37 +54,42 @@ import javax.annotation.Nullable;
 	@Override public void init(Minecraft minecraft, int width, int height) {
 		super.init(minecraft, width, height);
 
-		this.selectionList = new GuiListDevices(this, this.minecraft, this.width, this.height, 32, this.height - 42, 36);
+		this.selectionList = new GuiListDevices(this, this.minecraft, this.width, this.height, 32, this.height - 42,
+				36);
 		//this.children.add(this.selectionList);
 
-		this.connectButton = this.addButton(
-				new Button(this.width / 2 - 154, this.height - 32, 72, 20, I18n.format("link.menu.connect"), e -> {
-					GuiListDevicesEntry selected = this.selectionList.getSelectedDevice();
-					if (selected != null) {
-						MCreatorLink.LINK.setConnectedDevice(selected.getDevice());
-						this.selectionList.refreshList();
-					}
-				}));
-		this.disconnectButton = this.addButton(
-				new Button(this.width / 2 - 76, this.height - 32, 72, 20, I18n.format("link.menu.disconnect"), e -> {
-					GuiListDevicesEntry selected = this.selectionList.getSelectedDevice();
-					if (selected != null) {
-						MCreatorLink.LINK.disconnectDevice(selected.getDevice());
-						this.selectionList.refreshList();
-					}
-				}));
-
-		this.addButton(new Button(this.width / 2 + 2, this.height - 32, 72, 20, I18n.format("link.menu.direct"), e -> {
-			assert this.minecraft != null;
-			this.minecraft.displayGuiScreen(new GuiDirectLink(this));
+		this.connectButton = this.addButton(new Button(this.width / 2 - 154, this.height - 32, 72, 20,
+				new TranslationTextComponent("link.menu.connect"), e -> {
+			GuiListDevicesEntry selected = this.selectionList.getSelectedDevice();
+			if (selected != null) {
+				MCreatorLink.LINK.setConnectedDevice(selected.getDevice());
+				this.selectionList.refreshList();
+			}
 		}));
-		this.addButton(new Button( this.width / 2 + 82, this.height - 32, 72, 20, I18n.format("gui.done"), e -> {
-			if (this.minecraft != null) {
-				this.minecraft.displayGuiScreen(this.prevScreen);
+		this.disconnectButton = this.addButton(new Button(this.width / 2 - 76, this.height - 32, 72, 20,
+				new TranslationTextComponent("link.menu.disconnect"), e -> {
+			GuiListDevicesEntry selected = this.selectionList.getSelectedDevice();
+			if (selected != null) {
+				MCreatorLink.LINK.disconnectDevice(selected.getDevice());
+				this.selectionList.refreshList();
 			}
 		}));
 
-		this.addButton(new Button(this.width / 2 + 82 + 55, 6, 20, 20, "?", e -> Util.getOSType().openURI("https://mcreator.net/link")));
+		this.addButton(new Button(this.width / 2 + 2, this.height - 32, 72, 20,
+				new TranslationTextComponent("link.menu.direct"), e -> {
+			assert this.minecraft != null;
+			this.minecraft.displayGuiScreen(new GuiDirectLink(this));
+		}));
+		this.addButton(
+				new Button(this.width / 2 + 82, this.height - 32, 72, 20, new TranslationTextComponent("gui.done"),
+						e -> {
+							if (this.minecraft != null) {
+								this.minecraft.displayGuiScreen(this.prevScreen);
+							}
+						}));
+
+		this.addButton(new Button(this.width / 2 + 82 + 55, 6, 20, 20, new StringTextComponent("?"),
+				e -> Util.getOSType().openURI("https://mcreator.net/link")));
 
 		this.disconnectButton.active = false;
 		this.connectButton.active = false;
@@ -93,16 +100,16 @@ import javax.annotation.Nullable;
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	@Override public void render(int mouseX, int mouseY, float partialTicks) {
-		this.selectionList.render(mouseX, mouseY, partialTicks);
+	@Override public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+		this.selectionList.render(matrixStack, mouseX, mouseY, partialTicks);
 
-		super.render(mouseX, mouseY, partialTicks);
+		super.render(matrixStack, mouseX, mouseY, partialTicks);
 
 		if (minecraft != null) {
 			minecraft.getTextureManager().bindTexture(LOGO);
 		}
 		GlStateManager.enableBlend();
-		Screen.blit(this.width / 2 - 50, 8, 0.0F, 0.0F, 100, 16, 100, 16);
+		AbstractGui.blit(matrixStack, this.width / 2 - 50, 8, 0.0F, 0.0F, 100, 16, 100, 16);
 		GlStateManager.disableBlend();
 	}
 

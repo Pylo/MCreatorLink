@@ -45,9 +45,9 @@ public class ScreenEventHandler {
 				.getGui() instanceof IngameMenuScreen) {
 			int color = drawScreenEvent.getGui() instanceof MainMenuScreen ? 0x000000 : 0xffffff;
 			drawScreenEvent.getGui().getMinecraft().fontRenderer
-					.drawString("MCreator Link " + linkVersion, 3, 3, color);
+					.drawString(drawScreenEvent.getMatrixStack(), "MCreator Link " + linkVersion, 3, 3, color);
 			drawScreenEvent.getGui().getMinecraft().fontRenderer
-					.drawString(I18n.format("link.menu.settingskey"), 3, 14, color);
+					.drawString(drawScreenEvent.getMatrixStack(), I18n.format("link.menu.settingskey"), 3, 14, color);
 
 			if (GLFW.glfwGetKey(drawScreenEvent.getGui().getMinecraft().getMainWindow().getHandle(), GLFW.GLFW_KEY_L)
 					== GLFW.GLFW_PRESS)

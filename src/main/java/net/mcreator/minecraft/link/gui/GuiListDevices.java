@@ -19,8 +19,8 @@ package net.mcreator.minecraft.link.gui;
 import net.mcreator.minecraft.link.MCreatorLink;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.widget.list.AbstractList;
 import net.minecraft.client.gui.widget.list.ExtendedList;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -58,20 +58,8 @@ import javax.annotation.Nullable;
 			super.setSelected(entry);
 	}
 
-	@Override protected void moveSelection(int selectionIdx) {
-		int i = this.children().indexOf(this.getSelected());
-		int j = MathHelper.clamp(i + selectionIdx, 0, this.getItemCount() - 1);
-		GuiListDevicesEntry selection = this.children().get(j);
-		super.setSelected(selection);
-		if (selection instanceof GuiListDevicesEntryScan) {
-			if (selectionIdx <= 0 || j != this.getItemCount() - 1) {
-				if (selectionIdx >= 0 || j != 0) {
-					this.moveSelection(selectionIdx);
-				}
-			}
-		} else {
-			this.ensureVisible(selection);
-		}
+	@Override protected void moveSelection(AbstractList.Ordering ordering) {
+		this.func_241572_a_(ordering, entry -> !(entry instanceof GuiListDevicesEntryScan));
 	}
 
 	@Override public void setSelected(@Nullable GuiListDevicesEntry guiListDevicesEntry) {

@@ -16,6 +16,7 @@
 
 package net.mcreator.minecraft.link.gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.mcreator.minecraft.link.MCreatorLink;
 import net.mcreator.minecraft.link.devices.raspberrypi.RaspberryPi;
 import net.mcreator.minecraft.link.devices.raspberrypi.RaspberryPiDetector;
@@ -23,8 +24,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -36,21 +37,23 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 	private Button connect;
 
 	GuiDirectLink(Screen lastScreenIn) {
-		super(new StringTextComponent("Minecraft Link direct connect" ));
+		super(new StringTextComponent("Minecraft Link direct connect"));
 		this.lastScreen = lastScreenIn;
 	}
 
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	@Override public void render(int mouseX, int mouseY, float partialTicks) {
-		this.renderBackground();
-		super.render(mouseX, mouseY, partialTicks);
+	@Override public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+		this.renderBackground(matrixStack);
+		super.render(matrixStack, mouseX, mouseY, partialTicks);
 
-		this.drawCenteredString(this.font, I18n.format("link.direct.title" ), this.width / 2, 20, 16777215);
-		this.drawString(this.font, I18n.format("link.direct.field" ), this.width / 2 - 100, 100, 10526880);
+		drawCenteredString(matrixStack, this.font, new TranslationTextComponent("link.direct.title"), this.width / 2,
+				20, 16777215);
+		drawString(matrixStack, this.font, new TranslationTextComponent("link.direct.field"), this.width / 2 - 100, 100,
+				10526880);
 
-		this.ipTextField.render(mouseX, mouseY, partialTicks);
+		this.ipTextField.render(matrixStack, mouseX, mouseY, partialTicks);
 	}
 
 	/**
@@ -61,7 +64,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 		super.init(minecraft, width, height);
 		minecraft.keyboardListener.enableRepeatEvents(true);
 		this.addButton(connect = new Button(this.width / 2 - 100, this.height / 4 + 96 + 12, 200, 20,
-				I18n.format("link.direct.connect" ), e -> {
+				new TranslationTextComponent("link.direct.connect"), e -> {
 			String device = this.ipTextField.getText();
 			RaspberryPi raspberryPi = RaspberryPiDetector.getRaspberryPiForIP(device);
 			if (raspberryPi != null) {
@@ -73,16 +76,17 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 				this.ipTextField.setTextColor(0xff5d4d);
 			}
 		}));
-		this.addButton(
-				new Button(this.width / 2 - 100, this.height / 4 + 120 + 12, 200, 20, I18n.format("gui.cancel" ), e -> {
-					if (this.minecraft != null) {
-						this.minecraft.displayGuiScreen(this.lastScreen);
-					}
-				}));
+		this.addButton(new Button(this.width / 2 - 100, this.height / 4 + 120 + 12, 200, 20,
+				new TranslationTextComponent("gui.cancel"), e -> {
+			if (this.minecraft != null) {
+				this.minecraft.displayGuiScreen(this.lastScreen);
+			}
+		}));
 
-		this.ipTextField = new TextFieldWidget(this.font, this.width / 2 - 100, 116, 200, 20, "");
+		this.ipTextField = new TextFieldWidget(this.font, this.width / 2 - 100, 116, 200, 20,
+				new StringTextComponent(""));
 
-		connect.active = !this.ipTextField.getText().isEmpty() && this.ipTextField.getText().split(":" ).length > 0;
+		connect.active = !this.ipTextField.getText().isEmpty() && this.ipTextField.getText().split(":").length > 0;
 
 		this.ipTextField.setMaxStringLength(128);
 		this.children.add(this.ipTextField);
@@ -92,8 +96,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 	/**
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
-	@Override public void removed() {
-		super.removed();
+	@Override public void onClose() {
+		super.onClose();
 		if (minecraft != null) {
 			minecraft.keyboardListener.enableRepeatEvents(false);
 		}
@@ -108,11 +112,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 			connect.onPress();
 		} else if (this.ipTextField.keyPressed(typedChar, keyCode, par)) {
 			this.ipTextField.setTextColor(0xffffff);
-			connect.active = !this.ipTextField.getText().isEmpty() && this.ipTextField.getText().split(":" ).length > 0;
+			connect.active = !this.ipTextField.getText().isEmpty() && this.ipTextField.getText().split(":").length > 0;
 			return true;
 		}
 
-		connect.active = !this.ipTextField.getText().isEmpty() && this.ipTextField.getText().split(":" ).length > 0;
+		connect.active = !this.ipTextField.getText().isEmpty() && this.ipTextField.getText().split(":").length > 0;
 		return super.keyPressed(typedChar, keyCode, par);
 	}
 

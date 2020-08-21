@@ -21,10 +21,10 @@ import net.mcreator.minecraft.link.devices.arduino.ArduinoDetector;
 import net.mcreator.minecraft.link.devices.raspberrypi.RaspberryPiDetector;
 import net.mcreator.minecraft.link.gui.ScreenEventHandler;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 /**
@@ -46,8 +46,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 		LINK.registerDeviceDetector(new RaspberryPiDetector());
 	}
 
-	@SubscribeEvent public void serverLoad(FMLServerStartingEvent event) {
-		event.getCommandDispatcher().register(CommandLink.build());
+	@SubscribeEvent public void serverLoad(RegisterCommandsEvent event) {
+		event.getDispatcher().register(CommandLink.build());
 	}
 
 }

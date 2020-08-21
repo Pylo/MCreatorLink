@@ -16,6 +16,7 @@
 
 package net.mcreator.minecraft.link.gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.mcreator.minecraft.link.MCreatorLink;
@@ -23,7 +24,7 @@ import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.mcreator.minecraft.link.devices.arduino.Arduino;
 import net.mcreator.minecraft.link.devices.raspberrypi.RaspberryPi;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.widget.list.ExtendedList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
@@ -51,7 +52,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 	}
 
 	@Override
-	public void render(int slotIndex, int y, int x, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks) {
+	public void render(MatrixStack matrixStack, int slotIndex, int y, int x, int listWidth, int slotHeight, int mouseX,
+			int mouseY, boolean isSelected, float partialTicks) {
 		String s2 = "Status: ";
 
 		if (device.isConnected())
@@ -59,9 +61,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 		else
 			s2 += TextFormatting.GRAY + "AVAILABLE" + TextFormatting.RESET;
 
-		this.client.fontRenderer.drawString(device.getName(), x + 32 + 8, y + 1, 16777215);
-		this.client.fontRenderer.drawString(device.getDescription(), x + 32 + 8, y + this.client.fontRenderer.FONT_HEIGHT + 3, 8421504);
-		this.client.fontRenderer.drawString(s2, x + 32 + 8,
+		this.client.fontRenderer.drawString(matrixStack, device.getName(), x + 32 + 8, y + 1, 16777215);
+		this.client.fontRenderer.drawString(matrixStack, device.getDescription(), x + 32 + 8,
+				y + this.client.fontRenderer.FONT_HEIGHT + 3, 8421504);
+		this.client.fontRenderer.drawString(matrixStack, s2, x + 32 + 8,
 				y + this.client.fontRenderer.FONT_HEIGHT + this.client.fontRenderer.FONT_HEIGHT + 3, 8421504);
 
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -69,17 +72,17 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 		if (device instanceof Arduino) {
 			this.client.getTextureManager().bindTexture(DEVICE_ARDUINO);
 			GlStateManager.enableBlend();
-			Screen.blit(x, y, 0, 0, 32, 32, 32, 32);
+			AbstractGui.blit(matrixStack, x, y, 0, 0, 32, 32, 32, 32);
 			GlStateManager.disableBlend();
 		} else if (device instanceof RaspberryPi) {
 			this.client.getTextureManager().bindTexture(DEVICE_RASPBERRYPI);
 			GlStateManager.enableBlend();
-			Screen.blit(x, y, 0, 0, 32, 32, 32, 32);
+			AbstractGui.blit(matrixStack, x, y, 0, 0, 32, 32, 32, 32);
 			GlStateManager.disableBlend();
 		}
 
 		if (this.client.gameSettings.touchscreen || isSelected) {
-			Screen.fill(x, y, x + 32, y + 32, -1601138544);
+			AbstractGui.fill(matrixStack, x, y, x + 32, y + 32, -1601138544);
 		}
 	}
 
