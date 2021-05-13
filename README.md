@@ -1,6 +1,6 @@
 ![MCreator Link](https://www.pylo.co/static/mcreator/link/link_small.png?)
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/Pylo/MCreatorLink/blob/master/LICENSE) [![Documentation](https://img.shields.io/badge/documentation-available-green.svg)](https://pylo.github.io/MCreatorLink/) [![Build Status](https://travis-ci.com/Pylo/MCreatorLink.svg?branch=master)](https://travis-ci.com/Pylo/MCreatorLink)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/Pylo/MCreatorLink/blob/master/LICENSE) [![Documentation](https://img.shields.io/badge/java-doc-green.svg)](https://pylo.github.io/MCreatorLink/) [![Build Status](https://travis-ci.com/Pylo/MCreatorLink.svg?branch=master)](https://travis-ci.com/Pylo/MCreatorLink)
 
 MCreator Link enables you to connect hardware devices such as Arduino and Raspberry Pi with Minecraft game via MCreator procedures, commands and general API for Minecraft mod developers.
 
