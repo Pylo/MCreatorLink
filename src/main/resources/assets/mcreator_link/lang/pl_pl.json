@@ -1,0 +1,18 @@
+{
+  "link.menu.settingskey": "Naciśnij L aby otworzyć ustawienia Linka",
+  "link.menu.direct": "Połącz przez IP",
+  "link.menu.connect": "Połącz",
+  "link.menu.disconnect": "Rozłącz",
+
+  "link.direct.title": "MCreator Link Połączenie bezpośrednie",
+  "link.direct.field": "MCreator Link IP Urządzenia (Raspberry Pi):",
+  "link.direct.connect": "Połącz",
+
+  "link.command.wrongusage": "Składnia tej komendy jest nieprawidłowa! Użyj /link aby otrzymać pomoc.",
+  "link.command.server": "MCreator Link nie może być użyty z tym serwerem.",
+  "link.command.nodevice": "Brak połączonego urządzenia!",
+  "link.command.nodevices": "Nie wykryto urządzeń! Spróbuj parę razy wykonać tę komendę aby wyświetlić wsasdazystkie urządzenia.",
+  "link.command.unknown": "Nieznane urządzenie!",
+
+  "block.mcreator_link.link": "MCreator Blok Połączenia"
+}
