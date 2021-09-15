@@ -151,8 +151,18 @@ public final class CurrentDevice {
 	 */
 	public static void sendMessage(String message) {
 		AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
-		if (device != null)
-			device.sendData(("msg?" + message + "\n").getBytes());
+		String command = message.split(" ")[0];
+		try {
+			String data = message.split(" ")[1];
+			if (device != null)
+				device.sendData(("msg?" + command + ":" + data + "\n").getBytes());
+		}
+		catch (ArrayIndexOutOfBoundsException e){
+			System.out.println(command);
+			if (device != null)
+				device.sendData(("msg?" + command + ":" + " " + "\n").getBytes());
+		}
+
 	}
 
 	/**
