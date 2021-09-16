@@ -149,21 +149,22 @@ public final class CurrentDevice {
 	 *
 	 * @param message The message to be sent
 	 */
-	public static void sendMessage(String message) {
+	public static void sendMessagePure(String message) {
+		AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
+		System.out.println("pure message: " + message);
+		if (device != null)
+			device.sendData(("msg?" + message + "\n").getBytes());
+	}
+
+	public static void sendMessageWithData(String message){
 		AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
 		String command = message.split(" ")[0];
-		try {
-			String data = message.split(" ")[1];
-			if (device != null)
-				device.sendData(("msg?" + command + ":" + data + "\n").getBytes());
-		}
-		catch (ArrayIndexOutOfBoundsException e){
-			System.out.println(command);
-			if (device != null)
-				device.sendData(("msg?" + command + ":" + " " + "\n").getBytes());
-		}
-
+		String data = message.split(" ")[1];
+		System.out.println("data message: " + command + ":" + data);
+		if (device != null)
+			device.sendData(("msg?" + command + ":" + data + "\n").getBytes());
 	}
+
 
 	/**
 	 * Call this method to get the number of digital inputs the current device has
