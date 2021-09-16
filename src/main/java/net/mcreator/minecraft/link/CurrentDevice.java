@@ -147,19 +147,17 @@ public final class CurrentDevice {
 	 * <p>
 	 * If there is no device connected, nothing happens.
 	 *
-	 * @param message The message to be sent
+	 * @param command The message to be sent
 	 */
-	public static void sendMessagePure(String message) {
+	public static void sendMessage(String command) {
 		AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
-		System.out.println("pure message: " + message);
+		System.out.println("pure message: " + command);
 		if (device != null)
-			device.sendData(("msg?" + message + "\n").getBytes());
+			device.sendData(("msg?" + command + "\n").getBytes());
 	}
 
-	public static void sendMessageWithData(String message){
+	public static void sendMessage(String command, String data){
 		AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
-		String command = message.split(" ")[0];
-		String data = message.split(" ")[1];
 		System.out.println("data message: " + command + ":" + data);
 		if (device != null)
 			device.sendData(("msg?" + command + ":" + data + "\n").getBytes());

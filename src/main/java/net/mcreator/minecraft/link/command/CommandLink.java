@@ -148,9 +148,8 @@ public class CommandLink {
 			.then(Commands.argument("command", StringArgumentType.word())
 				.then(Commands.argument("data", StringArgumentType.word())
 					.executes(c -> {
-						String message = c.getArgument("command", String.class) + " " + c.getArgument("data", String.class);
 						try {
-							CurrentDevice.sendMessageWithData(message);
+							CurrentDevice.sendMessage(c.getArgument("command", String.class), c.getArgument("data", String.class));
 						} catch (Exception e) {
 							c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.wrongusage"));
 						}
@@ -158,7 +157,7 @@ public class CommandLink {
 					}))
 					.executes(c -> {
 					try {
-						CurrentDevice.sendMessagePure(c.getArgument("command", String.class));
+						CurrentDevice.sendMessage(c.getArgument("command", String.class));
 					} catch (Exception e) {
 						c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.wrongusage"));
 					}
