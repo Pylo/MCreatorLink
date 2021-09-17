@@ -151,7 +151,6 @@ public final class CurrentDevice {
 	 */
 	public static void sendMessage(String command) {
 		AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
-		System.out.println("pure message: " + command);
 		if (device != null)
 			device.sendData(("msg?" + command + "\n").getBytes());
 	}
@@ -166,7 +165,6 @@ public final class CurrentDevice {
 	 */
 	public static void sendMessage(String command, String data){
 		AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
-		System.out.println("data message: " + command + ":" + data);
 		if (device != null)
 			device.sendData(("msg?" + command + ":" + data + "\n").getBytes());
 	}
