@@ -143,17 +143,32 @@ public final class CurrentDevice {
 	}
 
 	/**
-	 * Call this method to send a custom message to the current device.
+	 * Call this method to send only a pure command to the current device.
 	 * <p>
 	 * If there is no device connected, nothing happens.
 	 *
-	 * @param message The message to be sent
+	 * @param command The command to be sent
 	 */
-	public static void sendMessage(String message) {
+	public static void sendMessage(String command) {
 		AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
 		if (device != null)
-			device.sendData(("msg?" + message + "\n").getBytes());
+			device.sendData(("msg?" + command + "\n").getBytes());
 	}
+
+	/**
+	 * Call this method to send a command with additional data to the current device.
+	 * <p>
+	 * If there is no device connected, nothing happens.
+	 *
+	 * @param command The command to be sent
+	 * @param data The data to be sent
+	 */
+	public static void sendMessage(String command, String data){
+		AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
+		if (device != null)
+			device.sendData(("msg?" + command + ":" + data + "\n").getBytes());
+	}
+
 
 	/**
 	 * Call this method to get the number of digital inputs the current device has

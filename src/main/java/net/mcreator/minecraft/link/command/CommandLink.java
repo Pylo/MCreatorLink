@@ -32,6 +32,7 @@ import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.mcreator.minecraft.link.devices.PinMode;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
+import net.minecraft.command.arguments.MessageArgument;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
@@ -141,16 +142,26 @@ public class CommandLink {
 						c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.wrongusage"));
 					}
 					return Command.SINGLE_SUCCESS;
-				}))))
+		}))))
 
 		.then(Commands.literal("sendmessage")
-			.then(Commands.argument("message", StringArgumentType.greedyString()).executes(c -> {
-				try {
-					CurrentDevice.sendMessage(c.getArgument("message", String.class));
-				} catch (Exception e) {
-					c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.wrongusage"));
-				}
-				return Command.SINGLE_SUCCESS;
+			.then(Commands.argument("command", StringArgumentType.word())
+				.then(Commands.argument("data", StringArgumentType.word())
+					.executes(c -> {
+						try {
+							CurrentDevice.sendMessage(c.getArgument("command", String.class), c.getArgument("data", String.class));
+						} catch (Exception e) {
+							c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.wrongusage"));
+						}
+						return Command.SINGLE_SUCCESS;
+					}))
+					.executes(c -> {
+					try {
+						CurrentDevice.sendMessage(c.getArgument("command", String.class));
+					} catch (Exception e) {
+						c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.wrongusage"));
+					}
+					return Command.SINGLE_SUCCESS;
 		})))
 
 		.then(Commands.literal("digitalread")
