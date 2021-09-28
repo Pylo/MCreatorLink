@@ -4,16 +4,14 @@
     "link.menu.direct": "IP connect",
     "link.menu.connect": "Connect",
     "link.menu.disconnect": "Disconnect",
-
-    "link.direct.title": "MCreator Link Direct Connect",
-    "link.direct.field": "MCreator Link Device (Raspberry Pi) IP:",
-    "link.direct.connect": "Connect",
-
-    "link.command.wrongusage": "The syntax of the command you entered is not valid! Enter /link command for usage.",
-    "link.command.server": "MCreator Link can't be used on a dedicated server.",
-    "link.command.nodevice": "No device connected!",
-    "link.command.nodevices": "No devices detected! You might need to run this command a few times to start detecting all devices.",
-    "link.command.unknown": "Unknown device!",
-
-    "block.mcreator_link.link": "MCreator Link Block"
+  "link.direct.title": "MCreator Link Direct Connect",
+  "link.direct.field": "MCreator Link Device (Raspberry Pi) IP:",
+  "link.direct.connect": "Connect",
+  "link.command.wrongusage": "The syntax of the command you entered is not valid! Enter /link command for usage.",
+  "link.command.server": "MCreator Link can't be used on a dedicated server.",
+  "link.command.nodevice": "No device connected!",
+  "link.command.nodevices": "No devices detected! You might need to run this command a few times to start detecting all devices.",
+  "link.command.unknown": "Unknown device!",
+  "block.mcreator_link.link": "MCreator Link Block",
+  "link.menu.selectlist": "Select MCreator Link device"
 }

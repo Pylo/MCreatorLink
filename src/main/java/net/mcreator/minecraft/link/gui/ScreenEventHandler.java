@@ -16,42 +16,33 @@
 
 package net.mcreator.minecraft.link.gui;
 
-import net.minecraft.client.gui.screen.IngameMenuScreen;
-import net.minecraft.client.gui.screen.MainMenuScreen;
-import net.minecraft.client.resources.I18n;
+import net.mcreator.minecraft.link.MCreatorLink;
+import net.minecraft.client.gui.screens.PauseScreen;
+import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
-import org.apache.maven.artifact.versioning.ArtifactVersion;
+import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
 
-public class ScreenEventHandler {
-
-	private final ArtifactVersion linkVersion;
-
-	public ScreenEventHandler() {
-		linkVersion = ModList.get().getModFileById("mcreator_link").getMods().get(0).getVersion();
-	}
+@Mod.EventBusSubscriber({ Dist.CLIENT }) public class ScreenEventHandler {
 
 	/**
 	 * This method subscribes to screen draw events so the Link notice can be rendered on some of the screens.
 	 *
 	 * @param drawScreenEvent ScreenEvent.DrawScreenEvent event instance
 	 */
-	@OnlyIn(Dist.CLIENT) @SubscribeEvent public void drawScreenEvent(GuiScreenEvent.DrawScreenEvent drawScreenEvent) {
-		if (drawScreenEvent.getGui() instanceof MainMenuScreen || drawScreenEvent
-				.getGui() instanceof IngameMenuScreen) {
-			drawScreenEvent.getGui().getMinecraft().fontRenderer
-					.drawString(drawScreenEvent.getMatrixStack(), "MCreator Link " + linkVersion, 3, 3, 0xffffff);
-			drawScreenEvent.getGui().getMinecraft().fontRenderer
-					.drawString(drawScreenEvent.getMatrixStack(), I18n.format("link.menu.settingskey"), 3, 14,
-							0xffffff);
+	@SubscribeEvent public static void drawScreenEvent(GuiScreenEvent.DrawScreenEvent drawScreenEvent) {
+		if (drawScreenEvent.getGui() instanceof TitleScreen || drawScreenEvent.getGui() instanceof PauseScreen) {
+			drawScreenEvent.getGui().getMinecraft().font.draw(drawScreenEvent.getMatrixStack(),
+					"MCreator Link " + MCreatorLink.VERSION, 3, 3, 0xffffff);
+			drawScreenEvent.getGui().getMinecraft().font.draw(drawScreenEvent.getMatrixStack(),
+					I18n.get("link.menu.settingskey"), 3, 14, 0xffffff);
 
-			if (GLFW.glfwGetKey(drawScreenEvent.getGui().getMinecraft().getMainWindow().getHandle(), GLFW.GLFW_KEY_L)
+			if (GLFW.glfwGetKey(drawScreenEvent.getGui().getMinecraft().getWindow().getWindow(), GLFW.GLFW_KEY_L)
 					== GLFW.GLFW_PRESS)
-				drawScreenEvent.getGui().getMinecraft().displayGuiScreen(new GuiMCreatorLink(drawScreenEvent.getGui()));
+				drawScreenEvent.getGui().getMinecraft().setScreen(new GuiMCreatorLink(drawScreenEvent.getGui()));
 		}
 	}
 

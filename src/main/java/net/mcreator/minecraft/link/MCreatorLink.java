@@ -19,34 +19,29 @@ package net.mcreator.minecraft.link;
 import net.mcreator.minecraft.link.command.CommandLink;
 import net.mcreator.minecraft.link.devices.arduino.ArduinoDetector;
 import net.mcreator.minecraft.link.devices.raspberrypi.RaspberryPiDetector;
-import net.mcreator.minecraft.link.gui.ScreenEventHandler;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.maven.artifact.versioning.ArtifactVersion;
 
 /**
  * Main mod class for the MCreator Link Minecraft mod
  */
-@Mod("mcreator_link") public class MCreatorLink {
+@Mod("mcreator_link") @Mod.EventBusSubscriber public class MCreatorLink {
 
-	public static DeviceManager LINK = new DeviceManager();
+	public static final DeviceManager LINK = new DeviceManager();
+
+	public static ArtifactVersion VERSION;
 
 	public MCreatorLink() {
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
-
-		MinecraftForge.EVENT_BUS.register(this);
-		MinecraftForge.EVENT_BUS.register(new ScreenEventHandler());
-	}
-
-	private void init(FMLCommonSetupEvent event) {
 		LINK.registerDeviceDetector(new ArduinoDetector());
 		LINK.registerDeviceDetector(new RaspberryPiDetector());
+
+		VERSION = ModList.get().getModFileById("mcreator_link").getMods().get(0).getVersion();
 	}
 
-	@SubscribeEvent public void serverLoad(RegisterCommandsEvent event) {
+	@SubscribeEvent public static void serverLoad(RegisterCommandsEvent event) {
 		event.getDispatcher().register(CommandLink.build());
 	}
 

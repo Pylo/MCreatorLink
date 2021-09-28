@@ -30,13 +30,13 @@ import net.mcreator.minecraft.link.CurrentDevice;
 import net.mcreator.minecraft.link.MCreatorLink;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.mcreator.minecraft.link.devices.PinMode;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
-import net.minecraft.command.arguments.MessageArgument;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -44,20 +44,20 @@ import java.util.concurrent.CompletableFuture;
  */
 public class CommandLink {
 
-	public static LiteralArgumentBuilder<CommandSource> build() {
+	public static LiteralArgumentBuilder<CommandSourceStack> build() {
 		// @formatter:off
-		return LiteralArgumentBuilder.<CommandSource>literal("link")
+		return Commands.literal("link")
 
 		.then(Commands.literal("device").executes(c -> {
 			AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
 			if (device != null) {
-				c.getSource().sendFeedback(new StringTextComponent(device.getName() + " - " + device.getDescription()),
+				c.getSource().sendSuccess(new TextComponent(device.getName() + " - " + device.getDescription()),
 						true);
-				c.getSource().sendFeedback(new StringTextComponent(
+				c.getSource().sendSuccess(new TextComponent(
 						"Digital pins: " + device.getDigitalPinsCount() + ", Analog pins: " + device
 								.getAnalogPinsCount()), true);
 			} else {
-				c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.nodevice"));
+				c.getSource().sendFailure(new TranslatableComponent("link.command.nodevice"));
 			}
 			return Command.SINGLE_SUCCESS;
 		}))
@@ -69,9 +69,9 @@ public class CommandLink {
 				response.append("[").append(++idx).append("]").append(device.getName()).append(" - ").append(device.getDescription());
 			}
 			if(!response.toString().isEmpty())
-				c.getSource().sendFeedback(new StringTextComponent(response.toString()), true);
+				c.getSource().sendSuccess(new TextComponent(response.toString()), true);
 			else
-				c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.nodevices"));
+				c.getSource().sendFailure(new TranslatableComponent("link.command.nodevices"));
 			return Command.SINGLE_SUCCESS;
 		}))
 
@@ -99,11 +99,11 @@ public class CommandLink {
 					for (AbstractDevice device : MCreatorLink.LINK.getAllDevices()) {
 						if (device.getName().equals(id)) {
 							MCreatorLink.LINK.setConnectedDevice(device);
-							c.getSource().sendFeedback(new StringTextComponent("Connected to " + device.getName()), true);
+							c.getSource().sendSuccess(new TextComponent("Connected to " + device.getName()), true);
 							return Command.SINGLE_SUCCESS;
 						}
 					}
-					c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.unknown"));
+					c.getSource().sendFailure(new TranslatableComponent("link.command.unknown"));
 					return Command.SINGLE_SUCCESS;
 		})))
 
@@ -127,7 +127,7 @@ public class CommandLink {
 						CurrentDevice.digitalWrite(c.getArgument("pin", Integer.class),
 								c.getArgument("value", Integer.class).byteValue());
 					} catch (Exception e) {
-						c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.wrongusage"));
+						c.getSource().sendFailure(new TranslatableComponent("link.command.wrongusage"));
 					}
 					return Command.SINGLE_SUCCESS;
 		}))))
@@ -139,7 +139,7 @@ public class CommandLink {
 						CurrentDevice.analogWrite(c.getArgument("pin", Integer.class),
 								c.getArgument("value", Integer.class).byteValue());
 					} catch (Exception e) {
-						c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.wrongusage"));
+						c.getSource().sendFailure(new TranslatableComponent("link.command.wrongusage"));
 					}
 					return Command.SINGLE_SUCCESS;
 		}))))
@@ -151,7 +151,7 @@ public class CommandLink {
 						try {
 							CurrentDevice.sendMessage(c.getArgument("command", String.class), c.getArgument("data", String.class));
 						} catch (Exception e) {
-							c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.wrongusage"));
+							c.getSource().sendFailure(new TranslatableComponent("link.command.wrongusage"));
 						}
 						return Command.SINGLE_SUCCESS;
 					}))
@@ -159,7 +159,7 @@ public class CommandLink {
 					try {
 						CurrentDevice.sendMessage(c.getArgument("command", String.class));
 					} catch (Exception e) {
-						c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.wrongusage"));
+						c.getSource().sendFailure(new TranslatableComponent("link.command.wrongusage"));
 					}
 					return Command.SINGLE_SUCCESS;
 		})))
@@ -168,9 +168,9 @@ public class CommandLink {
 			.then(Commands.argument("pin", IntegerArgumentType.integer()).executes(c -> {
 				try {
 				byte val = CurrentDevice.digitalRead(c.getArgument("pin", Integer.class));
-				c.getSource().sendFeedback(new StringTextComponent(Byte.toString(val)), true);
+				c.getSource().sendSuccess(new TextComponent(Byte.toString(val)), true);
 			} catch (Exception e) {
-				c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.wrongusage"));
+				c.getSource().sendFailure(new TranslatableComponent("link.command.wrongusage"));
 			}
 				return Command.SINGLE_SUCCESS;
 		})))
@@ -179,9 +179,9 @@ public class CommandLink {
 			.then(Commands.argument("pin", IntegerArgumentType.integer()).executes(c -> {
 				try {
 				short val = CurrentDevice.analogRead(c.getArgument("pin", Integer.class));
-				c.getSource().sendFeedback(new StringTextComponent(Short.toString(val)), true);
+				c.getSource().sendSuccess(new TextComponent(Short.toString(val)), true);
 			} catch (Exception e) {
-				c.getSource().sendErrorMessage(new TranslationTextComponent("link.command.wrongusage"));
+				c.getSource().sendFailure(new TranslatableComponent("link.command.wrongusage"));
 			}
 				return Command.SINGLE_SUCCESS;
 		})));

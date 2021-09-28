@@ -1,8 +1,8 @@
 package net.mcreator.minecraft.link.init;
 
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -14,7 +14,7 @@ import net.minecraftforge.registries.ObjectHolder;
 
 	@SubscribeEvent public static void registerItems(RegistryEvent.Register<Item> event) {
 		event.getRegistry().register(
-				new BlockItem(MCreatorLinkBlocks.LINK_BLOCK, new Item.Properties().group(ItemGroup.DECORATIONS))
+				new BlockItem(MCreatorLinkBlocks.LINK_BLOCK, new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS))
 						.setRegistryName(MCreatorLinkBlocks.LINK_BLOCK.getRegistryName()));
 	}
 

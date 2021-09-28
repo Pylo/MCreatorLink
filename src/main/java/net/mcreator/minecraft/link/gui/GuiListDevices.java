@@ -19,20 +19,21 @@ package net.mcreator.minecraft.link.gui;
 import net.mcreator.minecraft.link.MCreatorLink;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.widget.list.AbstractList;
-import net.minecraft.client.gui.widget.list.ExtendedList;
+import net.minecraft.client.gui.components.AbstractSelectionList;
+import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
-@OnlyIn(Dist.CLIENT) public class GuiListDevices extends ExtendedList<GuiListDevicesEntry> {
+@OnlyIn(Dist.CLIENT) public class GuiListDevices extends ObjectSelectionList<GuiListDevicesEntry> {
 
 	final GuiMCreatorLink guiMCreatorLink;
 
 	private final GuiListDevicesEntryScan devicesEntryScan;
 
-	GuiListDevices(GuiMCreatorLink guiMCreatorLink, Minecraft clientIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn) {
+	GuiListDevices(GuiMCreatorLink guiMCreatorLink, Minecraft clientIn, int widthIn, int heightIn, int topIn,
+			int bottomIn, int slotHeightIn) {
 		super(clientIn, widthIn, heightIn, topIn, bottomIn, slotHeightIn);
 		this.guiMCreatorLink = guiMCreatorLink;
 		this.devicesEntryScan = new GuiListDevicesEntryScan(this, null);
@@ -58,8 +59,8 @@ import javax.annotation.Nullable;
 			super.setSelected(entry);
 	}
 
-	@Override protected void moveSelection(AbstractList.Ordering ordering) {
-		this.func_241572_a_(ordering, entry -> !(entry instanceof GuiListDevicesEntryScan));
+	@Override protected void moveSelection(AbstractSelectionList.SelectionDirection ordering) {
+		this.moveSelection(ordering, entry -> !(entry instanceof GuiListDevicesEntryScan));
 	}
 
 	@Override public void setSelected(@Nullable GuiListDevicesEntry guiListDevicesEntry) {

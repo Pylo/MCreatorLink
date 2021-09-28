@@ -16,9 +16,10 @@
 
 package net.mcreator.minecraft.link.gui;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
-import net.minecraft.util.Util;
+import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -29,33 +30,24 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 	}
 
 	@Override
-	public void render(MatrixStack matrixStack, int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX,
+	public void render(PoseStack PoseStack, int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX,
 			int mouseY, boolean isSelected, float partialTicks) {
-		if (this.client.currentScreen != null) {
-			int i = y + slotHeight / 2 - this.client.fontRenderer.FONT_HEIGHT / 2;
+		if (this.client.screen != null) {
+			int i = y + slotHeight / 2 - this.client.font.lineHeight / 2;
 
-			this.client.fontRenderer.drawString(matrixStack, "Scanning for link compatible devices",
-					this.client.currentScreen.width / 2f
-							- this.client.fontRenderer.getStringWidth("Scanning for link compatible devices") / 2f, i,
-					16777215);
+			this.client.font.draw(PoseStack, "Scanning for link compatible devices",
+					this.client.screen.width / 2f - this.client.font.width("Scanning for link compatible devices") / 2f,
+					i, 16777215);
 
-			String s;
-			switch ((int) (Util.milliTime() / 300L % 4L)) {
-			case 0:
-			default:
-				s = "O o o";
-				break;
-			case 1:
-			case 3:
-				s = "o O o";
-				break;
-			case 2:
-				s = "o o O";
-			}
+			String s = switch ((int) (Util.getMillis() / 300L % 4L)) {
+				default -> "O o o";
+				case 1, 3 -> "o O o";
+				case 2 -> "o o O";
+			};
 
-			this.client.fontRenderer.drawString(matrixStack, s,
-					this.client.currentScreen.width / 2f - this.client.fontRenderer.getStringWidth(s) / 2f,
-					i + this.client.fontRenderer.FONT_HEIGHT, 8421504);
+			this.client.font.draw(PoseStack, s,
+					Minecraft.getInstance().screen.width / 2f - this.client.font.width(s) / 2f,
+					i + this.client.font.lineHeight, 8421504);
 		}
 	}
 
