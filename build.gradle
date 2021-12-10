@@ -139,7 +139,6 @@ task exportArduinoLibrary(type: Zip) {
     from(files('./arduino'))
 }
 
-
 task exportRaspberryPiLibrary(type: Copy) {
     from('raspberrypi/build/libs/')
     include 'mcreator-link-raspberrypi.jar'
