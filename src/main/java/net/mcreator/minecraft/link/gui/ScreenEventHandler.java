@@ -21,7 +21,7 @@ import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.GuiScreenEvent;
+import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
@@ -33,16 +33,16 @@ import org.lwjgl.glfw.GLFW;
 	 *
 	 * @param drawScreenEvent ScreenEvent.DrawScreenEvent event instance
 	 */
-	@SubscribeEvent public static void drawScreenEvent(GuiScreenEvent.DrawScreenEvent drawScreenEvent) {
-		if (drawScreenEvent.getGui() instanceof TitleScreen || drawScreenEvent.getGui() instanceof PauseScreen) {
-			drawScreenEvent.getGui().getMinecraft().font.draw(drawScreenEvent.getMatrixStack(),
+	@SubscribeEvent public static void drawScreenEvent(ScreenEvent.DrawScreenEvent drawScreenEvent) {
+		if (drawScreenEvent.getScreen() instanceof TitleScreen || drawScreenEvent.getScreen() instanceof PauseScreen) {
+			drawScreenEvent.getScreen().getMinecraft().font.draw(drawScreenEvent.getPoseStack(),
 					"MCreator Link " + MCreatorLink.VERSION, 3, 3, 0xffffff);
-			drawScreenEvent.getGui().getMinecraft().font.draw(drawScreenEvent.getMatrixStack(),
+			drawScreenEvent.getScreen().getMinecraft().font.draw(drawScreenEvent.getPoseStack(),
 					I18n.get("link.menu.settingskey"), 3, 14, 0xffffff);
 
-			if (GLFW.glfwGetKey(drawScreenEvent.getGui().getMinecraft().getWindow().getWindow(), GLFW.GLFW_KEY_L)
+			if (GLFW.glfwGetKey(drawScreenEvent.getScreen().getMinecraft().getWindow().getWindow(), GLFW.GLFW_KEY_L)
 					== GLFW.GLFW_PRESS)
-				drawScreenEvent.getGui().getMinecraft().setScreen(new GuiMCreatorLink(drawScreenEvent.getGui()));
+				drawScreenEvent.getScreen().getMinecraft().setScreen(new GuiMCreatorLink(drawScreenEvent.getScreen()));
 		}
 	}
 
