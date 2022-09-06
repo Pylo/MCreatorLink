@@ -17,12 +17,19 @@
 package net.mcreator.minecraft.link;
 
 import net.mcreator.minecraft.link.command.CommandLink;
+import net.mcreator.minecraft.link.command.LinkDeviceArgumentType;
 import net.mcreator.minecraft.link.devices.arduino.ArduinoDetector;
 import net.mcreator.minecraft.link.devices.raspberrypi.RaspberryPiDetector;
+import net.mcreator.minecraft.link.init.MCreatorLinkArgumentTypes;
+import net.mcreator.minecraft.link.init.MCreatorLinkBlocks;
+import net.mcreator.minecraft.link.init.MCreatorLinkItems;
+import net.minecraft.commands.synchronization.ArgumentTypeInfos;
 import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.maven.artifact.versioning.ArtifactVersion;
 
 /**
@@ -35,14 +42,21 @@ import org.apache.maven.artifact.versioning.ArtifactVersion;
 	public static ArtifactVersion VERSION;
 
 	public MCreatorLink() {
-		LINK.registerDeviceDetector(new ArduinoDetector());
-		LINK.registerDeviceDetector(new RaspberryPiDetector());
+        LINK.registerDeviceDetector(new ArduinoDetector());
+        LINK.registerDeviceDetector(new RaspberryPiDetector());
 
-		VERSION = ModList.get().getModFileById("mcreator_link").getMods().get(0).getVersion();
-	}
+        VERSION = ModList.get().getModFileById("mcreator_link").getMods().get(0).getVersion();
+
+        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        MCreatorLinkBlocks.REGISTRY.register(bus);
+        MCreatorLinkItems.REGISTRY.register(bus);
+        MCreatorLinkArgumentTypes.REGISTRY.register(bus);
+    }
 
 	@SubscribeEvent public static void serverLoad(RegisterCommandsEvent event) {
-		event.getDispatcher().register(CommandLink.build());
-	}
+        ArgumentTypeInfos.registerByClass(LinkDeviceArgumentType.class, MCreatorLinkArgumentTypes.LINK_DEVICE_ARGUMENT_INFO.get());
+
+        event.getDispatcher().register(CommandLink.build());
+    }
 
 }

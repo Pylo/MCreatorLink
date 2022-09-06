@@ -27,7 +27,6 @@ import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -84,9 +83,9 @@ import static net.minecraft.client.gui.GuiComponent.fill;
 			RenderSystem.disableBlend();
 		}
 
-		if (this.client.options.touchscreen || isSelected) {
-			fill(PoseStack, x, y, x + 32, y + 32, -1601138544);
-		}
+		if (this.client.options.touchscreen().get() || isSelected) {
+            fill(PoseStack, x, y, x + 32, y + 32, -1601138544);
+        }
 	}
 
 	/**
@@ -123,6 +122,6 @@ import static net.minecraft.client.gui.GuiComponent.fill;
 	}
 
 	@Override public Component getNarration() {
-		return new TranslatableComponent("link.menu.selectlist");
+        return Component.translatable("link.menu.selectlist");
 	}
 }

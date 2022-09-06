@@ -22,8 +22,7 @@ import net.mcreator.minecraft.link.MCreatorLink;
 import net.minecraft.Util;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -41,8 +40,8 @@ import javax.annotation.Nullable;
 	private int ticks = 0;
 
 	public GuiMCreatorLink(Screen screenIn) {
-		super(new TextComponent("MCreator Link"));
-		this.prevScreen = screenIn;
+        super(Component.literal("MCreator Link"));
+        this.prevScreen = screenIn;
 	}
 
 	/**
@@ -57,37 +56,37 @@ import javax.annotation.Nullable;
 		//this.children.add(this.selectionList);
 
 		this.connectButton = this.addRenderableWidget(new Button(this.width / 2 - 154, this.height - 32, 72, 20,
-				new TranslatableComponent("link.menu.connect"), e -> {
-			GuiListDevicesEntry selected = this.selectionList.getSelectedDevice();
-			if (selected != null) {
-				MCreatorLink.LINK.setConnectedDevice(selected.getDevice());
-				this.selectionList.refreshList();
-			}
-		}));
+                Component.translatable("link.menu.connect"), e -> {
+            GuiListDevicesEntry selected = this.selectionList.getSelectedDevice();
+            if (selected != null) {
+                MCreatorLink.LINK.setConnectedDevice(selected.getDevice());
+                this.selectionList.refreshList();
+            }
+        }));
 		this.disconnectButton = this.addRenderableWidget(new Button(this.width / 2 - 76, this.height - 32, 72, 20,
-				new TranslatableComponent("link.menu.disconnect"), e -> {
-			GuiListDevicesEntry selected = this.selectionList.getSelectedDevice();
-			if (selected != null) {
-				MCreatorLink.LINK.disconnectDevice(selected.getDevice());
-				this.selectionList.refreshList();
-			}
-		}));
+                Component.translatable("link.menu.disconnect"), e -> {
+            GuiListDevicesEntry selected = this.selectionList.getSelectedDevice();
+            if (selected != null) {
+                MCreatorLink.LINK.disconnectDevice(selected.getDevice());
+                this.selectionList.refreshList();
+            }
+        }));
 
 		this.addRenderableWidget(
-				new Button(this.width / 2 + 2, this.height - 32, 72, 20, new TranslatableComponent("link.menu.direct"),
-						e -> {
-							assert this.minecraft != null;
-							this.minecraft.setScreen(new GuiDirectLink(this));
-						}));
+                new Button(this.width / 2 + 2, this.height - 32, 72, 20, Component.translatable("link.menu.direct"),
+                        e -> {
+                            assert this.minecraft != null;
+                            this.minecraft.setScreen(new GuiDirectLink(this));
+                        }));
 		this.addRenderableWidget(
-				new Button(this.width / 2 + 82, this.height - 32, 72, 20, new TranslatableComponent("gui.done"), e -> {
-					if (this.minecraft != null) {
-						this.minecraft.setScreen(this.prevScreen);
-					}
-				}));
+                new Button(this.width / 2 + 82, this.height - 32, 72, 20, Component.translatable("gui.done"), e -> {
+                    if (this.minecraft != null) {
+                        this.minecraft.setScreen(this.prevScreen);
+                    }
+                }));
 
-		this.addRenderableWidget(new Button(this.width / 2 + 82 + 55, 6, 20, 20, new TextComponent("?"),
-				e -> Util.getPlatform().openUri("https://mcreator.net/link")));
+        this.addRenderableWidget(new Button(this.width / 2 + 82 + 55, 6, 20, 20, Component.literal("?"),
+                e -> Util.getPlatform().openUri("https://mcreator.net/link")));
 
 		this.disconnectButton.active = false;
 		this.connectButton.active = false;

@@ -17,7 +17,6 @@ public class LinkBlock extends Block {
 
 	public LinkBlock() {
 		super(BlockBehaviour.Properties.of(Material.METAL));
-		setRegistryName("link");
 	}
 
 	@SuppressWarnings("deprecation") @Override

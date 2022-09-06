@@ -2,17 +2,14 @@ package net.mcreator.minecraft.link.init;
 
 import net.mcreator.minecraft.link.block.LinkBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ObjectHolder;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD) public class MCreatorLinkBlocks {
+public class MCreatorLinkBlocks {
 
-	@ObjectHolder("mcreator_link:link") public static final Block LINK_BLOCK = null;
+    public static final DeferredRegister<Block> REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCKS, "mcreator_link");
 
-	@SubscribeEvent public static void registerBlocks(RegistryEvent.Register<Block> event) {
-		event.getRegistry().register(new LinkBlock());
-	}
+    public static final RegistryObject<Block> LINK_BLOCK = REGISTRY.register("link", LinkBlock::new);
 
 }

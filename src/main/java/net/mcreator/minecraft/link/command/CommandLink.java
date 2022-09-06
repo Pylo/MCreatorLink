@@ -17,27 +17,17 @@
 package net.mcreator.minecraft.link.command;
 
 import com.mojang.brigadier.Command;
-import com.mojang.brigadier.StringReader;
-import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
-import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.suggestion.Suggestions;
-import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.mcreator.minecraft.link.CurrentDevice;
 import net.mcreator.minecraft.link.MCreatorLink;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.mcreator.minecraft.link.devices.PinMode;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.concurrent.CompletableFuture;
+import net.minecraft.network.chat.Component;
 
 /**
  * Class that defines the behaviour of the /link command in Minecraft.
@@ -51,13 +41,13 @@ public class CommandLink {
 		.then(Commands.literal("device").executes(c -> {
 			AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
 			if (device != null) {
-				c.getSource().sendSuccess(new TextComponent(device.getName() + " - " + device.getDescription()),
+				c.getSource().sendSuccess(Component.literal(device.getName() + " - " + device.getDescription()),
 						true);
-				c.getSource().sendSuccess(new TextComponent(
+				c.getSource().sendSuccess(Component.literal(
 						"Digital pins: " + device.getDigitalPinsCount() + ", Analog pins: " + device
 								.getAnalogPinsCount()), true);
 			} else {
-				c.getSource().sendFailure(new TranslatableComponent("link.command.nodevice"));
+				c.getSource().sendFailure(Component.translatable("link.command.nodevice"));
 			}
 			return Command.SINGLE_SUCCESS;
 		}))
@@ -69,42 +59,25 @@ public class CommandLink {
 				response.append("[").append(++idx).append("]").append(device.getName()).append(" - ").append(device.getDescription());
 			}
 			if(!response.toString().isEmpty())
-				c.getSource().sendSuccess(new TextComponent(response.toString()), true);
+				c.getSource().sendSuccess(Component.literal(response.toString()), true);
 			else
-				c.getSource().sendFailure(new TranslatableComponent("link.command.nodevices"));
+				c.getSource().sendFailure(Component.translatable("link.command.nodevices"));
 			return Command.SINGLE_SUCCESS;
 		}))
 
 		.then(Commands.literal("connect")
 			.then(Commands.argument("name", RequiredArgumentBuilder.argument("name",
-					new ArgumentType<String>(){
-
-				@Override public String parse(StringReader reader) {
-    				String deviceName = reader.getRemaining();
-            		reader.setCursor(reader.getTotalLength());
-            		return deviceName;
-    			}
-
-    			@Override public<S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-    				for (AbstractDevice device : MCreatorLink.LINK.getAllDevices())
-    					builder.suggest(device.getName());
-    				return builder.buildFuture();
-    			}
-
-    			@Override public Collection<String> getExamples() {
-    				return Collections.emptyList();
-    			}
-			}).getType()).executes(c -> {
-					String id = c.getArgument("name", String.class);
-					for (AbstractDevice device : MCreatorLink.LINK.getAllDevices()) {
-						if (device.getName().equals(id)) {
-							MCreatorLink.LINK.setConnectedDevice(device);
-							c.getSource().sendSuccess(new TextComponent("Connected to " + device.getName()), true);
-							return Command.SINGLE_SUCCESS;
-						}
+					new LinkDeviceArgumentType()).getType()).executes(c -> {
+				String id = c.getArgument("name", String.class);
+				for (AbstractDevice device : MCreatorLink.LINK.getAllDevices()) {
+					if (device.getName().equals(id)) {
+						MCreatorLink.LINK.setConnectedDevice(device);
+						c.getSource().sendSuccess(Component.literal("Connected to " + device.getName()), true);
+						return Command.SINGLE_SUCCESS;
 					}
-					c.getSource().sendFailure(new TranslatableComponent("link.command.unknown"));
-					return Command.SINGLE_SUCCESS;
+				}
+				c.getSource().sendFailure(Component.translatable("link.command.unknown"));
+				return Command.SINGLE_SUCCESS;
 		})))
 
 		.then(Commands.literal("pinmode")
@@ -127,7 +100,7 @@ public class CommandLink {
 						CurrentDevice.digitalWrite(c.getArgument("pin", Integer.class),
 								c.getArgument("value", Integer.class).byteValue());
 					} catch (Exception e) {
-						c.getSource().sendFailure(new TranslatableComponent("link.command.wrongusage"));
+						c.getSource().sendFailure(Component.translatable("link.command.wrongusage"));
 					}
 					return Command.SINGLE_SUCCESS;
 		}))))
@@ -139,7 +112,7 @@ public class CommandLink {
 						CurrentDevice.analogWrite(c.getArgument("pin", Integer.class),
 								c.getArgument("value", Integer.class).byteValue());
 					} catch (Exception e) {
-						c.getSource().sendFailure(new TranslatableComponent("link.command.wrongusage"));
+						c.getSource().sendFailure(Component.translatable("link.command.wrongusage"));
 					}
 					return Command.SINGLE_SUCCESS;
 		}))))
@@ -151,7 +124,7 @@ public class CommandLink {
 						try {
 							CurrentDevice.sendMessage(c.getArgument("command", String.class), c.getArgument("data", String.class));
 						} catch (Exception e) {
-							c.getSource().sendFailure(new TranslatableComponent("link.command.wrongusage"));
+							c.getSource().sendFailure(Component.translatable("link.command.wrongusage"));
 						}
 						return Command.SINGLE_SUCCESS;
 					}))
@@ -159,7 +132,7 @@ public class CommandLink {
 					try {
 						CurrentDevice.sendMessage(c.getArgument("command", String.class));
 					} catch (Exception e) {
-						c.getSource().sendFailure(new TranslatableComponent("link.command.wrongusage"));
+						c.getSource().sendFailure(Component.translatable("link.command.wrongusage"));
 					}
 					return Command.SINGLE_SUCCESS;
 		})))
@@ -168,9 +141,9 @@ public class CommandLink {
 			.then(Commands.argument("pin", IntegerArgumentType.integer()).executes(c -> {
 				try {
 				byte val = CurrentDevice.digitalRead(c.getArgument("pin", Integer.class));
-				c.getSource().sendSuccess(new TextComponent(Byte.toString(val)), true);
+					c.getSource().sendSuccess(Component.literal(Byte.toString(val)), true);
 			} catch (Exception e) {
-				c.getSource().sendFailure(new TranslatableComponent("link.command.wrongusage"));
+					c.getSource().sendFailure(Component.translatable("link.command.wrongusage"));
 			}
 				return Command.SINGLE_SUCCESS;
 		})))
@@ -179,9 +152,9 @@ public class CommandLink {
 			.then(Commands.argument("pin", IntegerArgumentType.integer()).executes(c -> {
 				try {
 				short val = CurrentDevice.analogRead(c.getArgument("pin", Integer.class));
-				c.getSource().sendSuccess(new TextComponent(Short.toString(val)), true);
+					c.getSource().sendSuccess(Component.literal(Short.toString(val)), true);
 			} catch (Exception e) {
-				c.getSource().sendFailure(new TranslatableComponent("link.command.wrongusage"));
+					c.getSource().sendFailure(Component.translatable("link.command.wrongusage"));
 			}
 				return Command.SINGLE_SUCCESS;
 		})));

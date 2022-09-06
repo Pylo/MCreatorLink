@@ -23,8 +23,7 @@ import net.mcreator.minecraft.link.devices.raspberrypi.RaspberryPiDetector;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -36,8 +35,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 	private Button connect;
 
 	GuiDirectLink(Screen lastScreenIn) {
-		super(new TextComponent("Minecraft Link direct connect"));
-		this.lastScreen = lastScreenIn;
+        super(Component.literal("Minecraft Link direct connect"));
+        this.lastScreen = lastScreenIn;
 	}
 
 	/**
@@ -47,10 +46,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 		this.renderBackground(PoseStack);
 		super.render(PoseStack, mouseX, mouseY, partialTicks);
 
-		drawCenteredString(PoseStack, this.font, new TranslatableComponent("link.direct.title"), this.width / 2, 20,
-				16777215);
-		drawString(PoseStack, this.font, new TranslatableComponent("link.direct.field"), this.width / 2 - 100, 100,
-				10526880);
+        drawCenteredString(PoseStack, this.font, Component.translatable("link.direct.title"), this.width / 2, 20,
+                16777215);
+        drawString(PoseStack, this.font, Component.translatable("link.direct.field"), this.width / 2 - 100, 100,
+                10526880);
 
 		this.ipTextField.render(PoseStack, mouseX, mouseY, partialTicks);
 	}
@@ -66,25 +65,25 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 			minecraft.keyboardHandler.setSendRepeatsToGui(true);
 
 		this.addRenderableWidget(connect = new Button(this.width / 2 - 100, this.height / 4 + 96 + 12, 200, 20,
-				new TranslatableComponent("link.direct.connect"), e -> {
-			String device = this.ipTextField.getValue();
-			RaspberryPi raspberryPi = RaspberryPiDetector.getRaspberryPiForIP(device);
-			if (raspberryPi != null) {
-				MCreatorLink.LINK.setConnectedDevice(raspberryPi);
-				if (this.minecraft != null)
-					this.minecraft.setScreen(this.lastScreen);
-			} else {
-				this.ipTextField.setTextColor(0xff5d4d);
-			}
-		}));
+                Component.translatable("link.direct.connect"), e -> {
+            String device = this.ipTextField.getValue();
+            RaspberryPi raspberryPi = RaspberryPiDetector.getRaspberryPiForIP(device);
+            if (raspberryPi != null) {
+                MCreatorLink.LINK.setConnectedDevice(raspberryPi);
+                if (this.minecraft != null)
+                    this.minecraft.setScreen(this.lastScreen);
+            } else {
+                this.ipTextField.setTextColor(0xff5d4d);
+            }
+        }));
 		this.addRenderableWidget(new Button(this.width / 2 - 100, this.height / 4 + 120 + 12, 200, 20,
-				new TranslatableComponent("gui.cancel"), e -> {
-			if (this.minecraft != null) {
-				this.minecraft.setScreen(this.lastScreen);
-			}
-		}));
+                Component.translatable("gui.cancel"), e -> {
+            if (this.minecraft != null) {
+                this.minecraft.setScreen(this.lastScreen);
+            }
+        }));
 
-		this.ipTextField = new EditBox(this.font, this.width / 2 - 100, 116, 200, 20, new TextComponent(""));
+        this.ipTextField = new EditBox(this.font, this.width / 2 - 100, 116, 200, 20, Component.literal(""));
 
 		connect.active = !this.ipTextField.getValue().isEmpty() && this.ipTextField.getValue().split(":").length > 0;
 

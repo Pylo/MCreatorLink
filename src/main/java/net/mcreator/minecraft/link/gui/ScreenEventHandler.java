@@ -29,21 +29,22 @@ import org.lwjgl.glfw.GLFW;
 @Mod.EventBusSubscriber({ Dist.CLIENT }) public class ScreenEventHandler {
 
 	/**
-	 * This method subscribes to screen draw events so the Link notice can be rendered on some of the screens.
-	 *
-	 * @param drawScreenEvent ScreenEvent.DrawScreenEvent event instance
-	 */
-	@SubscribeEvent public static void drawScreenEvent(ScreenEvent.DrawScreenEvent drawScreenEvent) {
-		if (drawScreenEvent.getScreen() instanceof TitleScreen || drawScreenEvent.getScreen() instanceof PauseScreen) {
-			drawScreenEvent.getScreen().getMinecraft().font.draw(drawScreenEvent.getPoseStack(),
-					"MCreator Link " + MCreatorLink.VERSION, 3, 3, 0xffffff);
-			drawScreenEvent.getScreen().getMinecraft().font.draw(drawScreenEvent.getPoseStack(),
-					I18n.get("link.menu.settingskey"), 3, 14, 0xffffff);
+     * This method subscribes to screen draw events so the Link notice can be rendered on some screens.
+     *
+     * @param drawScreenEvent ScreenEvent.DrawScreenEvent event instance
+     */
+    @SubscribeEvent
+    public static void drawScreenEvent(ScreenEvent.Render.Post drawScreenEvent) {
+        if (drawScreenEvent.getScreen() instanceof TitleScreen || drawScreenEvent.getScreen() instanceof PauseScreen) {
+            drawScreenEvent.getScreen().getMinecraft().font.draw(drawScreenEvent.getPoseStack(),
+                    "MCreator Link " + MCreatorLink.VERSION, 3, 3, 0xffffff);
+            drawScreenEvent.getScreen().getMinecraft().font.draw(drawScreenEvent.getPoseStack(),
+                    I18n.get("link.menu.settingskey"), 3, 14, 0xffffff);
 
-			if (GLFW.glfwGetKey(drawScreenEvent.getScreen().getMinecraft().getWindow().getWindow(), GLFW.GLFW_KEY_L)
-					== GLFW.GLFW_PRESS)
-				drawScreenEvent.getScreen().getMinecraft().setScreen(new GuiMCreatorLink(drawScreenEvent.getScreen()));
-		}
+            if (GLFW.glfwGetKey(drawScreenEvent.getScreen().getMinecraft().getWindow().getWindow(), GLFW.GLFW_KEY_L)
+                    == GLFW.GLFW_PRESS)
+                drawScreenEvent.getScreen().getMinecraft().setScreen(new GuiMCreatorLink(drawScreenEvent.getScreen()));
+        }
 	}
 
 }
