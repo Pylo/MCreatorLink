@@ -139,7 +139,7 @@ task exportArduinoLibrary(type: Zip) {
     from(files('./arduino'))
 }
 
-task exportRaspberryPiLibrary(type: Copy) {
+/*task exportRaspberryPiLibrary(type: Copy) {
     from('raspberrypi/build/libs/')
     include 'mcreator-link-raspberrypi.jar'
     into('build/export/')
@@ -151,7 +151,7 @@ task exportRaspberryPiSetupScript(type: Copy) {
     include 'setup.sh'
     into('build/export/')
     rename { "rpisetup.sh" }
-}
+}*/
 
 task exportJavadoc(type: Copy) {
     from('build/docs/javadoc')
@@ -167,9 +167,9 @@ task exportAllButDev() {
 
     dependsOn copyModIntoFinalBuild
     dependsOn exportArduinoLibrary
-    dependsOn ':mcreator-link-raspberrypi:build'
-    dependsOn exportRaspberryPiLibrary
-    dependsOn exportRaspberryPiSetupScript
+//    dependsOn ':mcreator-link-raspberrypi:build'
+//    dependsOn exportRaspberryPiLibrary
+//    dependsOn exportRaspberryPiSetupScript
 }
 
 task exportDev() {

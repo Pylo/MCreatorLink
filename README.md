@@ -16,11 +16,9 @@ Setup instructions can be found on the MCreator Link official website: https://m
 
 Here are links to the current implementation of device support for the MCreator Link:
 
-### [MCreator Link for Arduino](https://github.com/Pylo/MCreatorLinkArduino) 
-[![Build Status](https://travis-ci.com/Pylo/MCreatorLinkArduino.svg?branch=master)](https://travis-ci.com/Pylo/MCreatorLinkArduino)
+### [MCreator Link for Arduino](https://github.com/Pylo/MCreatorLinkArduino) [![Build Status](https://travis-ci.com/Pylo/MCreatorLinkArduino.svg?branch=master)](https://travis-ci.com/Pylo/MCreatorLinkArduino)
 
-### [MCreator Link for Raspberry Pi](https://github.com/Pylo/MCreatorLinkRaspberryPi) 
-[![Build Status](https://travis-ci.com/Pylo/MCreatorLinkRaspberryPi.svg?branch=master)](https://travis-ci.com/Pylo/MCreatorLinkRaspberryPi)
+### [MCreator Link for Raspberry Pi](https://github.com/Pylo/MCreatorLinkRaspberryPi) (deprecated)
 
 ## Contributing
 
