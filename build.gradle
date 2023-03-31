@@ -22,7 +22,7 @@ project.tasks.build.dependsOn project.tasks.shadowJar
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
-    mappings channel: 'official', version: '1.19.2'
+    mappings channel: 'official', version: '1.19.4'
 
     runs {
         client {
@@ -59,9 +59,10 @@ configurations {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.2-43.1.1'
+    minecraft 'net.minecraftforge:forge:1.19.4-45.0.39'
 
     shadowpack 'com.fazecast:jSerialComm:2.7.0'
+    implementation 'com.fazecast:jSerialComm:2.7.0'
 }
 
 shadowJar {
@@ -121,7 +122,7 @@ task copyModIntoFinalBuild(type: Copy) {
     from('build/libs/')
     include ('mcreator_link-' + version + '-all.jar')
     into('build/export/')
-    rename { "MCreator Link " + project.version + " [1.19.2].jar" }
+    rename { "MCreator Link " + project.version + " [1.19.4].jar" }
 }
 
 task copyDevModIntoFinalBuild(type: Copy) {
@@ -130,7 +131,7 @@ task copyDevModIntoFinalBuild(type: Copy) {
     from('build/libs/')
     include ('mcreator_link-' + version + '.jar')
     into('build/export/')
-    rename { "MCreator Link " + project.version + " [1.19.2] - Dev.jar" }
+    rename { "MCreator Link " + project.version + " [1.19.4] - Dev.jar" }
 }
 
 task exportArduinoLibrary(type: Zip) {

@@ -19,8 +19,8 @@ package net.mcreator.minecraft.link.gui;
 import net.mcreator.minecraft.link.MCreatorLink;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.AbstractSelectionList;
 import net.minecraft.client.gui.components.ObjectSelectionList;
+import net.minecraft.client.gui.navigation.ScreenDirection;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -49,28 +49,30 @@ import javax.annotation.Nullable;
 		for (AbstractDevice device : MCreatorLink.LINK.getAllDevices()) {
 			GuiListDevicesEntry tmp;
 			this.addEntry(tmp = new GuiListDevicesEntry(this, device));
-			if (entry != null && device.equals(entry.getDevice()))
-				entry = tmp;
-		}
+            if (entry != null && device.equals(entry.getDevice()))
+                entry = tmp;
+        }
 
-		this.addEntry(devicesEntryScan);
+        this.addEntry(devicesEntryScan);
 
-		if (entry != null)
-			super.setSelected(entry);
-	}
+        if (entry != null)
+            super.setSelected(entry);
+    }
 
-	@Override protected void moveSelection(AbstractSelectionList.SelectionDirection ordering) {
-		this.moveSelection(ordering, entry -> !(entry instanceof GuiListDevicesEntryScan));
-	}
+    @Override
+    protected GuiListDevicesEntry nextEntry(ScreenDirection direction) {
+        return this.nextEntry(direction, entry -> !(entry instanceof GuiListDevicesEntryScan));
+    }
 
-	@Override public void setSelected(@Nullable GuiListDevicesEntry guiListDevicesEntry) {
-		super.setSelected(guiListDevicesEntry);
-		this.guiMCreatorLink.setSelectedDevice(this.getSelectedDevice());
-	}
+    @Override
+    public void setSelected(@Nullable GuiListDevicesEntry guiListDevicesEntry) {
+        super.setSelected(guiListDevicesEntry);
+        this.guiMCreatorLink.setSelectedDevice(this.getSelectedDevice());
+    }
 
-	/**
-	 * Gets the width of the list
-	 */
+    /**
+     * Gets the width of the list
+     */
 	@Override public int getRowWidth() {
 		return super.getRowWidth() + 85;
 	}

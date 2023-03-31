@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[43,)"
+loaderVersion = "[45,)"
 license = "Apache License Version 2.0"
 
 [[mods]]
@@ -15,6 +15,6 @@ logoFile="logo.png"
 [[dependencies.test]]
     modId="minecraft"
 mandatory = true
-versionRange = "[1.19.2]"
+versionRange = "[1.19.4]"
 ordering = "NONE"
     side="BOTH"

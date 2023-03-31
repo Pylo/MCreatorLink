@@ -49,48 +49,45 @@ import javax.annotation.Nullable;
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	@Override public void init() {
-		super.init();
+        super.init();
 
-		this.selectionList = new GuiListDevices(this, this.minecraft, this.width, this.height, 32, this.height - 42,
-				36);
-		//this.children.add(this.selectionList);
+        this.selectionList = new GuiListDevices(this, this.minecraft, this.width, this.height, 32, this.height - 42,
+                36);
 
-		this.connectButton = this.addRenderableWidget(new Button(this.width / 2 - 154, this.height - 32, 72, 20,
-                Component.translatable("link.menu.connect"), e -> {
+        this.connectButton = this.addRenderableWidget(Button.builder(Component.translatable("link.menu.connect"), e -> {
             GuiListDevicesEntry selected = this.selectionList.getSelectedDevice();
             if (selected != null) {
                 MCreatorLink.LINK.setConnectedDevice(selected.getDevice());
                 this.selectionList.refreshList();
             }
-        }));
-		this.disconnectButton = this.addRenderableWidget(new Button(this.width / 2 - 76, this.height - 32, 72, 20,
-                Component.translatable("link.menu.disconnect"), e -> {
+        }).bounds(this.width / 2 - 154, this.height - 32, 72, 20).build());
+
+        this.disconnectButton = this.addRenderableWidget(Button.builder(Component.translatable("link.menu.disconnect"), e -> {
             GuiListDevicesEntry selected = this.selectionList.getSelectedDevice();
             if (selected != null) {
                 MCreatorLink.LINK.disconnectDevice(selected.getDevice());
                 this.selectionList.refreshList();
             }
-        }));
+        }).bounds(this.width / 2 - 76, this.height - 32, 72, 20).build());
 
-		this.addRenderableWidget(
-                new Button(this.width / 2 + 2, this.height - 32, 72, 20, Component.translatable("link.menu.direct"),
-                        e -> {
-                            assert this.minecraft != null;
-                            this.minecraft.setScreen(new GuiDirectLink(this));
-                        }));
-		this.addRenderableWidget(
-                new Button(this.width / 2 + 82, this.height - 32, 72, 20, Component.translatable("gui.done"), e -> {
-                    if (this.minecraft != null) {
-                        this.minecraft.setScreen(this.prevScreen);
-                    }
-                }));
+        this.addRenderableWidget(Button.builder(Component.translatable("link.menu.direct"),
+                e -> {
+                    assert this.minecraft != null;
+                    this.minecraft.setScreen(new GuiDirectLink(this));
+                }).bounds(this.width / 2 + 2, this.height - 32, 72, 20).build());
 
-        this.addRenderableWidget(new Button(this.width / 2 + 82 + 55, 6, 20, 20, Component.literal("?"),
-                e -> Util.getPlatform().openUri("https://mcreator.net/link")));
+        this.addRenderableWidget(Button.builder(Component.translatable("gui.done"), e -> {
+            if (this.minecraft != null) {
+                this.minecraft.setScreen(this.prevScreen);
+            }
+        }).bounds(this.width / 2 + 82, this.height - 32, 72, 20).build());
 
-		this.disconnectButton.active = false;
-		this.connectButton.active = false;
-	}
+        this.addRenderableWidget(Button.builder(Component.literal("?"),
+                e -> Util.getPlatform().openUri("https://mcreator.net/link")).bounds(this.width / 2 + 82 + 55, 6, 20, 20).build());
+
+        this.disconnectButton.active = false;
+        this.connectButton.active = false;
+    }
 
 	private static final ResourceLocation LOGO = new ResourceLocation("mcreator_link", "textures/logo_small.png");
 

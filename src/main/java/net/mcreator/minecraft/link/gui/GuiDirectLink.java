@@ -59,13 +59,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	@Override public void init() {
-		super.init();
+        super.init();
 
-		if (this.minecraft != null)
-			minecraft.keyboardHandler.setSendRepeatsToGui(true);
-
-		this.addRenderableWidget(connect = new Button(this.width / 2 - 100, this.height / 4 + 96 + 12, 200, 20,
-                Component.translatable("link.direct.connect"), e -> {
+        this.addRenderableWidget(connect = Button.builder(Component.translatable("link.direct.connect"), e -> {
             String device = this.ipTextField.getValue();
             RaspberryPi raspberryPi = RaspberryPiDetector.getRaspberryPiForIP(device);
             if (raspberryPi != null) {
@@ -75,31 +71,28 @@ import net.minecraftforge.api.distmarker.OnlyIn;
             } else {
                 this.ipTextField.setTextColor(0xff5d4d);
             }
-        }));
-		this.addRenderableWidget(new Button(this.width / 2 - 100, this.height / 4 + 120 + 12, 200, 20,
-                Component.translatable("gui.cancel"), e -> {
+        }).bounds(this.width / 2 - 100, this.height / 4 + 96 + 12, 200, 20).build());
+
+        this.addRenderableWidget(Button.builder(Component.translatable("gui.cancel"), e -> {
             if (this.minecraft != null) {
                 this.minecraft.setScreen(this.lastScreen);
             }
-        }));
+        }).bounds(this.width / 2 - 100, this.height / 4 + 120 + 12, 200, 20).build());
 
         this.ipTextField = new EditBox(this.font, this.width / 2 - 100, 116, 200, 20, Component.literal(""));
 
-		connect.active = !this.ipTextField.getValue().isEmpty() && this.ipTextField.getValue().split(":").length > 0;
+        connect.active = !this.ipTextField.getValue().isEmpty() && this.ipTextField.getValue().split(":").length > 0;
 
-		this.ipTextField.setMaxLength(128);
-		this.addWidget(this.ipTextField);
-		this.ipTextField.setFocus(true);
-	}
+        this.ipTextField.setMaxLength(128);
+        this.addWidget(this.ipTextField);
+        this.ipTextField.setFocused(true);
+    }
 
 	/**
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
 	@Override public void onClose() {
 		super.onClose();
-		if (minecraft != null) {
-			minecraft.keyboardHandler.setSendRepeatsToGui(false);
-		}
 	}
 
 	/**

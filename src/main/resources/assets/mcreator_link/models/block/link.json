@@ -1,12 +1,12 @@
 {
   "parent": "block/cube",
   "textures": {
-    "down": "mcreator_link:blocks/link_top",
-    "up": "mcreator_link:blocks/link_top",
-    "north": "mcreator_link:blocks/link_side",
-    "east": "mcreator_link:blocks/link_side",
-    "south": "mcreator_link:blocks/link_side",
-    "west": "mcreator_link:blocks/link_side",
-    "particle": "mcreator_link:blocks/link_side"
+    "down": "mcreator_link:block/link_top",
+    "up": "mcreator_link:block/link_top",
+    "north": "mcreator_link:block/link_side",
+    "east": "mcreator_link:block/link_side",
+    "south": "mcreator_link:block/link_side",
+    "west": "mcreator_link:block/link_side",
+    "particle": "mcreator_link:block/link_side"
   }
 }
