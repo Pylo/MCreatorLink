@@ -16,10 +16,10 @@
 
 package net.mcreator.minecraft.link.gui;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.mcreator.minecraft.link.MCreatorLink;
 import net.mcreator.minecraft.link.devices.raspberrypi.RaspberryPi;
 import net.mcreator.minecraft.link.devices.raspberrypi.RaspberryPiDetector;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
@@ -42,16 +42,17 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	@Override public void render(PoseStack PoseStack, int mouseX, int mouseY, float partialTicks) {
-		this.renderBackground(PoseStack);
-		super.render(PoseStack, mouseX, mouseY, partialTicks);
+	@Override
+	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+		this.renderBackground(guiGraphics);
+		super.render(guiGraphics, mouseX, mouseY, partialTicks);
 
-        drawCenteredString(PoseStack, this.font, Component.translatable("link.direct.title"), this.width / 2, 20,
-                16777215);
-        drawString(PoseStack, this.font, Component.translatable("link.direct.field"), this.width / 2 - 100, 100,
-                10526880);
+		guiGraphics.drawCenteredString(this.font, Component.translatable("link.direct.title"), this.width / 2, 20,
+				16777215);
+		guiGraphics.drawString(this.font, Component.translatable("link.direct.field"), this.width / 2 - 100, 100,
+				10526880);
 
-		this.ipTextField.render(PoseStack, mouseX, mouseY, partialTicks);
+		this.ipTextField.render(guiGraphics, mouseX, mouseY, partialTicks);
 	}
 
 	/**

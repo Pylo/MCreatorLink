@@ -17,7 +17,6 @@
 package net.mcreator.minecraft.link.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.mcreator.minecraft.link.MCreatorLink;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.mcreator.minecraft.link.devices.arduino.Arduino;
@@ -25,14 +24,12 @@ import net.mcreator.minecraft.link.devices.raspberrypi.RaspberryPi;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import static net.minecraft.client.gui.GuiComponent.blit;
-import static net.minecraft.client.gui.GuiComponent.fill;
 
 @OnlyIn(Dist.CLIENT) public class GuiListDevicesEntry extends ObjectSelectionList.Entry<GuiListDevicesEntry> {
 
@@ -53,38 +50,36 @@ import static net.minecraft.client.gui.GuiComponent.fill;
 		this.device = device;
 	}
 
-	@Override
-	public void render(PoseStack PoseStack, int slotIndex, int y, int x, int listWidth, int slotHeight, int mouseX,
-			int mouseY, boolean isSelected, float partialTicks) {
-		String s2 = "Status: ";
+    @Override
+    public void render(GuiGraphics guiGraphics, int slotIndex, int y, int x, int listWidth, int slotHeight, int mouseX,
+                       int mouseY, boolean isSelected, float partialTicks) {
+        String s2 = "Status: ";
 
-		if (device.isConnected())
-			s2 += ChatFormatting.GREEN + "CONNECTED" + ChatFormatting.RESET;
-		else
-			s2 += ChatFormatting.GRAY + "AVAILABLE" + ChatFormatting.RESET;
+        if (device.isConnected())
+            s2 += ChatFormatting.GREEN + "CONNECTED" + ChatFormatting.RESET;
+        else
+            s2 += ChatFormatting.GRAY + "AVAILABLE" + ChatFormatting.RESET;
 
-		this.client.font.draw(PoseStack, device.getName(), x + 32 + 8, y + 1, 16777215);
-		this.client.font.draw(PoseStack, device.getDescription(), x + 32 + 8, y + this.client.font.lineHeight + 3,
-				8421504);
-		this.client.font.draw(PoseStack, s2, x + 32 + 8,
-				y + this.client.font.lineHeight + this.client.font.lineHeight + 3, 8421504);
+        guiGraphics.drawString(this.client.font, device.getName(), x + 32 + 8, y + 1, 16777215);
+        guiGraphics.drawString(this.client.font, device.getDescription(), x + 32 + 8, y + this.client.font.lineHeight + 3,
+                8421504);
+        guiGraphics.drawString(this.client.font, s2, x + 32 + 8,
+                y + this.client.font.lineHeight + this.client.font.lineHeight + 3, 8421504);
 
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
-		if (device instanceof Arduino) {
-			RenderSystem.setShaderTexture(0, DEVICE_ARDUINO);
-			RenderSystem.enableBlend();
-			blit(PoseStack, x, y, 0, 0, 32, 32, 32, 32);
-			RenderSystem.disableBlend();
-		} else if (device instanceof RaspberryPi) {
-			RenderSystem.setShaderTexture(0, DEVICE_RASPBERRYPI);
-			RenderSystem.enableBlend();
-			blit(PoseStack, x, y, 0, 0, 32, 32, 32, 32);
-			RenderSystem.disableBlend();
+        if (device instanceof Arduino) {
+            RenderSystem.enableBlend();
+            guiGraphics.blit(DEVICE_ARDUINO, x, y, 0, 0, 32, 32, 32, 32);
+            RenderSystem.disableBlend();
+        } else if (device instanceof RaspberryPi) {
+            RenderSystem.enableBlend();
+            guiGraphics.blit(DEVICE_RASPBERRYPI, x, y, 0, 0, 32, 32, 32, 32);
+            RenderSystem.disableBlend();
 		}
 
 		if (this.client.options.touchscreen().get() || isSelected) {
-            fill(PoseStack, x, y, x + 32, y + 32, -1601138544);
+            guiGraphics.fill(x, y, x + 32, y + 32, -1601138544);
         }
 	}
 

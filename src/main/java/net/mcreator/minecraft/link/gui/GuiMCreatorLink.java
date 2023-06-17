@@ -17,9 +17,9 @@
 package net.mcreator.minecraft.link.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.mcreator.minecraft.link.MCreatorLink;
 import net.minecraft.Util;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -91,20 +91,19 @@ import javax.annotation.Nullable;
 
 	private static final ResourceLocation LOGO = new ResourceLocation("mcreator_link", "textures/logo_small.png");
 
-	/**
-	 * Draws the screen and all the components in it.
-	 */
-	@Override public void render(PoseStack PoseStack, int mouseX, int mouseY, float partialTicks) {
-		this.selectionList.render(PoseStack, mouseX, mouseY, partialTicks);
+    /**
+     * Draws the screen and all the components in it.
+     */
+    @Override
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        this.selectionList.render(guiGraphics, mouseX, mouseY, partialTicks);
 
-		super.render(PoseStack, mouseX, mouseY, partialTicks);
+        super.render(guiGraphics, mouseX, mouseY, partialTicks);
 
-		RenderSystem.setShaderTexture(0, LOGO);
-
-		RenderSystem.enableBlend();
-		blit(PoseStack, this.width / 2 - 50, 8, 0.0F, 0.0F, 100, 16, 100, 16);
-		RenderSystem.disableBlend();
-	}
+        RenderSystem.enableBlend();
+        guiGraphics.blit(LOGO, this.width / 2 - 50, 8, 0.0F, 0.0F, 100, 16, 100, 16);
+        RenderSystem.disableBlend();
+    }
 
 	/**
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton

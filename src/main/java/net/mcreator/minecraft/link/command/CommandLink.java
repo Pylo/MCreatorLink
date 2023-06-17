@@ -41,9 +41,9 @@ public class CommandLink {
 		.then(Commands.literal("device").executes(c -> {
 			AbstractDevice device = MCreatorLink.LINK.getConnectedDevice();
 			if (device != null) {
-				c.getSource().sendSuccess(Component.literal(device.getName() + " - " + device.getDescription()),
+				c.getSource().sendSuccess(() -> Component.literal(device.getName() + " - " + device.getDescription()),
 						true);
-				c.getSource().sendSuccess(Component.literal(
+				c.getSource().sendSuccess(() -> Component.literal(
 						"Digital pins: " + device.getDigitalPinsCount() + ", Analog pins: " + device
 								.getAnalogPinsCount()), true);
 			} else {
@@ -59,7 +59,7 @@ public class CommandLink {
 				response.append("[").append(++idx).append("]").append(device.getName()).append(" - ").append(device.getDescription());
 			}
 			if(!response.toString().isEmpty())
-				c.getSource().sendSuccess(Component.literal(response.toString()), true);
+				c.getSource().sendSuccess(() -> Component.literal(response.toString()), true);
 			else
 				c.getSource().sendFailure(Component.translatable("link.command.nodevices"));
 			return Command.SINGLE_SUCCESS;
@@ -72,7 +72,7 @@ public class CommandLink {
 				for (AbstractDevice device : MCreatorLink.LINK.getAllDevices()) {
 					if (device.getName().equals(id)) {
 						MCreatorLink.LINK.setConnectedDevice(device);
-						c.getSource().sendSuccess(Component.literal("Connected to " + device.getName()), true);
+						c.getSource().sendSuccess(() -> Component.literal("Connected to " + device.getName()), true);
 						return Command.SINGLE_SUCCESS;
 					}
 				}
@@ -141,7 +141,7 @@ public class CommandLink {
 			.then(Commands.argument("pin", IntegerArgumentType.integer()).executes(c -> {
 				try {
 				byte val = CurrentDevice.digitalRead(c.getArgument("pin", Integer.class));
-					c.getSource().sendSuccess(Component.literal(Byte.toString(val)), true);
+					c.getSource().sendSuccess(() -> Component.literal(Byte.toString(val)), true);
 			} catch (Exception e) {
 					c.getSource().sendFailure(Component.translatable("link.command.wrongusage"));
 			}
@@ -152,7 +152,7 @@ public class CommandLink {
 			.then(Commands.argument("pin", IntegerArgumentType.integer()).executes(c -> {
 				try {
 				short val = CurrentDevice.analogRead(c.getArgument("pin", Integer.class));
-					c.getSource().sendSuccess(Component.literal(Short.toString(val)), true);
+					c.getSource().sendSuccess(() -> Component.literal(Short.toString(val)), true);
 			} catch (Exception e) {
 					c.getSource().sendFailure(Component.translatable("link.command.wrongusage"));
 			}

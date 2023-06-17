@@ -3,7 +3,7 @@ package net.mcreator.minecraft.link.init;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
@@ -19,9 +19,9 @@ public class MCreatorLinkItems {
             () -> new BlockItem(MCreatorLinkBlocks.LINK_BLOCK.get(), new Item.Properties()));
 
     @SubscribeEvent
-    public static void buildContentsVanilla(CreativeModeTabEvent.BuildContents tabData) {
-        if (tabData.getTab() == CreativeModeTabs.REDSTONE_BLOCKS)
-            tabData.accept(MCreatorLinkBlocks.LINK_BLOCK.get());
+    public void buildContents(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS)
+            event.accept(MCreatorLinkBlocks.LINK_BLOCK.get());
     }
 
 }

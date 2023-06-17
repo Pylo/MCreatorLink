@@ -16,10 +16,10 @@
 
 package net.mcreator.minecraft.link.gui;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -30,13 +30,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 	}
 
 	@Override
-	public void render(PoseStack PoseStack, int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX,
-			int mouseY, boolean isSelected, float partialTicks) {
+	public void render(GuiGraphics guiGraphics, int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX,
+					   int mouseY, boolean isSelected, float partialTicks) {
 		if (this.client.screen != null) {
 			int i = y + slotHeight / 2 - this.client.font.lineHeight / 2;
 
-			this.client.font.draw(PoseStack, "Scanning for link compatible devices",
-					this.client.screen.width / 2f - this.client.font.width("Scanning for link compatible devices") / 2f,
+			guiGraphics.drawString(this.client.font, "Scanning for link compatible devices",
+					(int) (this.client.screen.width / 2f - this.client.font.width("Scanning for link compatible devices") / 2f),
 					i, 16777215);
 
 			String s = switch ((int) (Util.getMillis() / 300L % 4L)) {
@@ -45,9 +45,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 				case 2 -> "o o O";
 			};
 
-			this.client.font.draw(PoseStack, s,
-					Minecraft.getInstance().screen.width / 2f - this.client.font.width(s) / 2f,
-					i + this.client.font.lineHeight, 8421504);
+			if (Minecraft.getInstance().screen != null) {
+				guiGraphics.drawString(this.client.font, s,
+						(int) (Minecraft.getInstance().screen.width / 2f - this.client.font.width(s) / 2f),
+						i + this.client.font.lineHeight, 8421504);
+			}
 		}
 	}
 

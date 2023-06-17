@@ -5,7 +5,7 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '[6.0,6.2)', changing: true
         classpath 'gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0'
     }
 }
@@ -22,7 +22,7 @@ project.tasks.build.dependsOn project.tasks.shadowJar
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
-    mappings channel: 'official', version: '1.19.4'
+    mappings channel: 'official', version: '1.20.1'
 
     runs {
         client {
@@ -59,7 +59,7 @@ configurations {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.4-45.0.39'
+    minecraft 'net.minecraftforge:forge:1.20.1-47.0.3'
 
     shadowpack 'com.fazecast:jSerialComm:2.7.0'
     implementation 'com.fazecast:jSerialComm:2.7.0'
@@ -122,7 +122,7 @@ task copyModIntoFinalBuild(type: Copy) {
     from('build/libs/')
     include ('mcreator_link-' + version + '-all.jar')
     into('build/export/')
-    rename { "MCreator Link " + project.version + " [1.19.4].jar" }
+    rename { "MCreator Link " + project.version + " [1.20.1].jar" }
 }
 
 task copyDevModIntoFinalBuild(type: Copy) {
@@ -131,12 +131,12 @@ task copyDevModIntoFinalBuild(type: Copy) {
     from('build/libs/')
     include ('mcreator_link-' + version + '.jar')
     into('build/export/')
-    rename { "MCreator Link " + project.version + " [1.19.4] - Dev.jar" }
+    rename { "MCreator Link " + project.version + " [1.20.1] - Dev.jar" }
 }
 
 task exportArduinoLibrary(type: Zip) {
-    archiveName = "MCreator Link " + project.version + " Arduino Library.zip"
-    destinationDir = file('build/export/')
+    archiveFileName = "MCreator Link " + project.version + " Arduino Library.zip"
+    destinationDirectory = file('build/export/')
     from(files('./arduino'))
 }
 
