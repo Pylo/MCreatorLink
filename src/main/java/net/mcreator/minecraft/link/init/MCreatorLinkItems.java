@@ -19,8 +19,8 @@ public class MCreatorLinkItems {
             () -> new BlockItem(MCreatorLinkBlocks.LINK_BLOCK.get(), new Item.Properties()));
 
     @SubscribeEvent
-    public void buildContents(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS)
+    public static void buildContents(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS)
             event.accept(MCreatorLinkBlocks.LINK_BLOCK.get());
     }
 
