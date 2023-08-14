@@ -37,7 +37,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 			guiGraphics.drawString(this.client.font, "Scanning for link compatible devices",
 					(int) (this.client.screen.width / 2f - this.client.font.width("Scanning for link compatible devices") / 2f),
-					i, 16777215);
+					i, 16777215, false);
 
 			String s = switch ((int) (Util.getMillis() / 300L % 4L)) {
 				default -> "O o o";
@@ -48,7 +48,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 			if (Minecraft.getInstance().screen != null) {
 				guiGraphics.drawString(this.client.font, s,
 						(int) (Minecraft.getInstance().screen.width / 2f - this.client.font.width(s) / 2f),
-						i + this.client.font.lineHeight, 8421504);
+						i + this.client.font.lineHeight, 8421504, false);
 			}
 		}
 	}

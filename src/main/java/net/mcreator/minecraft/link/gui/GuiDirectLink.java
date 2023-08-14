@@ -50,7 +50,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 		guiGraphics.drawCenteredString(this.font, Component.translatable("link.direct.title"), this.width / 2, 20,
 				16777215);
 		guiGraphics.drawString(this.font, Component.translatable("link.direct.field"), this.width / 2 - 100, 100,
-				10526880);
+				10526880, false);
 
 		this.ipTextField.render(guiGraphics, mouseX, mouseY, partialTicks);
 	}

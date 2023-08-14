@@ -42,7 +42,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 	private final GuiListDevices containingListSel;
 	private long lastClickTime;
 
-	private AbstractDevice device;
+	private final AbstractDevice device;
 
 	GuiListDevicesEntry(GuiListDevices listWorldSelIn, AbstractDevice device) {
 		this.containingListSel = listWorldSelIn;
@@ -60,11 +60,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
         else
             s2 += ChatFormatting.GRAY + "AVAILABLE" + ChatFormatting.RESET;
 
-        guiGraphics.drawString(this.client.font, device.getName(), x + 32 + 8, y + 1, 16777215);
+		guiGraphics.drawString(this.client.font, device.getName(), x + 32 + 8, y + 1, 16777215, false);
         guiGraphics.drawString(this.client.font, device.getDescription(), x + 32 + 8, y + this.client.font.lineHeight + 3,
-                8421504);
+				8421504, false);
         guiGraphics.drawString(this.client.font, s2, x + 32 + 8,
-                y + this.client.font.lineHeight + this.client.font.lineHeight + 3, 8421504);
+				y + this.client.font.lineHeight + this.client.font.lineHeight + 3, 8421504, false);
 
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 

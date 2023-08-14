@@ -37,10 +37,10 @@ import org.lwjgl.glfw.GLFW;
     public static void drawScreenEvent(ScreenEvent.Render.Post drawScreenEvent) {
         if (drawScreenEvent.getScreen() instanceof TitleScreen || drawScreenEvent.getScreen() instanceof PauseScreen) {
             drawScreenEvent.getGuiGraphics().drawString(drawScreenEvent.getScreen().getMinecraft().font,
-                    "MCreator Link " + MCreatorLink.VERSION, 3, 3, 0xffffff);
+                    "MCreator Link " + MCreatorLink.VERSION, 3, 3, 0xffffff, false);
 
             drawScreenEvent.getGuiGraphics().drawString(drawScreenEvent.getScreen().getMinecraft().font,
-                    I18n.get("link.menu.settingskey"), 3, 14, 0xffffff);
+                    I18n.get("link.menu.settingskey"), 3, 14, 0xffffff, false);
 
             if (GLFW.glfwGetKey(drawScreenEvent.getScreen().getMinecraft().getWindow().getWindow(), GLFW.GLFW_KEY_L)
                     == GLFW.GLFW_PRESS)
