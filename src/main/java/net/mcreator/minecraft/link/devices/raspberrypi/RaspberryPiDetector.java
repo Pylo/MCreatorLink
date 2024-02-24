@@ -20,14 +20,17 @@ import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.mcreator.minecraft.link.devices.IDeviceDetector;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketTimeoutException;
 import java.util.*;
 
 public class RaspberryPiDetector implements IDeviceDetector {
 
 	private boolean shouldScan = false;
 
-	private Set<AbstractDevice> raspberripies = new HashSet<>();
+    private final Set<AbstractDevice> raspberripies = new HashSet<>();
 
 	/**
 	 * If detector needs any initialization, it can be done in this method.

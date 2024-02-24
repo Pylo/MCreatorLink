@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="../../../../../script-dir/jquery-ui.min.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../../jquery-ui.overrides.css" title="Style">
 <script type="text/javascript" src="../../../../../script.js"></script>
-<script type="text/javascript" src="../../../../../script-dir/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="../../../../../script-dir/jquery-3.6.1.min.js"></script>
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="package-tree-page">
@@ -58,24 +58,21 @@ loadScripts(document, 'script');</script>
 <ul>
 <li class="circle">java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" class="type-name-link external-link" title="class or interface in java.lang">Object</a>
 <ul>
-<li class="circle">net.minecraft.client.gui.components.AbstractSelectionList.Entry&lt;E&gt; (implements net.minecraft.client.gui.components.events.GuiEventListener)
-<ul>
-<li class="circle">net.minecraft.client.gui.components.ObjectSelectionList.Entry&lt;E&gt; (implements net.minecraft.client.gui.narration.NarrationSupplier)
-<ul>
-<li class="circle">net.mcreator.minecraft.link.gui.<a href="GuiListDevicesEntry.html" class="type-name-link" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntry</a>
-<ul>
-<li class="circle">net.mcreator.minecraft.link.gui.<a href="GuiListDevicesEntryScan.html" class="type-name-link" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntryScan</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="circle">net.minecraft.client.gui.GuiComponent
-<ul>
 <li class="circle">net.minecraft.client.gui.components.events.AbstractContainerEventHandler (implements net.minecraft.client.gui.components.events.ContainerEventHandler)
 <ul>
-<li class="circle">net.minecraft.client.gui.components.AbstractSelectionList&lt;E&gt; (implements net.minecraft.client.gui.narration.NarratableEntry, net.minecraft.client.gui.components.Widget)
+<li class="circle">net.minecraft.client.gui.screens.Screen (implements net.minecraft.client.gui.components.Renderable)
+<ul>
+<li class="circle">net.mcreator.minecraft.link.gui.<a href="GuiDirectLink.html" class="type-name-link" title="class in net.mcreator.minecraft.link.gui">GuiDirectLink</a></li>
+<li class="circle">net.mcreator.minecraft.link.gui.<a href="GuiMCreatorLink.html" class="type-name-link" title="class in net.mcreator.minecraft.link.gui">GuiMCreatorLink</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="circle">net.minecraft.client.gui.components.AbstractWidget (implements net.minecraft.client.gui.components.events.GuiEventListener, net.neoforged.neoforge.client.extensions.IAbstractWidgetExtension, net.minecraft.client.gui.layouts.LayoutElement, net.minecraft.client.gui.narration.NarratableEntry, net.minecraft.client.gui.components.Renderable)
+<ul>
+<li class="circle">net.minecraft.client.gui.components.AbstractContainerWidget (implements net.minecraft.client.gui.components.events.ContainerEventHandler)
+<ul>
+<li class="circle">net.minecraft.client.gui.components.AbstractSelectionList&lt;E&gt;
 <ul>
 <li class="circle">net.minecraft.client.gui.components.ObjectSelectionList&lt;E&gt;
 <ul>
@@ -84,12 +81,15 @@ loadScripts(document, 'script');</script>
 </li>
 </ul>
 </li>
-<li class="circle">net.minecraft.client.gui.screens.Screen (implements net.minecraft.client.gui.components.Widget)
-<ul>
-<li class="circle">net.mcreator.minecraft.link.gui.<a href="GuiDirectLink.html" class="type-name-link" title="class in net.mcreator.minecraft.link.gui">GuiDirectLink</a></li>
-<li class="circle">net.mcreator.minecraft.link.gui.<a href="GuiMCreatorLink.html" class="type-name-link" title="class in net.mcreator.minecraft.link.gui">GuiMCreatorLink</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="circle">net.minecraft.client.gui.components.ObjectSelectionList.Entry&lt;E&gt; (implements net.minecraft.client.gui.narration.NarrationSupplier)
+<ul>
+<li class="circle">net.mcreator.minecraft.link.gui.<a href="GuiListDevicesEntry.html" class="type-name-link" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntry</a>
+<ul>
+<li class="circle">net.mcreator.minecraft.link.gui.<a href="GuiListDevicesEntryScan.html" class="type-name-link" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntryScan</a></li>
 </ul>
 </li>
 </ul>

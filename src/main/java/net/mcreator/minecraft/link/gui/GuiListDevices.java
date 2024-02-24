@@ -21,8 +21,8 @@ import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.gui.navigation.ScreenDirection;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
@@ -33,8 +33,8 @@ import javax.annotation.Nullable;
 	private final GuiListDevicesEntryScan devicesEntryScan;
 
 	GuiListDevices(GuiMCreatorLink guiMCreatorLink, Minecraft clientIn, int widthIn, int heightIn, int topIn,
-			int bottomIn, int slotHeightIn) {
-		super(clientIn, widthIn, heightIn, topIn, bottomIn, slotHeightIn);
+                   int entryHeightIn) {
+        super(clientIn, widthIn, heightIn, topIn, entryHeightIn);
 		this.guiMCreatorLink = guiMCreatorLink;
 		this.devicesEntryScan = new GuiListDevicesEntryScan(this, null);
 

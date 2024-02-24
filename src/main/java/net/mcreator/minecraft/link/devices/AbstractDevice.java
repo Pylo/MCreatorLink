@@ -19,7 +19,7 @@ package net.mcreator.minecraft.link.devices;
 import net.mcreator.minecraft.link.LinkProtocol;
 import net.mcreator.minecraft.link.event.LinkCustomMessageReceivedEvent;
 import net.mcreator.minecraft.link.event.LinkDigitalPinChangedEvent;
-import net.minecraftforge.common.MinecraftForge;
+import net.neoforged.neoforge.common.NeoForge;
 
 public abstract class AbstractDevice {
 
@@ -113,9 +113,9 @@ public abstract class AbstractDevice {
 				int prev_val = digitalInputsPrevious[pin];
 				if (prev_val != val) { //check if value of pin has changed
 					if (val > prev_val) { //rising edge event
-						MinecraftForge.EVENT_BUS.post(new LinkDigitalPinChangedEvent(this, pin, val, true));
+                        NeoForge.EVENT_BUS.post(new LinkDigitalPinChangedEvent(this, pin, val, true));
 					} else { // falling edge event
-						MinecraftForge.EVENT_BUS.post(new LinkDigitalPinChangedEvent(this, pin, val, false));
+                        NeoForge.EVENT_BUS.post(new LinkDigitalPinChangedEvent(this, pin, val, false));
 					}
 				}
 			}
@@ -165,7 +165,7 @@ public abstract class AbstractDevice {
 			for (int i = 0; i < pins.length; i++)
 				analogInputs(i, pins[i]);
 		} else {
-			MinecraftForge.EVENT_BUS.post(new LinkCustomMessageReceivedEvent(this, message));
+            NeoForge.EVENT_BUS.post(new LinkCustomMessageReceivedEvent(this, message));
 		}
 	}
 

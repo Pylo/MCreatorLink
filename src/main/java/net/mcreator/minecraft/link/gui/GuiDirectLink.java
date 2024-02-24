@@ -24,8 +24,8 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT) public class GuiDirectLink extends Screen {
 
@@ -44,7 +44,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 	 */
 	@Override
 	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-		this.renderBackground(guiGraphics);
+        this.renderBackground(guiGraphics, mouseX, mouseY, partialTicks);
 		super.render(guiGraphics, mouseX, mouseY, partialTicks);
 
 		guiGraphics.drawCenteredString(this.font, Component.translatable("link.direct.title"), this.width / 2, 20,
@@ -111,13 +111,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 		connect.active = !this.ipTextField.getValue().isEmpty() && this.ipTextField.getValue().split(":").length > 0;
 		return super.keyPressed(typedChar, keyCode, par);
-	}
-
-	/**
-	 * Called from the main game loop to update the screen.
-	 */
-	@Override public void tick() {
-		this.ipTextField.tick();
 	}
 
 }

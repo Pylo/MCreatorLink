@@ -19,7 +19,7 @@ package net.mcreator.minecraft.link.devices.raspberrypi;
 import net.mcreator.minecraft.link.LinkProtocol;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.mcreator.minecraft.link.event.LinkDeviceConnectedEvent;
-import net.minecraftforge.common.MinecraftForge;
+import net.neoforged.neoforge.common.NeoForge;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -100,7 +100,7 @@ public class RaspberryPi extends AbstractDevice {
 
 					sendData(LinkProtocol.START_POLLING_INPUTS, true);
 
-					MinecraftForge.EVENT_BUS.post(new LinkDeviceConnectedEvent(this));
+                    NeoForge.EVENT_BUS.post(new LinkDeviceConnectedEvent(this));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

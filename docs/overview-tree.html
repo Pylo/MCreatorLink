@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="script-dir/jquery-ui.min.css" title="Style">
 <link rel="stylesheet" type="text/css" href="jquery-ui.overrides.css" title="Style">
 <script type="text/javascript" src="script.js"></script>
-<script type="text/javascript" src="script-dir/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="script-dir/jquery-3.6.1.min.js"></script>
 <script type="text/javascript" src="script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="tree-page">
@@ -66,19 +66,33 @@ loadScripts(document, 'script');</script>
 <ul>
 <li class="circle">java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" class="type-name-link external-link" title="class or interface in java.lang">Object</a>
 <ul>
+<li class="circle">net.minecraft.client.gui.components.events.AbstractContainerEventHandler (implements net.minecraft.client.gui.components.events.ContainerEventHandler)
+<ul>
+<li class="circle">net.minecraft.client.gui.screens.Screen (implements net.minecraft.client.gui.components.Renderable)
+<ul>
+<li class="circle">net.mcreator.minecraft.link.gui.<a href="net/mcreator/minecraft/link/gui/GuiDirectLink.html" class="type-name-link" title="class in net.mcreator.minecraft.link.gui">GuiDirectLink</a></li>
+<li class="circle">net.mcreator.minecraft.link.gui.<a href="net/mcreator/minecraft/link/gui/GuiMCreatorLink.html" class="type-name-link" title="class in net.mcreator.minecraft.link.gui">GuiMCreatorLink</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="circle">net.mcreator.minecraft.link.devices.<a href="net/mcreator/minecraft/link/devices/AbstractDevice.html" class="type-name-link" title="class in net.mcreator.minecraft.link.devices">AbstractDevice</a>
 <ul>
 <li class="circle">net.mcreator.minecraft.link.devices.arduino.<a href="net/mcreator/minecraft/link/devices/arduino/Arduino.html" class="type-name-link" title="class in net.mcreator.minecraft.link.devices.arduino">Arduino</a></li>
 <li class="circle">net.mcreator.minecraft.link.devices.raspberrypi.<a href="net/mcreator/minecraft/link/devices/raspberrypi/RaspberryPi.html" class="type-name-link" title="class in net.mcreator.minecraft.link.devices.raspberrypi">RaspberryPi</a></li>
 </ul>
 </li>
-<li class="circle">net.minecraft.client.gui.components.AbstractSelectionList.Entry&lt;E&gt; (implements net.minecraft.client.gui.components.events.GuiEventListener)
+<li class="circle">net.minecraft.client.gui.components.AbstractWidget (implements net.minecraft.client.gui.components.events.GuiEventListener, net.neoforged.neoforge.client.extensions.IAbstractWidgetExtension, net.minecraft.client.gui.layouts.LayoutElement, net.minecraft.client.gui.narration.NarratableEntry, net.minecraft.client.gui.components.Renderable)
 <ul>
-<li class="circle">net.minecraft.client.gui.components.ObjectSelectionList.Entry&lt;E&gt; (implements net.minecraft.client.gui.narration.NarrationSupplier)
+<li class="circle">net.minecraft.client.gui.components.AbstractContainerWidget (implements net.minecraft.client.gui.components.events.ContainerEventHandler)
 <ul>
-<li class="circle">net.mcreator.minecraft.link.gui.<a href="net/mcreator/minecraft/link/gui/GuiListDevicesEntry.html" class="type-name-link" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntry</a>
+<li class="circle">net.minecraft.client.gui.components.AbstractSelectionList&lt;E&gt;
 <ul>
-<li class="circle">net.mcreator.minecraft.link.gui.<a href="net/mcreator/minecraft/link/gui/GuiListDevicesEntryScan.html" class="type-name-link" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntryScan</a></li>
+<li class="circle">net.minecraft.client.gui.components.ObjectSelectionList&lt;E&gt;
+<ul>
+<li class="circle">net.mcreator.minecraft.link.gui.<a href="net/mcreator/minecraft/link/gui/GuiListDevices.html" class="type-name-link" title="class in net.mcreator.minecraft.link.gui">GuiListDevices</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -86,9 +100,9 @@ loadScripts(document, 'script');</script>
 </ul>
 </li>
 <li class="circle">net.mcreator.minecraft.link.devices.arduino.<a href="net/mcreator/minecraft/link/devices/arduino/ArduinoDetector.html" class="type-name-link" title="class in net.mcreator.minecraft.link.devices.arduino">ArduinoDetector</a> (implements net.mcreator.minecraft.link.devices.<a href="net/mcreator/minecraft/link/devices/IDeviceDetector.html" title="interface in net.mcreator.minecraft.link.devices">IDeviceDetector</a>)</li>
-<li class="circle">net.minecraft.world.level.block.state.BlockBehaviour
+<li class="circle">net.minecraft.world.level.block.state.BlockBehaviour (implements net.minecraft.world.flag.FeatureElement)
 <ul>
-<li class="circle">net.minecraft.world.level.block.Block (implements net.minecraftforge.common.extensions.IForgeBlock, net.minecraft.world.level.ItemLike)
+<li class="circle">net.minecraft.world.level.block.Block (implements net.neoforged.neoforge.common.extensions.IBlockExtension, net.minecraft.world.level.ItemLike)
 <ul>
 <li class="circle">net.mcreator.minecraft.link.block.<a href="net/mcreator/minecraft/link/block/LinkBlock.html" class="type-name-link" title="class in net.mcreator.minecraft.link.block">LinkBlock</a></li>
 </ul>
@@ -98,7 +112,7 @@ loadScripts(document, 'script');</script>
 <li class="circle">net.mcreator.minecraft.link.command.<a href="net/mcreator/minecraft/link/command/CommandLink.html" class="type-name-link" title="class in net.mcreator.minecraft.link.command">CommandLink</a></li>
 <li class="circle">net.mcreator.minecraft.link.<a href="net/mcreator/minecraft/link/CurrentDevice.html" class="type-name-link" title="class in net.mcreator.minecraft.link">CurrentDevice</a></li>
 <li class="circle">net.mcreator.minecraft.link.<a href="net/mcreator/minecraft/link/DeviceManager.html" class="type-name-link" title="class in net.mcreator.minecraft.link">DeviceManager</a></li>
-<li class="circle">net.minecraftforge.eventbus.api.Event
+<li class="circle">net.neoforged.bus.api.Event
 <ul>
 <li class="circle">net.mcreator.minecraft.link.event.<a href="net/mcreator/minecraft/link/event/MCreatorLinkEvent.html" class="type-name-link" title="class in net.mcreator.minecraft.link.event">MCreatorLinkEvent</a>
 <ul>
@@ -109,33 +123,21 @@ loadScripts(document, 'script');</script>
 </li>
 </ul>
 </li>
-<li class="circle">net.minecraft.client.gui.GuiComponent
-<ul>
-<li class="circle">net.minecraft.client.gui.components.events.AbstractContainerEventHandler (implements net.minecraft.client.gui.components.events.ContainerEventHandler)
-<ul>
-<li class="circle">net.minecraft.client.gui.components.AbstractSelectionList&lt;E&gt; (implements net.minecraft.client.gui.narration.NarratableEntry, net.minecraft.client.gui.components.Widget)
-<ul>
-<li class="circle">net.minecraft.client.gui.components.ObjectSelectionList&lt;E&gt;
-<ul>
-<li class="circle">net.mcreator.minecraft.link.gui.<a href="net/mcreator/minecraft/link/gui/GuiListDevices.html" class="type-name-link" title="class in net.mcreator.minecraft.link.gui">GuiListDevices</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="circle">net.minecraft.client.gui.screens.Screen (implements net.minecraft.client.gui.components.Widget)
-<ul>
-<li class="circle">net.mcreator.minecraft.link.gui.<a href="net/mcreator/minecraft/link/gui/GuiDirectLink.html" class="type-name-link" title="class in net.mcreator.minecraft.link.gui">GuiDirectLink</a></li>
-<li class="circle">net.mcreator.minecraft.link.gui.<a href="net/mcreator/minecraft/link/gui/GuiMCreatorLink.html" class="type-name-link" title="class in net.mcreator.minecraft.link.gui">GuiMCreatorLink</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="circle">net.mcreator.minecraft.link.command.<a href="net/mcreator/minecraft/link/command/LinkDeviceArgumentType.html" class="type-name-link" title="class in net.mcreator.minecraft.link.command">LinkDeviceArgumentType</a> (implements com.mojang.brigadier.arguments.ArgumentType&lt;T&gt;)</li>
 <li class="circle">net.mcreator.minecraft.link.<a href="net/mcreator/minecraft/link/LinkProtocol.html" class="type-name-link" title="class in net.mcreator.minecraft.link">LinkProtocol</a></li>
 <li class="circle">net.mcreator.minecraft.link.<a href="net/mcreator/minecraft/link/MCreatorLink.html" class="type-name-link" title="class in net.mcreator.minecraft.link">MCreatorLink</a></li>
+<li class="circle">net.mcreator.minecraft.link.init.<a href="net/mcreator/minecraft/link/init/MCreatorLinkArgumentTypes.html" class="type-name-link" title="class in net.mcreator.minecraft.link.init">MCreatorLinkArgumentTypes</a></li>
 <li class="circle">net.mcreator.minecraft.link.init.<a href="net/mcreator/minecraft/link/init/MCreatorLinkBlocks.html" class="type-name-link" title="class in net.mcreator.minecraft.link.init">MCreatorLinkBlocks</a></li>
 <li class="circle">net.mcreator.minecraft.link.init.<a href="net/mcreator/minecraft/link/init/MCreatorLinkItems.html" class="type-name-link" title="class in net.mcreator.minecraft.link.init">MCreatorLinkItems</a></li>
+<li class="circle">net.minecraft.client.gui.components.ObjectSelectionList.Entry&lt;E&gt; (implements net.minecraft.client.gui.narration.NarrationSupplier)
+<ul>
+<li class="circle">net.mcreator.minecraft.link.gui.<a href="net/mcreator/minecraft/link/gui/GuiListDevicesEntry.html" class="type-name-link" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntry</a>
+<ul>
+<li class="circle">net.mcreator.minecraft.link.gui.<a href="net/mcreator/minecraft/link/gui/GuiListDevicesEntryScan.html" class="type-name-link" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntryScan</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="circle">net.mcreator.minecraft.link.devices.raspberrypi.<a href="net/mcreator/minecraft/link/devices/raspberrypi/RaspberryPiDetector.html" class="type-name-link" title="class in net.mcreator.minecraft.link.devices.raspberrypi">RaspberryPiDetector</a> (implements net.mcreator.minecraft.link.devices.<a href="net/mcreator/minecraft/link/devices/IDeviceDetector.html" title="interface in net.mcreator.minecraft.link.devices">IDeviceDetector</a>)</li>
 <li class="circle">net.mcreator.minecraft.link.gui.<a href="net/mcreator/minecraft/link/gui/ScreenEventHandler.html" class="type-name-link" title="class in net.mcreator.minecraft.link.gui">ScreenEventHandler</a></li>
 </ul>

@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public final class DeviceManager {
 
@@ -45,7 +44,7 @@ public final class DeviceManager {
 	/**
 	 * This method returns the list of currently detected devices
 	 *
-	 * @return List of AbstractDevice objects containing devices that were detected (can be connected or not)
+     * @return Set of AbstractDevice objects containing devices that were detected (can be connected or not)
 	 */
 	public Set<AbstractDevice> getAllDevices() {
 		new Thread(() -> {
@@ -54,7 +53,7 @@ public final class DeviceManager {
 
 				List<AbstractDevice> newDevices = this.deviceDetectorList.stream()
 						.flatMap(deviceDetector -> deviceDetector.getDeviceList(currentDevices).stream())
-						.collect(Collectors.toList());
+                        .toList();
 
 				// add new devices in device set, existing devices are not added again
 				currentDevices.addAll(newDevices);
@@ -67,7 +66,7 @@ public final class DeviceManager {
 						obsoleteDevices.add(device);
 				}
 
-				currentDevices.removeAll(obsoleteDevices);
+                obsoleteDevices.forEach(currentDevices::remove);
 
 				refreshRunning = false;
 			}

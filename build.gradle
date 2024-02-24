@@ -1,160 +1,65 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.minecraftforge.net' }
-        mavenCentral()
-        gradlePluginPortal()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '[6.0,6.2)', changing: true
-        classpath 'gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0'
-    }
+plugins {
+    id 'java-library'
+    id 'net.neoforged.gradle.userdev' version '7.0.94'
 }
-
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'com.github.johnrengelman.shadow'
 
 version = "1.3"
 group = "net.mcreator.minecraft.link" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "mcreator_link"
-
-project.tasks.build.dependsOn project.tasks.shadowJar
+base.archivesName = "mcreator_link"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
-minecraft {
-    mappings channel: 'official', version: '1.20.1'
+jarJar.enable()
 
-    runs {
-        client {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                examplemod {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        server {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                examplemod {
-                    source sourceSets.main
-                }
-            }
-        }
-    }
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
 
-configurations {
-    shadowpack
-    implementation.extendsFrom(shadowpack)
+runs {
+    configureEach {
+        systemProperty 'forge.logging.markers', 'REGISTRIES'
+        systemProperty 'forge.logging.console.level', 'debug'
+        modSource project.sourceSets.main
+
+        dependencies {
+            runtime 'com.fazecast:jSerialComm:2.7.0'
+        }
+    }
+
+    client {}
+    server {}
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.20.1-47.0.3'
+    implementation 'net.neoforged:neoforge:20.4.171'
 
-    shadowpack 'com.fazecast:jSerialComm:2.7.0'
     implementation 'com.fazecast:jSerialComm:2.7.0'
-}
 
-shadowJar {
-    configurations = [project.configurations.shadowpack]
-
-    from('.') {
-        include 'LICENSE'
-        include 'NOTICE'
-        into '/'
+    jarJar(group: 'com.fazecast', name: 'jSerialComm', version: '[2.7,2.8)') {
+        jarJar.pin(it, '2.7.0')
     }
-    from('src/main/resources/META-INF/') {
-        include 'jSerialComm-LICENSE'
-        include 'jSerialComm-NOTICE'
-        into '/'
-    }
-
-    exclude "module-info.class"
-}
-
-task devJar(type: com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar) {
-    dependsOn build
-
-    configurations = [project.configurations.shadowpack]
-
-    from sourceSets.main.output
-    from sourceSets.main.allJava
-
-    from('.') {
-        include 'LICENSE'
-        include 'NOTICE'
-        into '/'
-    }
-
-    from('src/main/resources/META-INF/') {
-        include 'jSerialComm-LICENSE'
-        include 'jSerialComm-NOTICE'
-        into '/'
-    }
-
-    exclude "module-info.class"
-}
-
-reobf {
-    shadowJar {}
 }
 
 javadoc {
     source sourceSets.main.allJava
 }
 
-task copyModIntoFinalBuild(type: Copy) {
-    project.afterEvaluate {
-        dependsOn reobfJar
-    }
-    dependsOn build
-
+tasks.register('copyModIntoFinalBuild', Copy) {
     from('build/libs/')
-    include ('mcreator_link-' + version + '-all.jar')
+    include('mcreator_link-' + version + '-all.jar')
     into('build/export/')
-    rename { "MCreator Link " + project.version + " [1.20.1].jar" }
+    rename { "MCreator Link " + project.version + " [1.20.4].jar" }
 }
 
-task copyDevModIntoFinalBuild(type: Copy) {
-    dependsOn devJar
+tasks.named('copyModIntoFinalBuild').configure { dependsOn('jarJar') }
 
-    from('build/libs/')
-    include ('mcreator_link-' + version + '.jar')
-    into('build/export/')
-    rename { "MCreator Link " + project.version + " [1.20.1] - Dev.jar" }
-}
-
-task exportArduinoLibrary(type: Zip) {
+tasks.register('exportArduinoLibrary', Zip) {
     archiveFileName = "MCreator Link " + project.version + " Arduino Library.zip"
     destinationDirectory = file('build/export/')
     from(files('./arduino'))
 }
 
-/*task exportRaspberryPiLibrary(type: Copy) {
-    from('raspberrypi/build/libs/')
-    include 'mcreator-link-raspberrypi.jar'
-    into('build/export/')
-    rename { "mcreator_link_" + project.version + "_pi.jar" }
-}
-
-task exportRaspberryPiSetupScript(type: Copy) {
-    from('raspberrypi/')
-    include 'setup.sh'
-    into('build/export/')
-    rename { "rpisetup.sh" }
-}*/
-
-task exportJavadoc(type: Copy) {
+tasks.register('exportJavadoc', Copy) {
     from('build/docs/javadoc')
     into('docs/')
 
@@ -163,19 +68,9 @@ task exportJavadoc(type: Copy) {
     group = 'mcreatorlink'
 }
 
-task exportAllButDev() {
+tasks.register('exportAll') {
     group = 'mcreatorlink'
 
     dependsOn copyModIntoFinalBuild
     dependsOn exportArduinoLibrary
-//    dependsOn ':mcreator-link-raspberrypi:build'
-//    dependsOn exportRaspberryPiLibrary
-//    dependsOn exportRaspberryPiSetupScript
-}
-
-task exportDev() {
-    group = 'mcreatorlink'
-
-    dependsOn devJar
-    dependsOn copyDevModIntoFinalBuild
 }

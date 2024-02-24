@@ -1,15 +1,15 @@
 package net.mcreator.minecraft.link.init;
 
 import net.mcreator.minecraft.link.block.LinkBlock;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class MCreatorLinkBlocks {
 
-    public static final DeferredRegister<Block> REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCKS, "mcreator_link");
+    public static final DeferredRegister<Block> REGISTRY = DeferredRegister.create(BuiltInRegistries.BLOCK, "mcreator_link");
 
-    public static final RegistryObject<Block> LINK_BLOCK = REGISTRY.register("link", LinkBlock::new);
+    public static final DeferredHolder<Block, Block> LINK_BLOCK = REGISTRY.register("link", LinkBlock::new);
 
 }

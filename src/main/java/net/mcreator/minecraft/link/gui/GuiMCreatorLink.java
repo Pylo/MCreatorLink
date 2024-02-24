@@ -24,35 +24,38 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
-@OnlyIn(Dist.CLIENT) public class GuiMCreatorLink extends Screen {
+@OnlyIn(Dist.CLIENT)
+public class GuiMCreatorLink extends Screen {
 
-	private Screen prevScreen;
-	private Button connectButton;
-	private Button disconnectButton;
+    private Screen prevScreen;
+    private Button connectButton;
+    private Button disconnectButton;
 
-	private GuiListDevices selectionList;
+    private GuiListDevices selectionList;
 
-	private int ticks = 0;
+    private int ticks = 0;
 
-	public GuiMCreatorLink(Screen screenIn) {
+    public GuiMCreatorLink(Screen screenIn) {
         super(Component.literal("MCreator Link"));
         this.prevScreen = screenIn;
-	}
+    }
 
-	/**
-	 * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
-	 * window resizes, the buttonList is cleared beforehand.
-	 */
-	@Override public void init() {
+    /**
+     * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
+     * window resizes, the buttonList is cleared beforehand.
+     */
+    @Override
+    public void init() {
         super.init();
 
-        this.selectionList = new GuiListDevices(this, this.minecraft, this.width, this.height, 32, this.height - 42,
+        this.selectionList = new GuiListDevices(this, this.minecraft, this.width, this.height - 76, 32,
                 36);
+        this.addRenderableWidget(this.selectionList);
 
         this.connectButton = this.addRenderableWidget(Button.builder(Component.translatable("link.menu.connect"), e -> {
             GuiListDevicesEntry selected = this.selectionList.getSelectedDevice();
@@ -89,63 +92,54 @@ import javax.annotation.Nullable;
         this.connectButton.active = false;
     }
 
-	private static final ResourceLocation LOGO = new ResourceLocation("mcreator_link", "textures/logo_small.png");
+    private static final ResourceLocation LOGO = new ResourceLocation("mcreator_link", "textures/logo_small.png");
 
     /**
      * Draws the screen and all the components in it.
      */
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        this.selectionList.render(guiGraphics, mouseX, mouseY, partialTicks);
-
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
 
         RenderSystem.enableBlend();
         guiGraphics.blit(LOGO, this.width / 2 - 50, 8, 0.0F, 0.0F, 100, 16, 100, 16);
         RenderSystem.disableBlend();
+
+        updateButtons();
     }
 
-	/**
-	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
-	 */
-	@Override public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
-		this.selectionList.mouseClicked(mouseX, mouseY, mouseButton);
-		return super.mouseClicked(mouseX, mouseY, mouseButton);
-	}
+    @Nullable
+    private GuiListDevicesEntry selectedDevice;
 
-	/**
-	 * Called when a mouse button is released.
-	 */
-	@Override public boolean mouseReleased(double mouseX, double mouseY, int state) {
-		this.selectionList.mouseReleased(mouseX, mouseY, state);
-		return super.mouseReleased(mouseX, mouseY, state);
-	}
+    void setSelectedDevice(@Nullable GuiListDevicesEntry entry) {
+        selectedDevice = entry;
+    }
 
-	void setSelectedDevice(@Nullable GuiListDevicesEntry entry) {
-		if (this.connectButton != null) {
-			if (entry != null) {
-				if (entry.getDevice().isConnected()) {
-					this.disconnectButton.active = true;
-					this.connectButton.active = false;
-				} else {
-					this.disconnectButton.active = false;
-					this.connectButton.active = true;
-				}
-			} else {
-				this.disconnectButton.active = false;
-				this.connectButton.active = false;
-			}
-			if (MCreatorLink.LINK.getConnectedDevice() != null)
-				this.connectButton.active = false;
-		}
-	}
+    private void updateButtons() {
+        if (this.connectButton != null) {
+            if (selectedDevice != null) {
+                if (selectedDevice.getDevice().isConnected()) {
+                    this.disconnectButton.active = true;
+                    this.connectButton.active = false;
+                } else {
+                    this.disconnectButton.active = false;
+                    this.connectButton.active = true;
+                }
+            } else {
+                this.disconnectButton.active = false;
+                this.connectButton.active = false;
+            }
+            if (MCreatorLink.LINK.getConnectedDevice() != null)
+                this.connectButton.active = false;
+        }
+    }
 
-	@Override public void tick() {
-		super.tick();
+    @Override
+    public void tick() {
+        super.tick();
+        ticks++;
+        if (ticks % 50 == 0)
+            this.selectionList.refreshList();
+    }
 
-		ticks++;
-
-		if (ticks % 50 == 0)
-			this.selectionList.refreshList();
-	}
 }
