@@ -22,11 +22,12 @@ import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.resources.language.I18n;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import org.lwjgl.glfw.GLFW;
 
-@Mod.EventBusSubscriber({ Dist.CLIENT }) public class ScreenEventHandler {
+@EventBusSubscriber({Dist.CLIENT})
+public class ScreenEventHandler {
 
 	/**
      * This method subscribes to screen draw events so the Link notice can be rendered on some screens.

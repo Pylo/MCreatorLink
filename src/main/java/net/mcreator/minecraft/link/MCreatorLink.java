@@ -27,6 +27,7 @@ import net.minecraft.commands.synchronization.ArgumentTypeInfos;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import org.apache.maven.artifact.versioning.ArtifactVersion;
@@ -34,7 +35,9 @@ import org.apache.maven.artifact.versioning.ArtifactVersion;
 /**
  * Main mod class for the MCreator Link Minecraft mod
  */
-@Mod("mcreator_link") @Mod.EventBusSubscriber public class MCreatorLink {
+@Mod("mcreator_link")
+@EventBusSubscriber
+public class MCreatorLink {
 
 	public static final DeviceManager LINK = new DeviceManager();
 
