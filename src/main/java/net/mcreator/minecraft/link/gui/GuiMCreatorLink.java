@@ -92,7 +92,7 @@ public class GuiMCreatorLink extends Screen {
         this.connectButton.active = false;
     }
 
-    private static final ResourceLocation LOGO = new ResourceLocation("mcreator_link", "textures/logo_small.png");
+    private static final ResourceLocation LOGO = ResourceLocation.fromNamespaceAndPath("mcreator_link", "textures/logo_small.png");
 
     /**
      * Draws the screen and all the components in it.

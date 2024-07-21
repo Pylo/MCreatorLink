@@ -33,9 +33,9 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT) public class GuiListDevicesEntry extends ObjectSelectionList.Entry<GuiListDevicesEntry> {
 
-	private static final ResourceLocation DEVICE_ARDUINO = new ResourceLocation("mcreator_link",
+    private static final ResourceLocation DEVICE_ARDUINO = ResourceLocation.fromNamespaceAndPath("mcreator_link",
 			"textures/arduino.png");
-	private static final ResourceLocation DEVICE_RASPBERRYPI = new ResourceLocation("mcreator_link",
+    private static final ResourceLocation DEVICE_RASPBERRYPI = ResourceLocation.fromNamespaceAndPath("mcreator_link",
 			"textures/raspberrypi.png");
 
 	protected final Minecraft client;
