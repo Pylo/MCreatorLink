@@ -12,9 +12,9 @@ displayURL="https://mcreator.net/link"
 authors="Pylo"
 logoFile="logo.png"
 
-[[dependencies.test]]
+[[dependencies.mcreator_link]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21]"
+versionRange = "[1.21,1.21.1]"
 ordering = "NONE"
 side = "BOTH"
