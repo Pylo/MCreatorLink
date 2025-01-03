@@ -14,8 +14,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class LinkBlock extends Block {
 
-    public LinkBlock() {
-        super(BlockBehaviour.Properties.of());
+    public LinkBlock(BlockBehaviour.Properties properties) {
+        super(properties);
     }
 
     @Override

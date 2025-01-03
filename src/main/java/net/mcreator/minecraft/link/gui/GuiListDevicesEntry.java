@@ -26,6 +26,7 @@ import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ObjectSelectionList;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
@@ -70,11 +71,11 @@ import net.neoforged.api.distmarker.OnlyIn;
 
         if (device instanceof Arduino) {
             RenderSystem.enableBlend();
-            guiGraphics.blit(DEVICE_ARDUINO, x, y, 0, 0, 32, 32, 32, 32);
+            guiGraphics.blit(RenderType::guiTextured, DEVICE_ARDUINO, x, y, 0, 0, 32, 32, 32, 32);
             RenderSystem.disableBlend();
         } else if (device instanceof RaspberryPi) {
             RenderSystem.enableBlend();
-            guiGraphics.blit(DEVICE_RASPBERRYPI, x, y, 0, 0, 32, 32, 32, 32);
+            guiGraphics.blit(RenderType::guiTextured, DEVICE_RASPBERRYPI, x, y, 0, 0, 32, 32, 32, 32);
             RenderSystem.disableBlend();
 		}
 

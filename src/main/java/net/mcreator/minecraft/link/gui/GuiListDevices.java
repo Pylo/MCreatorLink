@@ -77,10 +77,6 @@ import javax.annotation.Nullable;
 		return super.getRowWidth() + 85;
 	}
 
-	@Override protected int getScrollbarPosition() {
-		return super.getScrollbarPosition() + 32;
-	}
-
 	/**
 	 * Returns true if the element passed in is currently selected
 	 */
