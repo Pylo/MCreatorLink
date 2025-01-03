@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../../script-dir/jquery-ui.min.css" title="Style">
 <script type="text/javascript" src="../../../../../script.js"></script>
-<script type="text/javascript" src="../../../../../script-dir/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../../../../../script-dir/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
@@ -86,10 +86,12 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
 <div class="inheritance">net.minecraft.client.gui.components.AbstractWidget
+<div class="inheritance">net.minecraft.client.gui.components.AbstractScrollArea
 <div class="inheritance">net.minecraft.client.gui.components.AbstractContainerWidget
 <div class="inheritance">net.minecraft.client.gui.components.AbstractSelectionList&lt;<a href="GuiListDevicesEntry.html" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntry</a>&gt;
 <div class="inheritance">net.minecraft.client.gui.components.ObjectSelectionList&lt;<a href="GuiListDevicesEntry.html" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntry</a>&gt;
 <div class="inheritance">net.mcreator.minecraft.link.gui.GuiListDevices</div>
+</div>
 </div>
 </div>
 </div>
@@ -124,7 +126,10 @@ loadScripts(document, 'script');</script>
 <h2>Field Summary</h2>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-net.minecraft.client.gui.components.AbstractSelectionList">Fields inherited from class&nbsp;net.minecraft.client.gui.components.AbstractSelectionList</h3>
-<code>centerListVertically, headerHeight, itemHeight, minecraft, SCROLLBAR_WIDTH</code></div>
+<code>centerListVertically, headerHeight, itemHeight, minecraft</code></div>
+<div class="inherited-list">
+<h3 id="fields-inherited-from-class-net.minecraft.client.gui.components.AbstractScrollArea">Fields inherited from class&nbsp;net.minecraft.client.gui.components.AbstractScrollArea</h3>
+<code>SCROLLBAR_WIDTH</code></div>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-net.minecraft.client.gui.components.AbstractWidget">Fields inherited from class&nbsp;net.minecraft.client.gui.components.AbstractWidget</h3>
 <code>active, alpha, height, isHovered, packedFGColor, UNSET_FG_COLOR, visible, width</code></div>
@@ -152,20 +157,17 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the width of the list</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getScrollbarPosition()" class="member-name-link">getScrollbarPosition</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isSelectedItem(int)" class="member-name-link">isSelectedItem</a><wbr>(int&nbsp;slotIndex)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isSelectedItem(int)" class="member-name-link">isSelectedItem</a><wbr>(int&nbsp;slotIndex)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns true if the element passed in is currently selected</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="GuiListDevicesEntry.html" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntry</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#nextEntry(net.minecraft.client.gui.navigation.ScreenDirection)" class="member-name-link">nextEntry</a><wbr>(net.minecraft.client.gui.navigation.ScreenDirection&nbsp;direction)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setSelected(net.mcreator.minecraft.link.gui.GuiListDevicesEntry)" class="member-name-link">setSelected</a><wbr>(<a href="GuiListDevicesEntry.html" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntry</a>&nbsp;guiListDevicesEntry)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="GuiListDevicesEntry.html" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntry</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#nextEntry(net.minecraft.client.gui.navigation.ScreenDirection)" class="member-name-link">nextEntry</a><wbr>(net.minecraft.client.gui.navigation.ScreenDirection&nbsp;direction)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setSelected(net.mcreator.minecraft.link.gui.GuiListDevicesEntry)" class="member-name-link">setSelected</a><wbr>(<a href="GuiListDevicesEntry.html" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntry</a>&nbsp;guiListDevicesEntry)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
 </div>
@@ -174,28 +176,34 @@ loadScripts(document, 'script');</script>
 <code>nextFocusPath, updateWidgetNarration</code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.minecraft.client.gui.components.AbstractSelectionList">Methods inherited from class&nbsp;net.minecraft.client.gui.components.AbstractSelectionList</h3>
-<code>addEntry, addEntryToTop, centerScrollOn, children, clearEntries, clickedHeader, enableScissor, ensureVisible, getDefaultScrollbarPosition, getEntry, getEntryAtPosition, getFirstElement, getFocused, getHovered, getItemCount, getMaxPosition, getMaxScroll, getRowBottom, getRowRight, getRowTop, getScrollAmount, getSelected, isMouseOver, isValidMouseClick, mouseClicked, mouseDragged, mouseReleased, mouseScrolled, narrateListElementPosition, narrationPriority, nextEntry, nextEntry, remove, removeEntry, removeEntryFromTop, renderDecorations, renderHeader, renderItem, renderListBackground, renderListItems, renderListSeparators, renderSelection, renderWidget, replaceEntries, scrollbarVisible, setFocused, setRenderHeader, setScrollAmount, updateScrollingState, updateSize, updateSizeAndPosition</code></div>
+<code>addEntry, addEntryToTop, centerScrollOn, children, clearEntries, contentHeight, enableScissor, ensureVisible, getChildAt, getEntry, getEntryAtPosition, getFirstElement, getFocused, getHovered, getItemCount, getRowBottom, getRowRight, getRowTop, getSelected, narrateListElementPosition, narrationPriority, nextEntry, nextEntry, remove, removeEntry, removeEntryFromTop, renderDecorations, renderHeader, renderItem, renderListBackground, renderListItems, renderListSeparators, renderSelection, renderWidget, replaceEntries, scrollBarX, scrollRate, setFocused, setSelectedIndex, updateSize, updateSizeAndPosition</code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.minecraft.client.gui.components.AbstractContainerWidget">Methods inherited from class&nbsp;net.minecraft.client.gui.components.AbstractContainerWidget</h3>
-<code>isDragging, isFocused, setDragging, setFocused</code></div>
+<code>isDragging, isFocused, mouseClicked, mouseDragged, mouseReleased, setDragging, setFocused</code></div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-net.minecraft.client.gui.components.AbstractScrollArea">Methods inherited from class&nbsp;net.minecraft.client.gui.components.AbstractScrollArea</h3>
+<code>maxScrollAmount, mouseScrolled, onRelease, refreshScrollAmount, renderScrollbar, scrollAmount, scrollbarVisible, scrollBarY, scrollerHeight, setScrollAmount, updateScrolling</code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.minecraft.client.gui.components.AbstractWidget">Methods inherited from class&nbsp;net.minecraft.client.gui.components.AbstractWidget</h3>
-<code>clearFGColor, clicked, createNarrationMessage, defaultButtonNarrationText, getBottom, getFGColor, getHeight, getMessage, getRectangle, getRight, getTabOrderGroup, getTooltip, getWidth, getX, getY, isActive, isHovered, isHoveredOrFocused, isValidClickButton, onClick, onDrag, onRelease, playDownSound, render, renderScrollingString, renderScrollingString, renderScrollingString, setAlpha, setFGColor, setHeight, setMessage, setRectangle, setSize, setTabOrderGroup, setTooltip, setTooltipDelay, setWidth, setX, setY, updateNarration, visitWidgets, wrapDefaultNarrationMessage</code></div>
+<code>clearFGColor, createNarrationMessage, defaultButtonNarrationText, getBottom, getFGColor, getHeight, getMessage, getRectangle, getRight, getTabOrderGroup, getTooltip, getWidth, getX, getY, isActive, isHovered, isHoveredOrFocused, isMouseOver, isValidClickButton, onClick, onDrag, playButtonClickSound, playDownSound, render, renderScrollingString, renderScrollingString, renderScrollingString, setAlpha, setFGColor, setHeight, setMessage, setRectangle, setSize, setTabOrderGroup, setTooltip, setTooltipDelay, setWidth, setX, setY, updateNarration, visitWidgets, wrapDefaultNarrationMessage</code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.minecraft.client.gui.components.events.ContainerEventHandler">Methods inherited from interface&nbsp;net.minecraft.client.gui.components.events.ContainerEventHandler</h3>
-<code>charTyped, getChildAt, getCurrentFocusPath, keyPressed, keyReleased</code></div>
+<code>charTyped, getCurrentFocusPath, keyPressed, keyReleased, mouseScrolled</code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.minecraft.client.gui.components.events.GuiEventListener">Methods inherited from interface&nbsp;net.minecraft.client.gui.components.events.GuiEventListener</h3>
-<code>getRectangle, mouseMoved</code></div>
+<code>getBorderForArrowNavigation, getRectangle, isMouseOver, mouseMoved</code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.neoforged.neoforge.client.extensions.IAbstractWidgetExtension">Methods inherited from interface&nbsp;net.neoforged.neoforge.client.extensions.IAbstractWidgetExtension</h3>
 <code>onClick</code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.minecraft.client.gui.layouts.LayoutElement">Methods inherited from interface&nbsp;net.minecraft.client.gui.layouts.LayoutElement</h3>
 <code>setPosition</code></div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-net.minecraft.client.gui.narration.NarratableEntry">Methods inherited from interface&nbsp;net.minecraft.client.gui.narration.NarratableEntry</h3>
+<code>getNarratables</code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.minecraft.client.gui.components.TabOrderedElement">Methods inherited from interface&nbsp;net.minecraft.client.gui.components.TabOrderedElement</h3>
 <code>getTabOrderGroup</code></div>
@@ -239,16 +247,6 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code>getRowWidth</code>&nbsp;in class&nbsp;<code>net.minecraft.client.gui.components.AbstractSelectionList&lt;<a href="GuiListDevicesEntry.html" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntry</a>&gt;</code></dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="getScrollbarPosition()">
-<h3>getScrollbarPosition</h3>
-<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getScrollbarPosition</span>()</div>
-<dl class="notes">
-<dt>Overrides:</dt>
-<dd><code>getScrollbarPosition</code>&nbsp;in class&nbsp;<code>net.minecraft.client.gui.components.AbstractSelectionList&lt;<a href="GuiListDevicesEntry.html" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntry</a>&gt;</code></dd>
 </dl>
 </section>
 </li>
