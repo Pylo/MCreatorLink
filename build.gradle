@@ -48,7 +48,7 @@ tasks.register('copyModIntoFinalBuild', Copy) {
     from('build/libs/')
     include('mcreator_link-' + version + '-all.jar')
     into('build/export/')
-    rename { "MCreator Link " + project.version + " [1.21.1].jar" }
+    rename { "MCreator Link " + project.version + " [1.21.4].jar" }
 }
 
 tasks.named('copyModIntoFinalBuild').configure { dependsOn('jarJar') }
