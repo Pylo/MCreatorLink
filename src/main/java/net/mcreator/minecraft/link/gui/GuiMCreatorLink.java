@@ -16,24 +16,20 @@
 
 package net.mcreator.minecraft.link.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.mcreator.minecraft.link.MCreatorLink;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
-@OnlyIn(Dist.CLIENT)
 public class GuiMCreatorLink extends Screen {
 
-    private Screen prevScreen;
+    private final Screen prevScreen;
     private Button connectButton;
     private Button disconnectButton;
 
@@ -102,9 +98,7 @@ public class GuiMCreatorLink extends Screen {
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
 
-        RenderSystem.enableBlend();
-        guiGraphics.blit(RenderType::guiTextured, LOGO, this.width / 2 - 50, 8, 0.0F, 0.0F, 100, 16, 100, 16);
-        RenderSystem.disableBlend();
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, LOGO, this.width / 2 - 50, 8, 0.0F, 0.0F, 100, 16, 100, 16);
 
         updateButtons();
     }

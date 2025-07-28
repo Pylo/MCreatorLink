@@ -16,7 +16,6 @@
 
 package net.mcreator.minecraft.link.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.mcreator.minecraft.link.MCreatorLink;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.mcreator.minecraft.link.devices.arduino.Arduino;
@@ -26,30 +25,29 @@ import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ObjectSelectionList;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.minecraft.util.ARGB;
 
-@OnlyIn(Dist.CLIENT) public class GuiListDevicesEntry extends ObjectSelectionList.Entry<GuiListDevicesEntry> {
+public class GuiListDevicesEntry extends ObjectSelectionList.Entry<GuiListDevicesEntry> {
 
     private static final ResourceLocation DEVICE_ARDUINO = ResourceLocation.fromNamespaceAndPath("mcreator_link",
-			"textures/arduino.png");
+            "textures/arduino.png");
     private static final ResourceLocation DEVICE_RASPBERRYPI = ResourceLocation.fromNamespaceAndPath("mcreator_link",
-			"textures/raspberrypi.png");
+            "textures/raspberrypi.png");
 
-	protected final Minecraft client;
-	private final GuiListDevices containingListSel;
-	private long lastClickTime;
+    protected final Minecraft client;
+    private final GuiListDevices containingListSel;
+    private long lastClickTime;
 
-	private final AbstractDevice device;
+    private final AbstractDevice device;
 
-	GuiListDevicesEntry(GuiListDevices listWorldSelIn, AbstractDevice device) {
-		this.containingListSel = listWorldSelIn;
-		this.client = listWorldSelIn.guiMCreatorLink.getMinecraft();
-		this.device = device;
-	}
+    GuiListDevicesEntry(GuiListDevices listWorldSelIn, AbstractDevice device) {
+        this.containingListSel = listWorldSelIn;
+        this.client = listWorldSelIn.guiMCreatorLink.getMinecraft();
+        this.device = device;
+    }
 
     @Override
     public void render(GuiGraphics guiGraphics, int slotIndex, int y, int x, int listWidth, int slotHeight, int mouseX,
@@ -61,63 +59,59 @@ import net.neoforged.api.distmarker.OnlyIn;
         else
             s2 += ChatFormatting.GRAY + "AVAILABLE" + ChatFormatting.RESET;
 
-		guiGraphics.drawString(this.client.font, device.getName(), x + 32 + 8, y + 1, 16777215, false);
+        guiGraphics.drawString(this.client.font, device.getName(), x + 32 + 8, y + 1, ARGB.opaque(16777215), false);
         guiGraphics.drawString(this.client.font, device.getDescription(), x + 32 + 8, y + this.client.font.lineHeight + 3,
-				8421504, false);
+                ARGB.opaque(8421504), false);
         guiGraphics.drawString(this.client.font, s2, x + 32 + 8,
-				y + this.client.font.lineHeight + this.client.font.lineHeight + 3, 8421504, false);
-
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                y + this.client.font.lineHeight + this.client.font.lineHeight + 3, ARGB.opaque(8421504), false);
 
         if (device instanceof Arduino) {
-            RenderSystem.enableBlend();
-            guiGraphics.blit(RenderType::guiTextured, DEVICE_ARDUINO, x, y, 0, 0, 32, 32, 32, 32);
-            RenderSystem.disableBlend();
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, DEVICE_ARDUINO, x, y, 0, 0, 32, 32, 32, 32);
         } else if (device instanceof RaspberryPi) {
-            RenderSystem.enableBlend();
-            guiGraphics.blit(RenderType::guiTextured, DEVICE_RASPBERRYPI, x, y, 0, 0, 32, 32, 32, 32);
-            RenderSystem.disableBlend();
-		}
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, DEVICE_RASPBERRYPI, x, y, 0, 0, 32, 32, 32, 32);
+        }
 
-		if (this.client.options.touchscreen().get() || isSelected) {
+        if (this.client.options.touchscreen().get() || isSelected) {
             guiGraphics.fill(x, y, x + 32, y + 32, -1601138544);
         }
-	}
+    }
 
-	/**
-	 * Called when the mouse is clicked within this entry. Returning true means that something within this entry was
-	 * clicked and the list should not be dragged.
-	 */
-	@Override public boolean mouseClicked(double x, double y, int par) {
-		this.containingListSel.setSelected(this);
+    /**
+     * Called when the mouse is clicked within this entry. Returning true means that something within this entry was
+     * clicked and the list should not be dragged.
+     */
+    @Override
+    public boolean mouseClicked(double x, double y, int par) {
+        this.containingListSel.setSelected(this);
 
-		if (x - (double) containingListSel.getRowLeft() < 32) { // clicked on icon
-			if (!device.isConnected())
-				MCreatorLink.LINK.setConnectedDevice(device);
-			else
-				MCreatorLink.LINK.disconnectDevice(device);
-			this.containingListSel.refreshList();
-			return true;
-		} else if (Util.getMillis() - this.lastClickTime < 250L) { // double clicked
-			this.lastClickTime = Util.getMillis();
+        if (x - (double) containingListSel.getRowLeft() < 32) { // clicked on icon
+            if (!device.isConnected())
+                MCreatorLink.LINK.setConnectedDevice(device);
+            else
+                MCreatorLink.LINK.disconnectDevice(device);
+            this.containingListSel.refreshList();
+            return true;
+        } else if (Util.getMillis() - this.lastClickTime < 250L) { // double clicked
+            this.lastClickTime = Util.getMillis();
 
-			if (!device.isConnected())
-				MCreatorLink.LINK.setConnectedDevice(device);
-			else
-				MCreatorLink.LINK.disconnectDevice(device);
-			this.containingListSel.refreshList();
-			return true;
-		} else {
-			this.lastClickTime = Util.getMillis();
-			return false;
-		}
-	}
+            if (!device.isConnected())
+                MCreatorLink.LINK.setConnectedDevice(device);
+            else
+                MCreatorLink.LINK.disconnectDevice(device);
+            this.containingListSel.refreshList();
+            return true;
+        } else {
+            this.lastClickTime = Util.getMillis();
+            return false;
+        }
+    }
 
-	AbstractDevice getDevice() {
-		return device;
-	}
+    AbstractDevice getDevice() {
+        return device;
+    }
 
-	@Override public Component getNarration() {
+    @Override
+    public Component getNarration() {
         return Component.translatable("link.menu.selectlist");
-	}
+    }
 }

@@ -21,34 +21,32 @@ import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.gui.navigation.ScreenDirection;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
-@OnlyIn(Dist.CLIENT) public class GuiListDevices extends ObjectSelectionList<GuiListDevicesEntry> {
+public class GuiListDevices extends ObjectSelectionList<GuiListDevicesEntry> {
 
-	final GuiMCreatorLink guiMCreatorLink;
+    final GuiMCreatorLink guiMCreatorLink;
 
-	private final GuiListDevicesEntryScan devicesEntryScan;
+    private final GuiListDevicesEntryScan devicesEntryScan;
 
-	GuiListDevices(GuiMCreatorLink guiMCreatorLink, Minecraft clientIn, int widthIn, int heightIn, int topIn,
+    GuiListDevices(GuiMCreatorLink guiMCreatorLink, Minecraft clientIn, int widthIn, int heightIn, int topIn,
                    int entryHeightIn) {
         super(clientIn, widthIn, heightIn, topIn, entryHeightIn);
-		this.guiMCreatorLink = guiMCreatorLink;
-		this.devicesEntryScan = new GuiListDevicesEntryScan(this, null);
+        this.guiMCreatorLink = guiMCreatorLink;
+        this.devicesEntryScan = new GuiListDevicesEntryScan(this, null);
 
-		this.refreshList(); // initial refresh
-	}
+        this.refreshList(); // initial refresh
+    }
 
-	void refreshList() {
-		GuiListDevicesEntry entry = this.getSelected();
+    void refreshList() {
+        GuiListDevicesEntry entry = this.getSelected();
 
-		this.clearEntries();
+        this.clearEntries();
 
-		for (AbstractDevice device : MCreatorLink.LINK.getAllDevices()) {
-			GuiListDevicesEntry tmp;
-			this.addEntry(tmp = new GuiListDevicesEntry(this, device));
+        for (AbstractDevice device : MCreatorLink.LINK.getAllDevices()) {
+            GuiListDevicesEntry tmp;
+            this.addEntry(tmp = new GuiListDevicesEntry(this, device));
             if (entry != null && device.equals(entry.getDevice()))
                 entry = tmp;
         }
@@ -73,25 +71,29 @@ import javax.annotation.Nullable;
     /**
      * Gets the width of the list
      */
-	@Override public int getRowWidth() {
-		return super.getRowWidth() + 85;
-	}
+    @Override
+    public int getRowWidth() {
+        return super.getRowWidth() + 85;
+    }
 
-	/**
-	 * Returns true if the element passed in is currently selected
-	 */
-	@Override protected boolean isSelectedItem(int slotIndex) {
-		if (slotIndex == super.getItemCount()) { // GuiListDevicesEntryScan can't be selected
-			return false;
-		}
-		return super.isSelectedItem(slotIndex);
-	}
+    /**
+     * Returns true if the element passed in is currently selected
+     */
+    @Override
+    protected boolean isSelectedItem(int slotIndex) {
+        if (slotIndex == super.getItemCount()) { // GuiListDevicesEntryScan can't be selected
+            return false;
+        }
+        return super.isSelectedItem(slotIndex);
+    }
 
-	@Nullable GuiListDevicesEntry getSelectedDevice() {
-		return this.getSelected() instanceof GuiListDevicesEntryScan ? null : this.getSelected();
-	}
+    @Nullable
+    GuiListDevicesEntry getSelectedDevice() {
+        return this.getSelected() instanceof GuiListDevicesEntryScan ? null : this.getSelected();
+    }
 
-	@Override public int getRowLeft() {
-		return super.getRowLeft();
-	}
+    @Override
+    public int getRowLeft() {
+        return super.getRowLeft();
+    }
 }

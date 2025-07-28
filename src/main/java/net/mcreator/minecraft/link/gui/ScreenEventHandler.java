@@ -20,14 +20,14 @@ import net.mcreator.minecraft.link.MCreatorLink;
 import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.util.ARGB;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import org.lwjgl.glfw.GLFW;
 
-@EventBusSubscriber({Dist.CLIENT})
-public class ScreenEventHandler {
+@EventBusSubscriber({Dist.CLIENT}) public class ScreenEventHandler {
 
 	/**
      * This method subscribes to screen draw events so the Link notice can be rendered on some screens.
@@ -38,10 +38,10 @@ public class ScreenEventHandler {
     public static void drawScreenEvent(ScreenEvent.Render.Post drawScreenEvent) {
         if (drawScreenEvent.getScreen() instanceof TitleScreen || drawScreenEvent.getScreen() instanceof PauseScreen) {
             drawScreenEvent.getGuiGraphics().drawString(drawScreenEvent.getScreen().getMinecraft().font,
-                    "MCreator Link " + MCreatorLink.VERSION, 3, 3, 0xffffff, false);
+                    "MCreator Link " + MCreatorLink.VERSION, 3, 3, ARGB.opaque(0xffffff), false);
 
             drawScreenEvent.getGuiGraphics().drawString(drawScreenEvent.getScreen().getMinecraft().font,
-                    I18n.get("link.menu.settingskey"), 3, 14, 0xffffff, false);
+                    I18n.get("link.menu.settingskey"), 3, 14, ARGB.opaque(0xffffff), false);
 
             if (GLFW.glfwGetKey(drawScreenEvent.getScreen().getMinecraft().getWindow().getWindow(), GLFW.GLFW_KEY_L)
                     == GLFW.GLFW_PRESS)

@@ -20,41 +20,41 @@ import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.minecraft.util.ARGB;
 
-@OnlyIn(Dist.CLIENT) public class GuiListDevicesEntryScan extends GuiListDevicesEntry {
+public class GuiListDevicesEntryScan extends GuiListDevicesEntry {
 
-	GuiListDevicesEntryScan(GuiListDevices listWorldSelIn, AbstractDevice device) {
-		super(listWorldSelIn, device);
-	}
+    GuiListDevicesEntryScan(GuiListDevices listWorldSelIn, AbstractDevice device) {
+        super(listWorldSelIn, device);
+    }
 
-	@Override
-	public void render(GuiGraphics guiGraphics, int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX,
-					   int mouseY, boolean isSelected, float partialTicks) {
-		if (this.client.screen != null) {
-			int i = y + slotHeight / 2 - this.client.font.lineHeight / 2;
+    @Override
+    public void render(GuiGraphics guiGraphics, int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX,
+                       int mouseY, boolean isSelected, float partialTicks) {
+        if (this.client.screen != null) {
+            int i = y + slotHeight / 2 - this.client.font.lineHeight / 2;
 
-			guiGraphics.drawString(this.client.font, "Scanning for link compatible devices",
-					(int) (this.client.screen.width / 2f - this.client.font.width("Scanning for link compatible devices") / 2f),
-					i, 16777215, false);
+            guiGraphics.drawString(this.client.font, "Scanning for link compatible devices",
+                    (int) (this.client.screen.width / 2f - this.client.font.width("Scanning for link compatible devices") / 2f),
+                    i, ARGB.opaque(16777215), false);
 
-			String s = switch ((int) (Util.getMillis() / 300L % 4L)) {
-				default -> "O o o";
-				case 1, 3 -> "o O o";
-				case 2 -> "o o O";
-			};
+            String s = switch ((int) (Util.getMillis() / 300L % 4L)) {
+                case 1, 3 -> "o O o";
+                case 2 -> "o o O";
+                default -> "O o o";
+            };
 
-			if (Minecraft.getInstance().screen != null) {
-				guiGraphics.drawString(this.client.font, s,
-						(int) (Minecraft.getInstance().screen.width / 2f - this.client.font.width(s) / 2f),
-						i + this.client.font.lineHeight, 8421504, false);
-			}
-		}
-	}
+            if (Minecraft.getInstance().screen != null) {
+                guiGraphics.drawString(this.client.font, s,
+                        (int) (Minecraft.getInstance().screen.width / 2f - this.client.font.width(s) / 2f),
+                        i + this.client.font.lineHeight, ARGB.opaque(8421504), false);
+            }
+        }
+    }
 
-	@Override public boolean mouseClicked(double x, double y, int par) {
-		return false;
-	}
+    @Override
+    public boolean mouseClicked(double x, double y, int par) {
+        return false;
+    }
 
 }

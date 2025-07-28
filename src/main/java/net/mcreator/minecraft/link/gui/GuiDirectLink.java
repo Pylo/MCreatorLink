@@ -24,42 +24,41 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.minecraft.util.ARGB;
 
-@OnlyIn(Dist.CLIENT) public class GuiDirectLink extends Screen {
+public class GuiDirectLink extends Screen {
 
-	private final Screen lastScreen;
-	private EditBox ipTextField;
+    private final Screen lastScreen;
+    private EditBox ipTextField;
 
-	private Button connect;
+    private Button connect;
 
-	GuiDirectLink(Screen lastScreenIn) {
+    GuiDirectLink(Screen lastScreenIn) {
         super(Component.literal("Minecraft Link direct connect"));
         this.lastScreen = lastScreenIn;
-	}
+    }
 
-	/**
-	 * Draws the screen and all the components in it.
-	 */
-	@Override
-	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(guiGraphics, mouseX, mouseY, partialTicks);
-		super.render(guiGraphics, mouseX, mouseY, partialTicks);
+    /**
+     * Draws the screen and all the components in it.
+     */
+    @Override
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        super.render(guiGraphics, mouseX, mouseY, partialTicks);
 
-		guiGraphics.drawCenteredString(this.font, Component.translatable("link.direct.title"), this.width / 2, 20,
-				16777215);
-		guiGraphics.drawString(this.font, Component.translatable("link.direct.field"), this.width / 2 - 100, 100,
-				10526880, false);
+        guiGraphics.drawCenteredString(this.font, Component.translatable("link.direct.title"), this.width / 2, 20,
+                ARGB.opaque(0xffffff));
+        guiGraphics.drawString(this.font, Component.translatable("link.direct.field"), this.width / 2 - 100, 100,
+                ARGB.opaque(0xffffff), false);
 
-		this.ipTextField.render(guiGraphics, mouseX, mouseY, partialTicks);
-	}
+        this.ipTextField.render(guiGraphics, mouseX, mouseY, partialTicks);
+    }
 
-	/**
-	 * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
-	 * window resizes, the buttonList is cleared beforehand.
-	 */
-	@Override public void init() {
+    /**
+     * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
+     * window resizes, the buttonList is cleared beforehand.
+     */
+    @Override
+    public void init() {
         super.init();
 
         this.addRenderableWidget(connect = Button.builder(Component.translatable("link.direct.connect"), e -> {
@@ -89,28 +88,30 @@ import net.neoforged.api.distmarker.OnlyIn;
         this.ipTextField.setFocused(true);
     }
 
-	/**
-	 * Called when the screen is unloaded. Used to disable keyboard repeat events
-	 */
-	@Override public void onClose() {
-		super.onClose();
-	}
+    /**
+     * Called when the screen is unloaded. Used to disable keyboard repeat events
+     */
+    @Override
+    public void onClose() {
+        super.onClose();
+    }
 
-	/**
-	 * Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of
-	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
-	 */
-	@Override public boolean keyPressed(int typedChar, int keyCode, int par) {
-		if (keyCode == 28 || keyCode == 156) {
-			connect.onPress();
-		} else if (this.ipTextField.keyPressed(typedChar, keyCode, par)) {
-			this.ipTextField.setTextColor(0xffffff);
-			connect.active = !this.ipTextField.getValue().isEmpty() && this.ipTextField.getValue().split(":").length > 0;
-			return true;
-		}
+    /**
+     * Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of
+     * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
+     */
+    @Override
+    public boolean keyPressed(int typedChar, int keyCode, int par) {
+        if (keyCode == 28 || keyCode == 156) {
+            connect.onPress();
+        } else if (this.ipTextField.keyPressed(typedChar, keyCode, par)) {
+            this.ipTextField.setTextColor(0xffffff);
+            connect.active = !this.ipTextField.getValue().isEmpty() && this.ipTextField.getValue().split(":").length > 0;
+            return true;
+        }
 
-		connect.active = !this.ipTextField.getValue().isEmpty() && this.ipTextField.getValue().split(":").length > 0;
-		return super.keyPressed(typedChar, keyCode, par);
-	}
+        connect.active = !this.ipTextField.getValue().isEmpty() && this.ipTextField.getValue().split(":").length > 0;
+        return super.keyPressed(typedChar, keyCode, par);
+    }
 
 }

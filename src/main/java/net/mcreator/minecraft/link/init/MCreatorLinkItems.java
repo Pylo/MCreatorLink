@@ -8,7 +8,7 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber
 public class MCreatorLinkItems {
 
     public static final DeferredRegister.Items REGISTRY = DeferredRegister.Items.createItems("mcreator_link");
