@@ -20,6 +20,7 @@ import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.util.ARGB;
 
 public class GuiListDevicesEntryScan extends GuiListDevicesEntry {
@@ -29,10 +30,9 @@ public class GuiListDevicesEntryScan extends GuiListDevicesEntry {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX,
-                       int mouseY, boolean isSelected, float partialTicks) {
+    public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean isHovering, float partialTicks) {
         if (this.client.screen != null) {
-            int i = y + slotHeight / 2 - this.client.font.lineHeight / 2;
+            int i = this.getContentY() + getHeight() / 2 - this.client.font.lineHeight / 2;
 
             guiGraphics.drawString(this.client.font, "Scanning for link compatible devices",
                     (int) (this.client.screen.width / 2f - this.client.font.width("Scanning for link compatible devices") / 2f),
@@ -53,7 +53,7 @@ public class GuiListDevicesEntryScan extends GuiListDevicesEntry {
     }
 
     @Override
-    public boolean mouseClicked(double x, double y, int par) {
+    public boolean mouseClicked(MouseButtonEvent event, boolean flag) {
         return false;
     }
 

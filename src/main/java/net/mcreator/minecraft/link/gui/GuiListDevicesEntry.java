@@ -25,6 +25,7 @@ import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ObjectSelectionList;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -38,7 +39,7 @@ public class GuiListDevicesEntry extends ObjectSelectionList.Entry<GuiListDevice
             "textures/raspberrypi.png");
 
     protected final Minecraft client;
-    private final GuiListDevices containingListSel;
+    protected final GuiListDevices containingListSel;
     private long lastClickTime;
 
     private final AbstractDevice device;
@@ -50,8 +51,7 @@ public class GuiListDevicesEntry extends ObjectSelectionList.Entry<GuiListDevice
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int slotIndex, int y, int x, int listWidth, int slotHeight, int mouseX,
-                       int mouseY, boolean isSelected, float partialTicks) {
+    public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean isHovering, float partialTicks) {
         String s2 = "Status: ";
 
         if (device.isConnected())
@@ -59,20 +59,20 @@ public class GuiListDevicesEntry extends ObjectSelectionList.Entry<GuiListDevice
         else
             s2 += ChatFormatting.GRAY + "AVAILABLE" + ChatFormatting.RESET;
 
-        guiGraphics.drawString(this.client.font, device.getName(), x + 32 + 8, y + 1, ARGB.opaque(16777215), false);
-        guiGraphics.drawString(this.client.font, device.getDescription(), x + 32 + 8, y + this.client.font.lineHeight + 3,
+        guiGraphics.drawString(this.client.font, device.getName(), this.getContentX() + 32 + 8, this.getContentY() + 1, ARGB.opaque(16777215), false);
+        guiGraphics.drawString(this.client.font, device.getDescription(), this.getContentX() + 32 + 8, this.getContentY() + this.client.font.lineHeight + 3,
                 ARGB.opaque(8421504), false);
-        guiGraphics.drawString(this.client.font, s2, x + 32 + 8,
-                y + this.client.font.lineHeight + this.client.font.lineHeight + 3, ARGB.opaque(8421504), false);
+        guiGraphics.drawString(this.client.font, s2, this.getContentX() + 32 + 8,
+                this.getContentY() + this.client.font.lineHeight + this.client.font.lineHeight + 3, ARGB.opaque(8421504), false);
 
         if (device instanceof Arduino) {
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, DEVICE_ARDUINO, x, y, 0, 0, 32, 32, 32, 32);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, DEVICE_ARDUINO, this.getContentX(), this.getContentY(), 0, 0, 32, 32, 32, 32);
         } else if (device instanceof RaspberryPi) {
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, DEVICE_RASPBERRYPI, x, y, 0, 0, 32, 32, 32, 32);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, DEVICE_RASPBERRYPI, this.getContentX(), this.getContentY(), 0, 0, 32, 32, 32, 32);
         }
 
-        if (this.client.options.touchscreen().get() || isSelected) {
-            guiGraphics.fill(x, y, x + 32, y + 32, -1601138544);
+        if (this.client.options.touchscreen().get() || containingListSel.getSelected() == this) {
+            guiGraphics.fill(this.getContentX(), this.getContentY(), this.getContentX() + 32, this.getContentY() + 32, -1601138544);
         }
     }
 
@@ -81,10 +81,10 @@ public class GuiListDevicesEntry extends ObjectSelectionList.Entry<GuiListDevice
      * clicked and the list should not be dragged.
      */
     @Override
-    public boolean mouseClicked(double x, double y, int par) {
+    public boolean mouseClicked(MouseButtonEvent event, boolean flag) {
         this.containingListSel.setSelected(this);
 
-        if (x - (double) containingListSel.getRowLeft() < 32) { // clicked on icon
+        if (event.x() - (double) containingListSel.getRowLeft() < 32) { // clicked on icon
             if (!device.isConnected())
                 MCreatorLink.LINK.setConnectedDevice(device);
             else

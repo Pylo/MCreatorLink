@@ -43,7 +43,7 @@ import org.lwjgl.glfw.GLFW;
             drawScreenEvent.getGuiGraphics().drawString(drawScreenEvent.getScreen().getMinecraft().font,
                     I18n.get("link.menu.settingskey"), 3, 14, ARGB.opaque(0xffffff), false);
 
-            if (GLFW.glfwGetKey(drawScreenEvent.getScreen().getMinecraft().getWindow().getWindow(), GLFW.GLFW_KEY_L)
+            if (GLFW.glfwGetKey(drawScreenEvent.getScreen().getMinecraft().getWindow().handle(), GLFW.GLFW_KEY_L)
                     == GLFW.GLFW_PRESS)
                 drawScreenEvent.getScreen().getMinecraft().setScreen(new GuiMCreatorLink(drawScreenEvent.getScreen()));
         }

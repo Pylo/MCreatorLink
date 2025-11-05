@@ -10,6 +10,6 @@ public class MCreatorLinkBlocks {
 
     public static final DeferredRegister.Blocks REGISTRY = DeferredRegister.Blocks.createBlocks("mcreator_link");
 
-    public static final DeferredBlock<Block> LINK_BLOCK = REGISTRY.registerBlock("link", LinkBlock::new, BlockBehaviour.Properties.of());
+    public static final DeferredBlock<Block> LINK_BLOCK = REGISTRY.registerBlock("link", LinkBlock::new, BlockBehaviour.Properties::of);
 
 }

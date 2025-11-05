@@ -23,6 +23,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.ARGB;
 
@@ -101,17 +102,17 @@ public class GuiDirectLink extends Screen {
      * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
      */
     @Override
-    public boolean keyPressed(int typedChar, int keyCode, int par) {
-        if (keyCode == 28 || keyCode == 156) {
-            connect.onPress();
-        } else if (this.ipTextField.keyPressed(typedChar, keyCode, par)) {
+    public boolean keyPressed(KeyEvent keyEvent) {
+        if (keyEvent.scancode() == 28 || keyEvent.scancode() == 156) {
+            connect.onPress(keyEvent);
+        } else if (this.ipTextField.keyPressed(keyEvent)) {
             this.ipTextField.setTextColor(0xffffff);
             connect.active = !this.ipTextField.getValue().isEmpty() && this.ipTextField.getValue().split(":").length > 0;
             return true;
         }
 
         connect.active = !this.ipTextField.getValue().isEmpty() && this.ipTextField.getValue().split(":").length > 0;
-        return super.keyPressed(typedChar, keyCode, par);
+        return super.keyPressed(keyEvent);
     }
 
 }

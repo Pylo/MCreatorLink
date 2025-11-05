@@ -19,10 +19,12 @@ package net.mcreator.minecraft.link.gui;
 import net.mcreator.minecraft.link.MCreatorLink;
 import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.gui.navigation.ScreenDirection;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class GuiListDevices extends ObjectSelectionList<GuiListDevicesEntry> {
 
@@ -76,15 +78,14 @@ public class GuiListDevices extends ObjectSelectionList<GuiListDevicesEntry> {
         return super.getRowWidth() + 85;
     }
 
-    /**
-     * Returns true if the element passed in is currently selected
-     */
     @Override
-    protected boolean isSelectedItem(int slotIndex) {
-        if (slotIndex == super.getItemCount()) { // GuiListDevicesEntryScan can't be selected
-            return false;
+    protected void renderItem(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, GuiListDevicesEntry entry) {
+        if (this.entriesCanBeSelected() && this.getSelected() == entry && this.getSelected() != devicesEntryScan) {
+            int i = this.isFocused() ? -1 : -8355712;
+            this.renderSelection(guiGraphics, entry, i);
         }
-        return super.isSelectedItem(slotIndex);
+
+        entry.renderContent(guiGraphics, mouseX, mouseY, Objects.equals(this.getHovered(), entry), partialTick);
     }
 
     @Nullable
