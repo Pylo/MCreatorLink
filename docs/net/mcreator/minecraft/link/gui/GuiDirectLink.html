@@ -118,9 +118,6 @@ loadScripts(document, 'script');</script>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-net.minecraft.client.gui.screens.Screen">Fields inherited from class&nbsp;net.minecraft.client.gui.screens.Screen</h3>
 <code>FADE_IN_TIME, font, FOOTER_SEPARATOR, HEADER_SEPARATOR, height, INWORLD_FOOTER_SEPARATOR, INWORLD_HEADER_SEPARATOR, MENU_BACKGROUND, minecraft, narratorButton, renderables, screenExecutor, title, width</code></div>
-<div class="inherited-list">
-<h3 id="fields-inherited-from-class-net.minecraft.client.gui.components.events.GuiEventListener">Fields inherited from interface&nbsp;net.minecraft.client.gui.components.events.GuiEventListener</h3>
-<code>DOUBLE_CLICK_THRESHOLD_MS</code></div>
 </section>
 </li>
 <!-- ========== METHOD SUMMARY =========== -->
@@ -140,9 +137,7 @@ loadScripts(document, 'script');</script>
 <div class="block">Adds the buttons (and other controls) to the screen in question.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#keyPressed(int,int,int)" class="member-name-link">keyPressed</a><wbr>(int&nbsp;typedChar,
- int&nbsp;keyCode,
- int&nbsp;par)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#keyPressed(net.minecraft.client.input.KeyEvent)" class="member-name-link">keyPressed</a><wbr>(net.minecraft.client.input.KeyEvent&nbsp;keyEvent)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Fired when a key is typed (except F11 which toggles full screen).</div>
 </div>
@@ -164,7 +159,7 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.minecraft.client.gui.screens.Screen">Methods inherited from class&nbsp;net.minecraft.client.gui.screens.Screen</h3>
-<code>added, addRenderableOnly, addRenderableWidget, addWidget, afterKeyboardAction, afterMouseAction, afterMouseMove, changeFocus, children, clearFocus, clearWidgets, clickCommandAction, clickUrlAction, defaultHandleClickEvent, defaultHandleGameClickEvent, fadeWidgets, fillCrashDetails, findNarratableWidget, getBackgroundMusic, getFont, getMinecraft, getNarrationMessage, getRectangle, getTitle, getTooltipFromItem, getUsageNarration, handleClickEvent, handleComponentClicked, handleDelayedNarration, hasAltDown, hasControlDown, hasShiftDown, init, insertText, isCopy, isCut, isMouseOver, isPaste, isPauseScreen, isSelectAll, isValidCharacterForName, onFilesDrop, rebuildWidgets, removed, removeWidget, renderBackground, renderBlurredBackground, renderMenuBackground, renderMenuBackground, renderMenuBackgroundTexture, renderPanorama, renderTransparentBackground, renderWithTooltip, repositionElements, resize, setInitialFocus, setInitialFocus, shouldCloseOnEsc, shouldNarrateNavigation, showsActiveEffects, tick, triggerImmediateNarration, updateNarratedWidget, updateNarrationState, updateNarratorStatus</code></div>
+<code>added, addRenderableOnly, addRenderableWidget, addWidget, afterKeyboardAction, afterMouseAction, afterMouseMove, canInterruptWithAnotherScreen, changeFocus, children, clearFocus, clearWidgets, clickCommandAction, clickUrlAction, defaultHandleClickEvent, defaultHandleGameClickEvent, fadeWidgets, fillCrashDetails, findNarratableWidget, getBackgroundMusic, getFont, getMinecraft, getNarrationMessage, getRectangle, getTitle, getTooltipFromItem, getUsageNarration, handleDelayedNarration, init, insertText, isAllowedInPortal, isInGameUi, isMouseOver, isPauseScreen, isValidCharacterForName, onFilesDrop, panoramaShouldSpin, rebuildWidgets, removed, removeWidget, renderBackground, renderBlurredBackground, renderMenuBackground, renderMenuBackground, renderMenuBackgroundTexture, renderPanorama, renderTransparentBackground, renderWithTooltipAndSubtitles, repositionElements, resize, setInitialFocus, setInitialFocus, shouldCloseOnEsc, shouldNarrateNavigation, showsActiveEffects, tick, triggerImmediateNarration, updateNarratedWidget, updateNarrationState, updateNarratorStatus</code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.minecraft.client.gui.components.events.AbstractContainerEventHandler">Methods inherited from class&nbsp;net.minecraft.client.gui.components.events.AbstractContainerEventHandler</h3>
 <code>getFocused, isDragging, setDragging, setFocused</code></div>
@@ -176,7 +171,7 @@ loadScripts(document, 'script');</script>
 <code>charTyped, getChildAt, getCurrentFocusPath, isFocused, keyReleased, mouseClicked, mouseDragged, mouseReleased, mouseScrolled, nextFocusPath, setFocused</code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.minecraft.client.gui.components.events.GuiEventListener">Methods inherited from interface&nbsp;net.minecraft.client.gui.components.events.GuiEventListener</h3>
-<code>getBorderForArrowNavigation, mouseMoved</code></div>
+<code>getBorderForArrowNavigation, mouseMoved, shouldTakeFocusAfterInteraction</code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.minecraft.client.gui.components.TabOrderedElement">Methods inherited from interface&nbsp;net.minecraft.client.gui.components.TabOrderedElement</h3>
 <code>getTabOrderGroup</code></div>
@@ -231,11 +226,9 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="keyPressed(int,int,int)">
+<section class="detail" id="keyPressed(net.minecraft.client.input.KeyEvent)">
 <h3>keyPressed</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">keyPressed</span><wbr><span class="parameters">(int&nbsp;typedChar,
- int&nbsp;keyCode,
- int&nbsp;par)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">keyPressed</span><wbr><span class="parameters">(net.minecraft.client.input.KeyEvent&nbsp;keyEvent)</span></div>
 <div class="block">Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of
  KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)</div>
 <dl class="notes">

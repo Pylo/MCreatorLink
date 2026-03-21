@@ -94,7 +94,7 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code>net.minecraft.client.gui.components.events.GuiEventListener</code>, <code>net.minecraft.client.gui.components.TabOrderedElement</code>, <code>net.minecraft.client.gui.narration.NarrationSupplier</code></dd>
+<dd><code>net.minecraft.client.gui.components.events.GuiEventListener</code>, <code>net.minecraft.client.gui.components.TabOrderedElement</code>, <code>net.minecraft.client.gui.layouts.LayoutElement</code>, <code>net.minecraft.client.gui.narration.NarrationSupplier</code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">GuiListDevicesEntryScan</span>
@@ -108,10 +108,7 @@ loadScripts(document, 'script');</script>
 <h2>Field Summary</h2>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-net.mcreator.minecraft.link.gui.GuiListDevicesEntry">Fields inherited from class&nbsp;net.mcreator.minecraft.link.gui.<a href="GuiListDevicesEntry.html" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntry</a></h3>
-<code><a href="GuiListDevicesEntry.html#client">client</a></code></div>
-<div class="inherited-list">
-<h3 id="fields-inherited-from-class-net.minecraft.client.gui.components.events.GuiEventListener">Fields inherited from interface&nbsp;net.minecraft.client.gui.components.events.GuiEventListener</h3>
-<code>DOUBLE_CLICK_THRESHOLD_MS</code></div>
+<code><a href="GuiListDevicesEntry.html#client">client</a>, <a href="GuiListDevicesEntry.html#containingListSel">containingListSel</a></code></div>
 </section>
 </li>
 <!-- ========== METHOD SUMMARY =========== -->
@@ -126,22 +123,16 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#mouseClicked(double,double,int)" class="member-name-link">mouseClicked</a><wbr>(double&nbsp;x,
- double&nbsp;y,
- int&nbsp;par)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#mouseClicked(net.minecraft.client.input.MouseButtonEvent,boolean)" class="member-name-link">mouseClicked</a><wbr>(net.minecraft.client.input.MouseButtonEvent&nbsp;event,
+ boolean&nbsp;flag)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Called when the mouse is clicked within this entry.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#render(net.minecraft.client.gui.GuiGraphics,int,int,int,int,int,int,int,boolean,float)" class="member-name-link">render</a><wbr>(net.minecraft.client.gui.GuiGraphics&nbsp;guiGraphics,
- int&nbsp;slotIndex,
- int&nbsp;x,
- int&nbsp;y,
- int&nbsp;listWidth,
- int&nbsp;slotHeight,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#renderContent(net.minecraft.client.gui.GuiGraphics,int,int,boolean,float)" class="member-name-link">renderContent</a><wbr>(net.minecraft.client.gui.GuiGraphics&nbsp;guiGraphics,
  int&nbsp;mouseX,
  int&nbsp;mouseY,
- boolean&nbsp;isSelected,
+ boolean&nbsp;isHovering,
  float&nbsp;partialTicks)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
@@ -158,7 +149,10 @@ loadScripts(document, 'script');</script>
 <code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.minecraft.client.gui.components.events.GuiEventListener">Methods inherited from interface&nbsp;net.minecraft.client.gui.components.events.GuiEventListener</h3>
-<code>charTyped, getBorderForArrowNavigation, getCurrentFocusPath, getRectangle, keyPressed, keyReleased, mouseDragged, mouseMoved, mouseReleased, mouseScrolled, nextFocusPath</code></div>
+<code>charTyped, getBorderForArrowNavigation, getCurrentFocusPath, keyPressed, keyReleased, mouseDragged, mouseMoved, mouseReleased, mouseScrolled, nextFocusPath, shouldTakeFocusAfterInteraction</code></div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-net.minecraft.client.gui.layouts.LayoutElement">Methods inherited from interface&nbsp;net.minecraft.client.gui.layouts.LayoutElement</h3>
+<code>setPosition</code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.minecraft.client.gui.components.TabOrderedElement">Methods inherited from interface&nbsp;net.minecraft.client.gui.components.TabOrderedElement</h3>
 <code>getTabOrderGroup</code></div>
@@ -174,38 +168,32 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="render(net.minecraft.client.gui.GuiGraphics,int,int,int,int,int,int,int,boolean,float)">
-<h3>render</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">render</span><wbr><span class="parameters">(net.minecraft.client.gui.GuiGraphics&nbsp;guiGraphics,
- int&nbsp;slotIndex,
- int&nbsp;x,
- int&nbsp;y,
- int&nbsp;listWidth,
- int&nbsp;slotHeight,
+<section class="detail" id="renderContent(net.minecraft.client.gui.GuiGraphics,int,int,boolean,float)">
+<h3>renderContent</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">renderContent</span><wbr><span class="parameters">(net.minecraft.client.gui.GuiGraphics&nbsp;guiGraphics,
  int&nbsp;mouseX,
  int&nbsp;mouseY,
- boolean&nbsp;isSelected,
+ boolean&nbsp;isHovering,
  float&nbsp;partialTicks)</span></div>
 <dl class="notes">
 <dt>Overrides:</dt>
-<dd><code><a href="GuiListDevicesEntry.html#render(net.minecraft.client.gui.GuiGraphics,int,int,int,int,int,int,int,boolean,float)">render</a></code>&nbsp;in class&nbsp;<code><a href="GuiListDevicesEntry.html" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntry</a></code></dd>
+<dd><code><a href="GuiListDevicesEntry.html#renderContent(net.minecraft.client.gui.GuiGraphics,int,int,boolean,float)">renderContent</a></code>&nbsp;in class&nbsp;<code><a href="GuiListDevicesEntry.html" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntry</a></code></dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="mouseClicked(double,double,int)">
+<section class="detail" id="mouseClicked(net.minecraft.client.input.MouseButtonEvent,boolean)">
 <h3>mouseClicked</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">mouseClicked</span><wbr><span class="parameters">(double&nbsp;x,
- double&nbsp;y,
- int&nbsp;par)</span></div>
-<div class="block"><span class="description-from-type-label">Description copied from class:&nbsp;<code><a href="GuiListDevicesEntry.html#mouseClicked(double,double,int)">GuiListDevicesEntry</a></code></span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">mouseClicked</span><wbr><span class="parameters">(net.minecraft.client.input.MouseButtonEvent&nbsp;event,
+ boolean&nbsp;flag)</span></div>
+<div class="block"><span class="description-from-type-label">Description copied from class:&nbsp;<code><a href="GuiListDevicesEntry.html#mouseClicked(net.minecraft.client.input.MouseButtonEvent,boolean)">GuiListDevicesEntry</a></code></span></div>
 <div class="block">Called when the mouse is clicked within this entry. Returning true means that something within this entry was
  clicked and the list should not be dragged.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code>mouseClicked</code>&nbsp;in interface&nbsp;<code>net.minecraft.client.gui.components.events.GuiEventListener</code></dd>
 <dt>Overrides:</dt>
-<dd><code><a href="GuiListDevicesEntry.html#mouseClicked(double,double,int)">mouseClicked</a></code>&nbsp;in class&nbsp;<code><a href="GuiListDevicesEntry.html" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntry</a></code></dd>
+<dd><code><a href="GuiListDevicesEntry.html#mouseClicked(net.minecraft.client.input.MouseButtonEvent,boolean)">mouseClicked</a></code>&nbsp;in class&nbsp;<code><a href="GuiListDevicesEntry.html" title="class in net.mcreator.minecraft.link.gui">GuiListDevicesEntry</a></code></dd>
 </dl>
 </section>
 </li>
