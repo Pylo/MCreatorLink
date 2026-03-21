@@ -17,13 +17,13 @@
 package net.mcreator.minecraft.link.gui;
 
 import net.mcreator.minecraft.link.MCreatorLink;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import javax.annotation.Nullable;
 
@@ -89,7 +89,7 @@ public class GuiMCreatorLink extends Screen {
         this.connectButton.active = false;
     }
 
-    private static final ResourceLocation LOGO = ResourceLocation.fromNamespaceAndPath("mcreator_link", "textures/logo_small.png");
+    private static final Identifier LOGO = Identifier.fromNamespaceAndPath("mcreator_link", "textures/logo_small.png");
 
     /**
      * Draws the screen and all the components in it.

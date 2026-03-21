@@ -14,11 +14,11 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 neoForge {
-    version = "21.10.47-beta"
+    version = "21.11.38-beta"
 
     parchment {
-        mappingsVersion = "2025.10.12"
-        minecraftVersion = "1.21.10"
+        mappingsVersion = "2025.12.20"
+        minecraftVersion = "1.21.11"
     }
 
     runs {
@@ -55,7 +55,7 @@ tasks.register('copyModIntoFinalBuild', Copy) {
     from('build/libs/')
     include('mcreator_link-' + version + '.jar')
     into('build/export/')
-    rename { "MCreator Link ${projectVersion} [1.21.10].jar" }
+    rename { "MCreator Link ${projectVersion} [1.21.11].jar" }
 
     dependsOn jarJar
     dependsOn build

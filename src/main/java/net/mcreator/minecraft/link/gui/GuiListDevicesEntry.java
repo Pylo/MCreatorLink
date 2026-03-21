@@ -21,21 +21,21 @@ import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.mcreator.minecraft.link.devices.arduino.Arduino;
 import net.mcreator.minecraft.link.devices.raspberrypi.RaspberryPi;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 
 public class GuiListDevicesEntry extends ObjectSelectionList.Entry<GuiListDevicesEntry> {
 
-    private static final ResourceLocation DEVICE_ARDUINO = ResourceLocation.fromNamespaceAndPath("mcreator_link",
+    private static final Identifier DEVICE_ARDUINO = Identifier.fromNamespaceAndPath("mcreator_link",
             "textures/arduino.png");
-    private static final ResourceLocation DEVICE_RASPBERRYPI = ResourceLocation.fromNamespaceAndPath("mcreator_link",
+    private static final Identifier DEVICE_RASPBERRYPI = Identifier.fromNamespaceAndPath("mcreator_link",
             "textures/raspberrypi.png");
 
     protected final Minecraft client;

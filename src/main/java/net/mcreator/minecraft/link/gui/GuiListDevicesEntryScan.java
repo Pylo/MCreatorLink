@@ -17,7 +17,7 @@
 package net.mcreator.minecraft.link.gui;
 
 import net.mcreator.minecraft.link.devices.AbstractDevice;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.input.MouseButtonEvent;
