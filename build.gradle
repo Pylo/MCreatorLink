@@ -1,25 +1,20 @@
 plugins {
     id 'java-library'
-    id 'net.neoforged.moddev' version '2.0.116'
+    id 'net.neoforged.moddev' version '2.0.140'
 }
 
 version = "1.3"
 group = "net.mcreator.minecraft.link" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 base.archivesName = "mcreator_link"
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
 
 neoForge {
-    version = "21.11.38-beta"
-
-    parchment {
-        mappingsVersion = "2025.12.20"
-        minecraftVersion = "1.21.11"
-    }
+    version = "26.1.0.0-alpha.15+pre-3"
 
     runs {
         client {
@@ -55,7 +50,7 @@ tasks.register('copyModIntoFinalBuild', Copy) {
     from('build/libs/')
     include('mcreator_link-' + version + '.jar')
     into('build/export/')
-    rename { "MCreator Link ${projectVersion} [1.21.11].jar" }
+    rename { "MCreator Link ${projectVersion} [26.1].jar" }
 
     dependsOn jarJar
     dependsOn build

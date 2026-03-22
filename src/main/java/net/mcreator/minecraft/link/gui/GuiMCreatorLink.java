@@ -17,13 +17,13 @@
 package net.mcreator.minecraft.link.gui;
 
 import net.mcreator.minecraft.link.MCreatorLink;
-import net.minecraft.util.Util;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.Util;
 
 import javax.annotation.Nullable;
 
@@ -71,19 +71,14 @@ public class GuiMCreatorLink extends Screen {
         }).bounds(this.width / 2 - 76, this.height - 32, 72, 20).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("link.menu.direct"),
-                e -> {
-                    assert this.minecraft != null;
-                    this.minecraft.setScreen(new GuiDirectLink(this));
-                }).bounds(this.width / 2 + 2, this.height - 32, 72, 20).build());
+                _ -> this.minecraft.setScreen(new GuiDirectLink(this))).bounds(this.width / 2 + 2, this.height - 32, 72, 20).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("gui.done"), e -> {
-            if (this.minecraft != null) {
-                this.minecraft.setScreen(this.prevScreen);
-            }
+            this.minecraft.setScreen(this.prevScreen);
         }).bounds(this.width / 2 + 82, this.height - 32, 72, 20).build());
 
         this.addRenderableWidget(Button.builder(Component.literal("?"),
-                e -> Util.getPlatform().openUri("https://mcreator.net/link")).bounds(this.width / 2 + 82 + 55, 6, 20, 20).build());
+                _ -> Util.getPlatform().openUri("https://mcreator.net/link")).bounds(this.width / 2 + 82 + 55, 6, 20, 20).build());
 
         this.disconnectButton.active = false;
         this.connectButton.active = false;
@@ -95,10 +90,10 @@ public class GuiMCreatorLink extends Screen {
      * Draws the screen and all the components in it.
      */
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
+        super.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, LOGO, this.width / 2 - 50, 8, 0.0F, 0.0F, 100, 16, 100, 16);
+        graphics.blit(RenderPipelines.GUI_TEXTURED, LOGO, this.width / 2 - 50, 8, 0.0F, 0.0F, 100, 16, 100, 16);
 
         updateButtons();
     }

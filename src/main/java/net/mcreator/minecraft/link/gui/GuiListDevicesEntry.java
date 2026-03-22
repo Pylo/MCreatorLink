@@ -21,15 +21,16 @@ import net.mcreator.minecraft.link.devices.AbstractDevice;
 import net.mcreator.minecraft.link.devices.arduino.Arduino;
 import net.mcreator.minecraft.link.devices.raspberrypi.RaspberryPi;
 import net.minecraft.ChatFormatting;
-import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
+import net.minecraft.util.Util;
+import org.jspecify.annotations.NonNull;
 
 public class GuiListDevicesEntry extends ObjectSelectionList.Entry<GuiListDevicesEntry> {
 
@@ -51,7 +52,7 @@ public class GuiListDevicesEntry extends ObjectSelectionList.Entry<GuiListDevice
     }
 
     @Override
-    public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean isHovering, float partialTicks) {
+    public void extractContent(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, boolean isHovering, float partialTicks) {
         String s2 = "Status: ";
 
         if (device.isConnected())
@@ -59,20 +60,20 @@ public class GuiListDevicesEntry extends ObjectSelectionList.Entry<GuiListDevice
         else
             s2 += ChatFormatting.GRAY + "AVAILABLE" + ChatFormatting.RESET;
 
-        guiGraphics.drawString(this.client.font, device.getName(), this.getContentX() + 32 + 8, this.getContentY() + 1, ARGB.opaque(16777215), false);
-        guiGraphics.drawString(this.client.font, device.getDescription(), this.getContentX() + 32 + 8, this.getContentY() + this.client.font.lineHeight + 3,
+        graphics.text(this.client.font, device.getName(), this.getContentX() + 32 + 8, this.getContentY() + 1, ARGB.opaque(16777215), false);
+        graphics.text(this.client.font, device.getDescription(), this.getContentX() + 32 + 8, this.getContentY() + this.client.font.lineHeight + 3,
                 ARGB.opaque(8421504), false);
-        guiGraphics.drawString(this.client.font, s2, this.getContentX() + 32 + 8,
+        graphics.text(this.client.font, s2, this.getContentX() + 32 + 8,
                 this.getContentY() + this.client.font.lineHeight + this.client.font.lineHeight + 3, ARGB.opaque(8421504), false);
 
         if (device instanceof Arduino) {
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, DEVICE_ARDUINO, this.getContentX(), this.getContentY(), 0, 0, 32, 32, 32, 32);
+            graphics.blit(RenderPipelines.GUI_TEXTURED, DEVICE_ARDUINO, this.getContentX(), this.getContentY(), 0, 0, 32, 32, 32, 32);
         } else if (device instanceof RaspberryPi) {
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, DEVICE_RASPBERRYPI, this.getContentX(), this.getContentY(), 0, 0, 32, 32, 32, 32);
+            graphics.blit(RenderPipelines.GUI_TEXTURED, DEVICE_RASPBERRYPI, this.getContentX(), this.getContentY(), 0, 0, 32, 32, 32, 32);
         }
 
         if (this.client.options.touchscreen().get() || containingListSel.getSelected() == this) {
-            guiGraphics.fill(this.getContentX(), this.getContentY(), this.getContentX() + 32, this.getContentY() + 32, -1601138544);
+            graphics.fill(this.getContentX(), this.getContentY(), this.getContentX() + 32, this.getContentY() + 32, -1601138544);
         }
     }
 
@@ -111,7 +112,7 @@ public class GuiListDevicesEntry extends ObjectSelectionList.Entry<GuiListDevice
     }
 
     @Override
-    public Component getNarration() {
+    public @NonNull Component getNarration() {
         return Component.translatable("link.menu.selectlist");
     }
 }

@@ -27,9 +27,10 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import org.lwjgl.glfw.GLFW;
 
-@EventBusSubscriber({Dist.CLIENT}) public class ScreenEventHandler {
+@EventBusSubscriber({Dist.CLIENT})
+public class ScreenEventHandler {
 
-	/**
+    /**
      * This method subscribes to screen draw events so the Link notice can be rendered on some screens.
      *
      * @param drawScreenEvent ScreenEvent.DrawScreenEvent event instance
@@ -37,16 +38,16 @@ import org.lwjgl.glfw.GLFW;
     @SubscribeEvent
     public static void drawScreenEvent(ScreenEvent.Render.Post drawScreenEvent) {
         if (drawScreenEvent.getScreen() instanceof TitleScreen || drawScreenEvent.getScreen() instanceof PauseScreen) {
-            drawScreenEvent.getGuiGraphics().drawString(drawScreenEvent.getScreen().getMinecraft().font,
+            drawScreenEvent.getGuiGraphics().text(drawScreenEvent.getScreen().getMinecraft().font,
                     "MCreator Link " + MCreatorLink.VERSION, 3, 3, ARGB.opaque(0xffffff), false);
 
-            drawScreenEvent.getGuiGraphics().drawString(drawScreenEvent.getScreen().getMinecraft().font,
+            drawScreenEvent.getGuiGraphics().text(drawScreenEvent.getScreen().getMinecraft().font,
                     I18n.get("link.menu.settingskey"), 3, 14, ARGB.opaque(0xffffff), false);
 
             if (GLFW.glfwGetKey(drawScreenEvent.getScreen().getMinecraft().getWindow().handle(), GLFW.GLFW_KEY_L)
                     == GLFW.GLFW_PRESS)
                 drawScreenEvent.getScreen().getMinecraft().setScreen(new GuiMCreatorLink(drawScreenEvent.getScreen()));
         }
-	}
+    }
 
 }

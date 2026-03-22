@@ -17,11 +17,12 @@
 package net.mcreator.minecraft.link.gui;
 
 import net.mcreator.minecraft.link.devices.AbstractDevice;
-import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.util.ARGB;
+import net.minecraft.util.Util;
+import org.jspecify.annotations.NonNull;
 
 public class GuiListDevicesEntryScan extends GuiListDevicesEntry {
 
@@ -30,11 +31,11 @@ public class GuiListDevicesEntryScan extends GuiListDevicesEntry {
     }
 
     @Override
-    public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean isHovering, float partialTicks) {
+    public void extractContent(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, boolean isHovering, float partialTicks) {
         if (this.client.screen != null) {
             int i = this.getContentY() + getHeight() / 2 - this.client.font.lineHeight / 2;
 
-            guiGraphics.drawString(this.client.font, "Scanning for link compatible devices",
+            graphics.text(this.client.font, "Scanning for link compatible devices",
                     (int) (this.client.screen.width / 2f - this.client.font.width("Scanning for link compatible devices") / 2f),
                     i, ARGB.opaque(16777215), false);
 
@@ -45,7 +46,7 @@ public class GuiListDevicesEntryScan extends GuiListDevicesEntry {
             };
 
             if (Minecraft.getInstance().screen != null) {
-                guiGraphics.drawString(this.client.font, s,
+                graphics.text(this.client.font, s,
                         (int) (Minecraft.getInstance().screen.width / 2f - this.client.font.width(s) / 2f),
                         i + this.client.font.lineHeight, ARGB.opaque(8421504), false);
             }
