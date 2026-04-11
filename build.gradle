@@ -14,7 +14,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 neoForge {
-    version = "26.1.1.2-beta"
+    version = "26.1.2.4-beta"
 
     runs {
         client {
@@ -50,7 +50,7 @@ tasks.register('copyModIntoFinalBuild', Copy) {
     from('build/libs/')
     include('mcreator_link-' + version + '.jar')
     into('build/export/')
-    rename { "MCreator Link ${projectVersion} [26.1.1].jar" }
+    rename { "MCreator Link ${projectVersion} [26.1.2].jar" }
 
     dependsOn jarJar
     dependsOn build
