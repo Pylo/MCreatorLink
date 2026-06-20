@@ -32,11 +32,11 @@ public class GuiListDevicesEntryScan extends GuiListDevicesEntry {
 
     @Override
     public void extractContent(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, boolean isHovering, float partialTicks) {
-        if (this.client.screen != null) {
+        if (this.client.gui.screen() != null) {
             int i = this.getContentY() + getHeight() / 2 - this.client.font.lineHeight / 2;
 
             graphics.text(this.client.font, "Scanning for link compatible devices",
-                    (int) (this.client.screen.width / 2f - this.client.font.width("Scanning for link compatible devices") / 2f),
+                    (int) (this.client.gui.screen().width / 2f - this.client.font.width("Scanning for link compatible devices") / 2f),
                     i, ARGB.opaque(16777215), false);
 
             String s = switch ((int) (Util.getMillis() / 300L % 4L)) {
@@ -45,9 +45,9 @@ public class GuiListDevicesEntryScan extends GuiListDevicesEntry {
                 default -> "O o o";
             };
 
-            if (Minecraft.getInstance().screen != null) {
+            if (Minecraft.getInstance().gui.screen() != null) {
                 graphics.text(this.client.font, s,
-                        (int) (Minecraft.getInstance().screen.width / 2f - this.client.font.width(s) / 2f),
+                        (int) (Minecraft.getInstance().gui.screen().width / 2f - this.client.font.width(s) / 2f),
                         i + this.client.font.lineHeight, ARGB.opaque(8421504), false);
             }
         }

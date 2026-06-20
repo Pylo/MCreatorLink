@@ -71,10 +71,10 @@ public class GuiMCreatorLink extends Screen {
         }).bounds(this.width / 2 - 76, this.height - 32, 72, 20).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("link.menu.direct"),
-                _ -> this.minecraft.setScreen(new GuiDirectLink(this))).bounds(this.width / 2 + 2, this.height - 32, 72, 20).build());
+                _ -> this.minecraft.gui.setScreen(new GuiDirectLink(this))).bounds(this.width / 2 + 2, this.height - 32, 72, 20).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("gui.done"), e -> {
-            this.minecraft.setScreen(this.prevScreen);
+            this.minecraft.gui.setScreen(this.prevScreen);
         }).bounds(this.width / 2 + 82, this.height - 32, 72, 20).build());
 
         this.addRenderableWidget(Button.builder(Component.literal("?"),

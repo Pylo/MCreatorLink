@@ -21,7 +21,7 @@ public class LinkBlock extends Block {
     @Override
     protected @NotNull InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player player, BlockHitResult blockHitResult) {
         if (worldIn.isClientSide()) {
-            Minecraft.getInstance().setScreen(new GuiMCreatorLink(Minecraft.getInstance().screen));
+            Minecraft.getInstance().gui.setScreen(new GuiMCreatorLink(Minecraft.getInstance().gui.screen()));
         }
 
         return super.useWithoutItem(state, worldIn, pos, player, blockHitResult);

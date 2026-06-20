@@ -46,7 +46,7 @@ public class ScreenEventHandler {
 
             if (GLFW.glfwGetKey(drawScreenEvent.getScreen().getMinecraft().getWindow().handle(), GLFW.GLFW_KEY_L)
                     == GLFW.GLFW_PRESS)
-                drawScreenEvent.getScreen().getMinecraft().setScreen(new GuiMCreatorLink(drawScreenEvent.getScreen()));
+                drawScreenEvent.getScreen().getMinecraft().gui.setScreen(new GuiMCreatorLink(drawScreenEvent.getScreen()));
         }
     }
 

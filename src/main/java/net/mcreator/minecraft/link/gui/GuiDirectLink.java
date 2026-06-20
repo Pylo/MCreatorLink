@@ -68,14 +68,14 @@ public class GuiDirectLink extends Screen {
             RaspberryPi raspberryPi = RaspberryPiDetector.getRaspberryPiForIP(device);
             if (raspberryPi != null) {
                 MCreatorLink.LINK.setConnectedDevice(raspberryPi);
-                this.minecraft.setScreen(this.lastScreen);
+                this.minecraft.gui.setScreen(this.lastScreen);
             } else {
                 this.ipTextField.setTextColor(0xff5d4d);
             }
         }).bounds(this.width / 2 - 100, this.height / 4 + 96 + 12, 200, 20).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("gui.cancel"), _ ->
-                this.minecraft.setScreen(this.lastScreen)).bounds(this.width / 2 - 100, this.height / 4 + 120 + 12, 200, 20).build());
+                this.minecraft.gui.setScreen(this.lastScreen)).bounds(this.width / 2 - 100, this.height / 4 + 120 + 12, 200, 20).build());
 
         this.ipTextField = new EditBox(this.font, this.width / 2 - 100, 116, 200, 20, Component.literal(""));
 

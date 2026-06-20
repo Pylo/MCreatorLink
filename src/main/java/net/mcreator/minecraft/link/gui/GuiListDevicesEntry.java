@@ -72,7 +72,7 @@ public class GuiListDevicesEntry extends ObjectSelectionList.Entry<GuiListDevice
             graphics.blit(RenderPipelines.GUI_TEXTURED, DEVICE_RASPBERRYPI, this.getContentX(), this.getContentY(), 0, 0, 32, 32, 32, 32);
         }
 
-        if (this.client.options.touchscreen().get() || containingListSel.getSelected() == this) {
+        if (containingListSel.getSelected() == this || isHovering) {
             graphics.fill(this.getContentX(), this.getContentY(), this.getContentX() + 32, this.getContentY() + 32, -1601138544);
         }
     }
