@@ -42,7 +42,8 @@ public class RaspberryPi extends AbstractDevice {
 
 	private DatagramSocket socket;
 
-	private ExecutorService deviceCommunicationThread = Executors.newSingleThreadExecutor();
+	private final ExecutorService deviceCommunicationThread = Executors.newSingleThreadExecutor(
+			daemonThreadFactory("MCreator Link Raspberry Pi communication"));
 
 	private long lastSendInterval;
 
@@ -76,7 +77,7 @@ public class RaspberryPi extends AbstractDevice {
 							.send(new DatagramPacket(connectPacket, connectPacket.length, remote_address, REMOTE_PORT));
 					datagramSocket.close();
 
-					new Thread(() -> {
+					Thread receiveThread = new Thread(() -> {
 						try {
 							socket = new DatagramSocket(LOCAL_PORT);
 							this.connected = true; // at this point, we can say connection is successful
@@ -94,7 +95,9 @@ public class RaspberryPi extends AbstractDevice {
 						} catch (SocketException e) {
 							e.printStackTrace();
 						}
-					}).start();
+					}, "MCreator Link Raspberry Pi receiver");
+					receiveThread.setDaemon(true);
+					receiveThread.start();
 
 					Thread.sleep(250);
 

@@ -32,13 +32,16 @@ public class RaspberryPiDetector implements IDeviceDetector {
 
     private final Set<AbstractDevice> raspberripies = new HashSet<>();
 
+	private Timer timer;
+
 	/**
 	 * If detector needs any initialization, it can be done in this method.
 	 * <p>
 	 * For this case, the detectors network detection thread is made and started.
 	 */
 	@Override public void initDetector() {
-		Timer timer = new Timer();
+		// daemon timer so the scan thread never keeps the JVM alive after the game closes
+		timer = new Timer("MCreator Link Raspberry Pi scanner", true);
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override public void run() {
 				if (shouldScan) {
@@ -103,6 +106,11 @@ public class RaspberryPiDetector implements IDeviceDetector {
 	@Override public List<AbstractDevice> getDeviceList(Set<AbstractDevice> currentDevices) {
 		shouldScan = true;
 		return new ArrayList<>(raspberripies);
+	}
+
+	@Override public void shutdown() {
+		if (timer != null)
+			timer.cancel();
 	}
 
 }

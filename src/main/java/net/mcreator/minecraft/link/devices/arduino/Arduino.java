@@ -34,7 +34,8 @@ public class Arduino extends AbstractDevice {
 	private SerialPort port;
 	private boolean connected;
 
-	private ExecutorService deviceCommunicationThread = Executors.newSingleThreadExecutor();
+	private final ExecutorService deviceCommunicationThread = Executors.newSingleThreadExecutor(
+			daemonThreadFactory("MCreator Link Arduino communication"));
 
 	private long lastSendInterval;
 

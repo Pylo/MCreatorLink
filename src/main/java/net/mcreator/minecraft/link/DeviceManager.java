@@ -47,7 +47,7 @@ public final class DeviceManager {
      * @return Set of AbstractDevice objects containing devices that were detected (can be connected or not)
 	 */
 	public Set<AbstractDevice> getAllDevices() {
-		new Thread(() -> {
+		Thread scanThread = new Thread(() -> {
 			if (!refreshRunning) {
 				refreshRunning = true;
 
@@ -70,8 +70,20 @@ public final class DeviceManager {
 
 				refreshRunning = false;
 			}
-		}).start();
+		}, "MCreator Link device scanner");
+		scanThread.setDaemon(true);
+		scanThread.start();
 		return currentDevices;
+	}
+
+	/**
+	 * Disconnects all connected devices and stops device detectors. Called when the game shuts down.
+	 */
+	void shutdown() {
+		for (AbstractDevice device : new ArrayList<>(currentDevices))
+			if (device.isConnected())
+				device.disconnect();
+		deviceDetectorList.forEach(IDeviceDetector::shutdown);
 	}
 
 	/**

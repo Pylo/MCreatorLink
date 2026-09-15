@@ -32,4 +32,10 @@ public interface IDeviceDetector {
 	 */
 	List<AbstractDevice> getDeviceList(Set<AbstractDevice> currentDevices);
 
+	/**
+	 * Called when the game is shutting down. Detectors should stop any background work here.
+	 */
+	default void shutdown() {
+	}
+
 }

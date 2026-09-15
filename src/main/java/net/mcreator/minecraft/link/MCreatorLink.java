@@ -29,6 +29,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.GameShuttingDownEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import org.apache.maven.artifact.versioning.ArtifactVersion;
 
@@ -59,6 +60,11 @@ public class MCreatorLink {
         ArgumentTypeInfos.registerByClass(LinkDeviceArgumentType.class, MCreatorLinkArgumentTypes.LINK_DEVICE_ARGUMENT_INFO.get());
 
         event.getDispatcher().register(CommandLink.build());
+    }
+
+    @SubscribeEvent
+    public static void gameShuttingDown(GameShuttingDownEvent event) {
+        LINK.shutdown();
     }
 
 }

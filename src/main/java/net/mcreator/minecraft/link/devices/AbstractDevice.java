@@ -21,7 +21,23 @@ import net.mcreator.minecraft.link.event.LinkCustomMessageReceivedEvent;
 import net.mcreator.minecraft.link.event.LinkDigitalPinChangedEvent;
 import net.neoforged.neoforge.common.NeoForge;
 
+import java.util.concurrent.ThreadFactory;
+
 public abstract class AbstractDevice {
+
+	/**
+	 * Creates a thread factory producing daemon threads so device communication never blocks JVM exit.
+	 *
+	 * @param name Name of the threads created by this factory
+	 * @return Thread factory creating named daemon threads
+	 */
+	protected static ThreadFactory daemonThreadFactory(String name) {
+		return runnable -> {
+			Thread thread = new Thread(runnable, name);
+			thread.setDaemon(true);
+			return thread;
+		};
+	}
 
 	private String name;
 	private String description;
