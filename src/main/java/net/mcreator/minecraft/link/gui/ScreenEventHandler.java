@@ -25,7 +25,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ScreenEvent;
-import org.lwjgl.glfw.GLFW;
+import com.mojang.blaze3d.platform.InputConstants;
 
 @EventBusSubscriber({Dist.CLIENT})
 public class ScreenEventHandler {
@@ -44,8 +44,7 @@ public class ScreenEventHandler {
             drawScreenEvent.getGuiGraphics().text(drawScreenEvent.getScreen().getMinecraft().font,
                     I18n.get("link.menu.settingskey"), 3, 14, ARGB.opaque(0xffffff), false);
 
-            if (GLFW.glfwGetKey(drawScreenEvent.getScreen().getMinecraft().getWindow().handle(), GLFW.GLFW_KEY_L)
-                    == GLFW.GLFW_PRESS)
+            if (InputConstants.isKeyDown(InputConstants.KEY_L))
                 drawScreenEvent.getScreen().getMinecraft().gui.setScreen(new GuiMCreatorLink(drawScreenEvent.getScreen()));
         }
     }

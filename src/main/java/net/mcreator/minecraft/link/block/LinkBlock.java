@@ -24,6 +24,6 @@ public class LinkBlock extends Block {
             Minecraft.getInstance().gui.setScreen(new GuiMCreatorLink(Minecraft.getInstance().gui.screen()));
         }
 
-        return super.useWithoutItem(state, worldIn, pos, player, blockHitResult);
+        return InteractionResult.SUCCESS;
     }
 }

@@ -23,7 +23,8 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.Util;
+import com.mojang.blaze3d.Blaze3D;
+import java.net.URI;
 
 import javax.annotation.Nullable;
 
@@ -78,7 +79,7 @@ public class GuiMCreatorLink extends Screen {
         }).bounds(this.width / 2 + 82, this.height - 32, 72, 20).build());
 
         this.addRenderableWidget(Button.builder(Component.literal("?"),
-                _ -> Util.getPlatform().openUri("https://mcreator.net/link")).bounds(this.width / 2 + 82 + 55, 6, 20, 20).build());
+                _ -> Blaze3D.openUri(URI.create("https://mcreator.net/link"))).bounds(this.width / 2 + 82 + 55, 6, 20, 20).build());
 
         this.disconnectButton.active = false;
         this.connectButton.active = false;

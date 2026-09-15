@@ -10,11 +10,11 @@ description="API for Minecraft Forge mods to connect to the hardware devices suc
 credits="Pylo and MCreator development team."
 displayURL="https://mcreator.net/link"
 authors="Pylo"
-logoFile="logo.png"
+bannerFile="logo.png"
 
 [[dependencies.mcreator_link]]
 modId = "minecraft"
 type = "required"
-versionRange = "[26.2]"
+versionRange = "[26.3]"
 ordering = "NONE"
 side = "BOTH"

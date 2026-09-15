@@ -25,6 +25,7 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.network.chat.Component;
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.util.ARGB;
 import org.jspecify.annotations.NonNull;
 
@@ -100,7 +101,7 @@ public class GuiDirectLink extends Screen {
      */
     @Override
     public boolean keyPressed(KeyEvent keyEvent) {
-        if (keyEvent.scancode() == 28 || keyEvent.scancode() == 156) {
+        if (keyEvent.key() == InputConstants.KEY_RETURN || keyEvent.key() == InputConstants.KEY_NUMPADENTER) {
             connect.onPress(keyEvent);
         } else if (this.ipTextField.keyPressed(keyEvent)) {
             this.ipTextField.setTextColor(0xffffff);
