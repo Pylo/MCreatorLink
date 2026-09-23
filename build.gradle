@@ -14,7 +14,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 neoForge {
-    version = "26.3.0.0-beta"
+    version = "26.3.0.16-beta"
 
     runs {
         client {

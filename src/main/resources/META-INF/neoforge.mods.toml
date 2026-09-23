@@ -11,6 +11,7 @@ credits="Pylo and MCreator development team."
 displayURL="https://mcreator.net/link"
 authors="Pylo"
 bannerFile="logo.png"
+iconFile="icon.png"
 
 [[dependencies.mcreator_link]]
 modId = "minecraft"
